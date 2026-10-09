@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -20,10 +21,46 @@ export function Pillars() {
   return (
     <section
       id="about"
-      className="grain relative border-b border-[#ECE7DC] bg-[#FAF7F0] py-16 lg:py-24 scroll-mt-20"
+      className="grain relative border-b border-[#ECE7DC] bg-[#FAF7F0] py-16 lg:py-24 scroll-mt-20 overflow-hidden"
     >
       <span id="pillars" aria-hidden="true" className="absolute -top-24 pointer-events-none" />
-      <div className="shell space-y-16 lg:space-y-20">
+
+      {/* Ambient Botanical Olive Branch Watermarks */}
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-8 sm:-right-4 lg:right-6 top-6 sm:top-10 z-0 select-none opacity-30 sm:opacity-35"
+        initial={reduced ? undefined : { opacity: 0, x: 20, rotate: 6 }}
+        whileInView={reduced ? undefined : { opacity: 0.35, x: 0, rotate: 12 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.2, ease: EASE_EDITORIAL }}
+      >
+        <Image
+          src="/images/olive-branch.png"
+          alt=""
+          width={280}
+          height={368}
+          className="w-36 sm:w-52 lg:w-64 h-auto mix-blend-multiply"
+        />
+      </motion.div>
+
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-10 sm:-left-6 lg:left-6 bottom-16 sm:bottom-24 z-0 select-none opacity-20 sm:opacity-25 hidden sm:block"
+        initial={reduced ? undefined : { opacity: 0, x: -20, rotate: -20 }}
+        whileInView={reduced ? undefined : { opacity: 0.25, x: 0, rotate: -32 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.2, delay: 0.15, ease: EASE_EDITORIAL }}
+      >
+        <Image
+          src="/images/olive-branch.png"
+          alt=""
+          width={240}
+          height={315}
+          className="w-32 sm:w-44 lg:w-52 h-auto -scale-x-100 mix-blend-multiply"
+        />
+      </motion.div>
+
+      <div className="shell space-y-16 lg:space-y-20 relative z-10">
         {/* About Section Header */}
         <motion.div
           className="mx-auto max-w-3xl text-center space-y-4"
@@ -32,6 +69,23 @@ export function Pillars() {
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.85, ease: EASE_EDITORIAL }}
         >
+          {/* Olive Branch Botanical Emblem */}
+          <motion.div
+            className="mx-auto flex justify-center mb-2"
+            initial={reduced ? undefined : { opacity: 0, scale: 0.88, y: 10 }}
+            whileInView={reduced ? undefined : { opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: EASE_EDITORIAL }}
+          >
+            <Image
+              src="/images/olive-branch.png"
+              alt="Olive Branch Botanical Illustration"
+              width={76}
+              height={100}
+              className="h-16 sm:h-20 w-auto opacity-80 mix-blend-multiply transition-transform duration-700 ease-editorial hover:scale-105"
+            />
+          </motion.div>
+
           <div className="inline-flex items-center justify-center gap-3">
             <span className="h-px w-8 bg-warmGold" />
             <span className="eyebrow !text-warmGold">About Gibran &amp; Co.</span>
