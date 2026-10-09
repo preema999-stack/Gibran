@@ -1,0 +1,189 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --header-h: 5rem;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --header-h: 6rem;
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: auto; /* Lenis owns scrolling */
+  }
+
+  body {
+    @apply bg-[#FAF7F0] font-sans text-charcoal antialiased;
+    /* `clip` rather than `hidden`: `hidden` would turn the body into a scroll
+       container and silently break every `position: sticky` descendant
+       (the header, and the pinned journey section). */
+    overflow-x: clip;
+  }
+
+  /* Lenis recommended rules */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  ::selection {
+    @apply bg-oliveDark text-white;
+  }
+
+  /* Respect the OS setting globally — motion components also opt out. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Fluid editorial container.
+     A single `max-width` cannot serve both a 1280 laptop and a 1920 desktop:
+     capping at 1280 leaves 320px of dead space down each side of a 1080p
+     screen, which pushes the copy noticeably inboard. So the measure grows
+     with the viewport and the gutters scale alongside it, only stopping at
+     a ceiling where the line length would start to feel stretched. */
+  .shell {
+    --shell-max: 80rem; /* 1280px */
+    --shell-gutter: 1.5rem;
+
+    @apply mx-auto w-full;
+    max-width: var(--shell-max);
+    padding-inline: var(--shell-gutter);
+  }
+
+  @media (min-width: 640px) {
+    .shell {
+      --shell-gutter: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .shell {
+      --shell-max: 84rem; /* 1344px */
+      --shell-gutter: 3rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .shell {
+      --shell-max: 88rem; /* 1408px */
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .shell {
+      --shell-max: 94rem; /* 1504px */
+      --shell-gutter: 4rem;
+    }
+  }
+
+  @media (min-width: 1920px) {
+    .shell {
+      --shell-max: 102rem; /* 1632px */
+      --shell-gutter: 5rem;
+    }
+  }
+
+  .eyebrow {
+    @apply block text-[11px] font-semibold uppercase tracking-[0.28em] text-oliveMuted;
+  }
+
+  .btn-pill {
+    @apply inline-flex items-center justify-center gap-2.5 rounded-full px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.16em]
+           transition-all duration-300 ease-editorial;
+  }
+
+  .btn-ink {
+    @apply btn-pill bg-[#6d7835] text-white shadow-md hover:scale-[1.02] hover:bg-[#5b642c] hover:shadow-lg;
+  }
+
+  .btn-paper {
+    @apply btn-pill bg-[#6d7835] text-white shadow-lg hover:scale-[1.02] hover:bg-[#5b642c];
+  }
+
+  .btn-ghost {
+    @apply btn-pill border border-[#6d7835] bg-[#6d7835] text-white backdrop-blur-md
+           hover:border-[#5b642c] hover:bg-[#5b642c];
+  }
+
+  /* Tertiary "brass monastic" link — underline grows from the centre */
+  .link-brass {
+    @apply relative inline-block text-oliveDark;
+  }
+  .link-brass::after {
+    content: "";
+    @apply absolute -bottom-1 left-1/2 h-px w-0 -translate-x-1/2 bg-warmGold
+           transition-all duration-500 ease-editorial;
+  }
+  .link-brass:hover::after,
+  .link-brass:focus-visible::after {
+    @apply w-full;
+  }
+
+  .glass-dark {
+    @apply border border-white/10 bg-[#161D15]/75 backdrop-blur-md;
+  }
+
+  .dish-shadow {
+    @apply shadow-[0_10px_25px_-6px_rgba(28,36,27,0.07)];
+  }
+
+  /* Architectural arch mask from the design system */
+  .arch {
+    border-radius: 3rem 3rem 0.25rem 0.25rem;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .grain::before {
+    content: "";
+    @apply pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none !important;
+    }
+  }
+}
+
+/* Slim, brass-toned scrollbar for the few places native scroll remains */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF7F0;
+}
+::-webkit-scrollbar-thumb {
+  background: #C5A880;
+  border-radius: 9999px;
+  border: 3px solid #FAF7F0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8A9A86;
+}

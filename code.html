@@ -1,0 +1,415 @@
+<!DOCTYPE html><html class="scroll-smooth" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>GIBRAN &amp; CO. — Fine Dining &amp; Exceptional Culinary Journey</title>
+<!-- Tailwind CSS CDN with forms & container queries plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Cormorant Garamond, Playfair Display & Montserrat -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&amp;family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&amp;family=Montserrat:wght@300;400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            linen: '#F9F7F2',
+            ivory: '#FAF8F5',
+            sand: '#F3EFE6',
+            oliveDark: '#1C241B',
+            forestDark: '#161D15',
+            oliveMuted: '#586255',
+            sageGreen: '#8A9A86',
+            sageLight: '#E8ECE6',
+            warmGold: '#C5A880',
+            charcoal: '#242624'
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'serif'],
+            display: ['"Playfair Display"', 'serif'],
+            sans: ['"Montserrat"', 'sans-serif'],
+            script: ['"Alex Brush"', 'cursive'],
+            manrope: ['"Manrope"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .font-cormorant {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+    }
+    .font-script {
+      font-family: 'Alex Brush', cursive;
+    }
+    .dish-card-shadow {
+      box-shadow: 0 10px 25px -6px rgba(28, 36, 27, 0.07);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .dish-card-shadow:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 30px -8px rgba(28, 36, 27, 0.12);
+    }
+    .glass-dark {
+      background: rgba(22, 29, 21, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+  </style>
+</head>
+<body class="bg-[#FAF7F0] text-charcoal font-sans antialiased overflow-x-hidden selection:bg-oliveDark selection:text-white">
+<!-- BEGIN: MainHeader -->
+<header class="sticky top-0 z-50 bg-[#FAF7F0]/95 backdrop-blur-md border-b border-[#ECE7DC] transition-colors duration-300">
+<div class="max-w-7xl mx-auto px-6 lg:px-12 h-24 flex items-center justify-between">
+<!-- Brand Logo & Monogram -->
+<a class="flex items-center gap-3.5 group" href="#">
+<div class="flex items-center gap-3">
+<img alt="Gibran &amp; Co. Logo" class="w-12 h-12 object-contain rounded-full transition-transform duration-300 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida/AEtjO1WAKsyeQhcst8usxZaNY6antESMMPTBbFbUeP7vMgooA2QxPrePL8jBMDhLP2diyowJW599g1S6Lj44DXlZoco_rF1w1ttLjy0EXxWEkh3INPXYGpYRny8MgKFvrQuo0KiHsAyWDQIjduV88TA5JwSetnHN2IzISnk5Ydob0mAXbIczVbhy82itSAbBqLj5xo7foj3CwDApAsIy60-MwUWk3WFtXcbOppewLwIC41jIWr00g51e0SmRFrg">
+<div class="flex flex-col">
+<span class="font-cormorant text-2xl tracking-[0.22em] font-semibold text-oliveDark leading-none">GIBRAN &amp; CO.</span>
+<span class="text-[9px] tracking-[0.28em] uppercase text-oliveMuted mt-1 font-medium">Fine Dining • Est. 2018</span>
+</div>
+</div>
+</a>
+<!-- Primary Navigation Links -->
+<nav class="hidden md:flex items-center space-x-9 text-xs tracking-[0.18em] uppercase font-medium text-oliveDark/80">
+<a class="text-oliveDark font-semibold relative after:content-[''] after:absolute after:-bottom-1.5 after:left-0 after:w-full after:h-[1.5px] after:bg-oliveDark" href="#hero">Home</a>
+<a class="hover:text-oliveDark transition-colors" href="#pillars">About</a>
+<a class="hover:text-oliveDark transition-colors" href="#menu">Menu</a>
+<a class="hover:text-oliveDark transition-colors" href="#signature">Gallery</a>
+<a class="hover:text-oliveDark transition-colors" href="#reservations">Reservation</a>
+<a class="hover:text-oliveDark transition-colors" href="#contact">Contact</a>
+</nav>
+<!-- Action Buttons -->
+<div class="flex items-center gap-5">
+<!-- Search Button -->
+<button aria-label="Search" class="p-2 text-oliveDark hover:text-warmGold transition-colors">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+<path d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<!-- Book a Table Primary CTA -->
+<a class="bg-oliveDark hover:bg-[#2A3629] text-[#FAF8F5] text-xs font-medium tracking-[0.16em] uppercase px-6 py-3 rounded-full transition-all duration-300 shadow-sm hover:shadow-md hover:scale-[1.02]" href="#reservations">
+          Book a Table
+        </a>
+</div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<!-- BEGIN: HeroSection ("More Than Just a Meal") -->
+<section class="relative bg-[#FAF7F0] border-b border-[#ECE7DC] overflow-hidden" id="hero"><div class="relative min-h-[580px] lg:min-h-[640px] flex items-center overflow-hidden"><div class="absolute inset-0 w-full h-full pointer-events-none select-none z-0"><img alt="Luxury Mediterranean dining room with grand arched windows and olive trees" class="w-full h-full object-cover object-center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUi_clradx8PwPWJuEXx4JoqCdp-rno6GA1tOCfGTnBQIgvRs-FGWg1jpw3p0Jd226zD6NWoZtStJ45sxs9P2_2xUe86z6fWCMY6Kh5A_iNIAMX0BVWCwAu7FnKYi2A07e6PPgvMai0_3DdMJ9K9trqK3tFWbPc5Nq4vuuDZ9crEtf28fEimslr96LmrPDcC7pEf9XrEHAOHNyME6DLA-n0Jm5Qo5eWm5vwh66hxFdUphtxUdHRMbRZMcGFSOWi35aCbY"><div class="absolute inset-0 pointer-events-none z-0" style="background: linear-gradient(to right, rgb(250, 247, 240) 0%, rgba(250, 247, 240, 0.95) 24%, rgba(250, 247, 240, 0.6) 42%, rgba(250, 247, 240, 0.15) 58%, transparent 72%);"></div><div class="absolute inset-x-0 bottom-0 h-20 pointer-events-none z-0" style="background: linear-gradient(to top, rgb(250, 247, 240) 0%, rgba(250, 247, 240, 0.25) 40%, transparent 100%);"></div></div><div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24 w-full"><div class="max-w-xl space-y-6 lg:space-y-7"><div class="inline-block"><span class="text-xs uppercase tracking-[0.25em] font-medium text-oliveMuted block">GOOD FOOD • GOOD VIBES • GREAT COMPANY</span></div><h1 class="font-cormorant text-5xl sm:text-6xl lg:text-[72px] font-normal leading-[1.05] text-oliveDark tracking-tight">More Than <br><span class="italic text-oliveDark font-light">Just a Meal</span></h1><p class="text-sm sm:text-base font-light text-oliveMuted/90 leading-relaxed max-w-md tracking-wide">Gibran &amp; Co. is a place where beautiful food, thoughtful design and warm hospitality come together to create unforgettable moments.</p><div class="pt-2"><a class="group inline-flex items-center gap-3 bg-oliveDark text-white hover:bg-[#2A3629] px-7 py-3.5 rounded-full text-xs font-medium uppercase tracking-[0.16em] transition-all duration-300 shadow-md hover:scale-[1.02]" href="#pillars"><span class="">Discover Our Story</span><span class="transition-transform duration-300 group-hover:translate-x-1">→</span></a></div></div></div><div class="hidden md:block absolute bottom-8 right-8 lg:right-16 z-10 pointer-events-none text-right"><span class="font-script text-3xl sm:text-4xl lg:text-5xl text-white/95 drop-shadow-md select-none block leading-tight">Unwind,<br>Relax,<br>Repeat</span></div></div></section>
+<!-- END: HeroSection -->
+<!-- BEGIN: FourBrandPillars -->
+<section class="py-14 lg:py-16 bg-[#FAF7F0] border-b border-[#ECE7DC]" id="pillars">
+<div class="max-w-7xl mx-auto px-6 lg:px-12">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
+<!-- Pillar 1: Fresh Ingredients -->
+<div class="text-center flex flex-col items-center p-5 rounded-2xl bg-[#F6F2E8]/60 hover:bg-[#F2ECE0] transition-colors border border-[#ECE7DC]/50">
+<div class="w-12 h-12 rounded-full bg-[#EAE4D5] flex items-center justify-center text-oliveDark mb-3">
+<svg class="w-5 h-5 stroke-current" fill="none" stroke-width="1.6" viewBox="0 0 24 24">
+<path d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<h4 class="font-cormorant text-lg font-semibold text-oliveDark">Fresh Ingredients</h4>
+<p class="text-[11px] text-oliveMuted mt-0.5 tracking-wider uppercase">Always</p>
+</div>
+<!-- Pillar 2: Authentic Recipes -->
+<div class="text-center flex flex-col items-center p-5 rounded-2xl bg-[#F6F2E8]/60 hover:bg-[#F2ECE0] transition-colors border border-[#ECE7DC]/50">
+<div class="w-12 h-12 rounded-full bg-[#EAE4D5] flex items-center justify-center text-oliveDark mb-3">
+<svg class="w-5 h-5 stroke-current" fill="none" stroke-width="1.6" viewBox="0 0 24 24">
+<path d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<h4 class="font-cormorant text-lg font-semibold text-oliveDark">Authentic</h4>
+<p class="text-[11px] text-oliveMuted mt-0.5 tracking-wider uppercase">Recipes</p>
+</div>
+<!-- Pillar 3: Elegant Ambience -->
+<div class="text-center flex flex-col items-center p-5 rounded-2xl bg-[#F6F2E8]/60 hover:bg-[#F2ECE0] transition-colors border border-[#ECE7DC]/50">
+<div class="w-12 h-12 rounded-full bg-[#EAE4D5] flex items-center justify-center text-oliveDark mb-3">
+<svg class="w-5 h-5 stroke-current" fill="none" stroke-width="1.6" viewBox="0 0 24 24">
+<path d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<h4 class="font-cormorant text-lg font-semibold text-oliveDark">Elegant</h4>
+<p class="text-[11px] text-oliveMuted mt-0.5 tracking-wider uppercase">Ambience</p>
+</div>
+<!-- Pillar 4: Memorable Experiences -->
+<div class="text-center flex flex-col items-center p-5 rounded-2xl bg-[#F6F2E8]/60 hover:bg-[#F2ECE0] transition-colors border border-[#ECE7DC]/50">
+<div class="w-12 h-12 rounded-full bg-[#EAE4D5] flex items-center justify-center text-oliveDark mb-3">
+<svg class="w-5 h-5 stroke-current" fill="none" stroke-width="1.6" viewBox="0 0 24 24">
+<path d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<h4 class="font-cormorant text-lg font-semibold text-oliveDark">Memorable</h4>
+<p class="text-[11px] text-oliveMuted mt-0.5 tracking-wider uppercase">Experiences</p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: FourBrandPillars -->
+<!-- BEGIN: SignatureDishesGrid -->
+<section class="relative bg-[#181D17] text-white overflow-hidden border-b border-white/10" id="culinary-journey"><div class="absolute inset-y-0 right-0 w-full lg:w-3/5 h-full pointer-events-none select-none z-0"><img alt="Exquisite glazed tenderloin drizzled with velvety jus" class="w-full h-full object-cover object-center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlxZQQk7k5Rr7inbaohjN0-p0OxCP2uB9zlPDRx5F9FJcKOKVyOTOJlrnwguvhLLU4Z75SZ4rtwdxkM__9EOaHE3ppkXoNSla7dC_4dR-4ZI2J6LHqCy8c4eMfKEJkvTjmaLxwS_ENzpVf0mo0p_ey1y2LUZfnHmFdHm33JxmQUaotaUkZeiMz5vY3e2sQReSa3IWHbNdV93Q84YLosSrqR-yienjzWZAaETnvIUR9vxM-YgJT_0krS3apD8P5tQJjTCE"><div class="absolute inset-0 bg-gradient-to-r from-[#181D17] via-[#181D17]/85 to-transparent w-full lg:w-1/2"></div><div class="absolute inset-0 bg-gradient-to-t from-[#181D17] via-transparent to-transparent h-28 bottom-0"></div></div><div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-20 lg:py-28"><div class="max-w-xl space-y-6 lg:space-y-7"><div class="inline-flex items-center gap-3"><span class="w-8 h-[1px] bg-warmGold inline-block"></span><span class="text-[11px] uppercase tracking-[0.28em] font-semibold text-warmGold block">Exquisite Flavors • Sophisticated Ambience</span></div><h2 class="font-cormorant text-4xl sm:text-5xl lg:text-[62px] font-normal leading-[1.08] text-[#FAF8F5] tracking-tight">A Culinary Journey <br><span class="italic text-warmGold font-light">Like No Other</span></h2><p class="text-sm sm:text-base font-light text-[#BCC6B8] leading-relaxed max-w-lg tracking-wide">At Gibran &amp; Co., every dish tells a story. A harmony of fine ingredients, timeless recipes and a passion for exceptional dining.</p><div class="pt-3 flex flex-wrap items-center gap-6"><a class="inline-flex items-center gap-3 bg-[#FAF8F5] hover:bg-warmGold text-forestDark hover:text-white px-8 py-3.5 rounded-full text-xs font-semibold uppercase tracking-[0.16em] transition-all duration-300 shadow-lg hover:scale-[1.02]" href="#menu"><span class="">Explore Our Menu</span><span class="">→</span></a><button class="inline-flex items-center gap-3 text-xs uppercase tracking-[0.2em] font-medium text-[#FAF8F5]/80 hover:text-warmGold transition-colors"><span class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center pl-0.5 bg-white/5 backdrop-blur-md"><svg class="w-3 h-3 fill-current" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></span><span class="">Watch Story</span></button></div><div class="pt-8 mt-4 border-t border-white/10 flex items-center gap-8 text-xs text-[#9FA89D]"><div class="flex items-center gap-2"><span class="text-warmGold font-semibold">01</span><span class="w-8 h-[1px] bg-white/20"></span><span class="text-white/40">03</span></div><div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-warmGold"></span><span class="tracking-wider uppercase text-[11px] text-[#B5BFB2]">Chef's Tasting Edition</span></div></div></div></div></section><section class="py-20 lg:py-24 bg-[#FAF7F0] border-b border-[#ECE7DC]" id="signature">
+<div class="max-w-7xl mx-auto px-6 lg:px-12">
+<!-- Section Header -->
+<div class="flex items-end justify-between mb-12">
+<div>
+<span class="text-xs uppercase tracking-[0.24em] font-medium text-oliveMuted block mb-2">Artisanal Flavors</span>
+<h2 class="font-cormorant text-3xl sm:text-4xl lg:text-5xl font-normal text-oliveDark leading-tight">Our Signature Dishes</h2>
+</div>
+<!-- Carousel Nav Buttons -->
+<div class="flex items-center gap-2.5">
+<button aria-label="Previous dishes" class="w-10 h-10 rounded-full border border-oliveDark/20 flex items-center justify-center text-oliveDark hover:bg-oliveDark hover:text-white transition-colors duration-200">
+            ←
+          </button>
+<button aria-label="Next dishes" class="w-10 h-10 rounded-full border border-oliveDark/20 flex items-center justify-center text-oliveDark hover:bg-oliveDark hover:text-white transition-colors duration-200">
+            →
+          </button>
+</div>
+</div>
+<!-- 4 Dish Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Dish 1 -->
+<div class="bg-white rounded-2xl p-4 dish-card-shadow border border-[#ECE7DC] flex flex-col justify-between group">
+<div class="w-full h-52 rounded-xl overflow-hidden mb-4 bg-sand">
+<img alt="Truffle Mushroom Risotto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDH7m38oDPatiTn7VF2_iqaGN6MmZZjrE1ZXclntiGe20Ey_dGWia9MudHHQ6e9TflwH-HuQt-bbiKHhwaK6y229xqOr5GaC660HPQMKd2ndDTyLJT3dEhjonStoBeA-OfjLRBu3SdqDWAh50Qc3XozDh2VTqos-wR7yWY4Lzv6UK20Rj0QeGh5lxv1B2lvfEjoGMFC8B185RUmEb-JENggSs9m6ShJnt_PUTm03ZXe6vU2IhBTJBVaeQ">
+</div>
+<div>
+<h3 class="font-cormorant text-xl font-semibold text-oliveDark leading-snug">Truffle Mushroom Risotto</h3>
+<p class="text-xs text-oliveMuted mt-1.5 leading-relaxed line-clamp-2">Arborio rice, wild forest porcini, aged parmesan &amp; shaved black truffle.</p>
+</div>
+<div class="mt-4 pt-3 border-t border-[#F0ECE1] flex items-center justify-between">
+<span class="font-cormorant text-xl font-bold text-oliveDark">$18</span>
+<button class="text-xs uppercase tracking-wider text-warmGold font-semibold hover:text-oliveDark transition-colors">Order →</button>
+</div>
+</div>
+<!-- Dish 2 -->
+<div class="bg-white rounded-2xl p-4 dish-card-shadow border border-[#ECE7DC] flex flex-col justify-between group">
+<div class="w-full h-52 rounded-xl overflow-hidden mb-4 bg-sand">
+<img alt="Grilled Lavender Chicken" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVCySQyAvbNrv45bUxM62jFFdu7-KmPzW5Vj9_kH2kwqnaBK0oiaYkHfVxNmYNici_HK-bi314zDJse4xbl3FK0wgG671RQNUAIydF_MYJfNQPzFGjh9V82RhLbGHl2r7fktBEJ72qa965L_G_hOGc1urwzL8sZldj2LGLaK3NEzgw6kDofNDxOjFwCYDc4gTpoXEegUe6t14Sm0tcDPN8ndIOl9mYhpQZEbbgWSFrNLCwoZE8Zy_uRA">
+</div>
+<div>
+<h3 class="font-cormorant text-xl font-semibold text-oliveDark leading-snug">Grilled Lavender Chicken</h3>
+<p class="text-xs text-oliveMuted mt-1.5 leading-relaxed line-clamp-2">Free-range chicken breast infused with Provence lavender, baby carrots &amp; jus.</p>
+</div>
+<div class="mt-4 pt-3 border-t border-[#F0ECE1] flex items-center justify-between">
+<span class="font-cormorant text-xl font-bold text-oliveDark">$22</span>
+<button class="text-xs uppercase tracking-wider text-warmGold font-semibold hover:text-oliveDark transition-colors">Order →</button>
+</div>
+</div>
+<!-- Dish 3 -->
+<div class="bg-white rounded-2xl p-4 dish-card-shadow border border-[#ECE7DC] flex flex-col justify-between group">
+<div class="w-full h-52 rounded-xl overflow-hidden mb-4 bg-sand">
+<img alt="Chocolate Lava Cake" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACTIUj3Unxjc1OKdriXxpK7nnyZMSFOU39jXcR5-YWUtOx8g5vhB5Yc5Ff4cCVeQ7L5QBnxvVryFaoecc20pm1hh2_-lHHUXXgyouUi1Tux2s744-W0NoxgnsSL8cWz1dpgDTcXDRdt9aiU2faqih1jcTEGOAmHbUkI4Hk8UUq7qPg69LndQj-cOykNlp3ksUIqc9BC9Jx_FUNKXW0pQ_4teNdwlhtDaQUKWusP5ks4U05NlFOIAYRcQ">
+</div>
+<div>
+<h3 class="font-cormorant text-xl font-semibold text-oliveDark leading-snug">Chocolate Lava Cake</h3>
+<p class="text-xs text-oliveMuted mt-1.5 leading-relaxed line-clamp-2">Valrhona dark chocolate molten center served with Tahitian vanilla bean gelato.</p>
+</div>
+<div class="mt-4 pt-3 border-t border-[#F0ECE1] flex items-center justify-between">
+<span class="font-cormorant text-xl font-bold text-oliveDark">$12</span>
+<button class="text-xs uppercase tracking-wider text-warmGold font-semibold hover:text-oliveDark transition-colors">Order →</button>
+</div>
+</div>
+<!-- Dish 4 -->
+<div class="bg-white rounded-2xl p-4 dish-card-shadow border border-[#ECE7DC] flex flex-col justify-between group">
+<div class="w-full h-52 rounded-xl overflow-hidden mb-4 bg-sand">
+<img alt="Seasonal Fruit Tart" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeeIHSWUonlHtzv8qrrtsea2_m15YkFDErAf-PUM9_8BkQ34P6WG-kXGcJVJkppvS2DUQ-2cJ_30NcTuWiMfzUdbZU6_uboNflTccdDCigkSI_YFvRyP4c8f0zh-NNuWr-hfb_NdQ56G2Of227LwFWNsRXZ9V_g9aE6kkpPxbmkz9xZPxq5no8xxonRTk46sSeyNJYixw66BypprwBYMkwXjRQOSGjyPecqdCm48sLq0nLmIJAwjuhZA">
+</div>
+<div>
+<h3 class="font-cormorant text-xl font-semibold text-oliveDark leading-snug">Seasonal Fruit Tart</h3>
+<p class="text-xs text-oliveMuted mt-1.5 leading-relaxed line-clamp-2">Crisp shortbread crust, Madagascar pastry cream, glazed summer berries &amp; mint.</p>
+</div>
+<div class="mt-4 pt-3 border-t border-[#F0ECE1] flex items-center justify-between">
+<span class="font-cormorant text-xl font-bold text-oliveDark">$10</span>
+<button class="text-xs uppercase tracking-wider text-warmGold font-semibold hover:text-oliveDark transition-colors">Order →</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: SignatureDishesGrid -->
+<!-- BEGIN: TasteTheDifferenceSection -->
+<section class="py-24 lg:py-28 bg-[#F4EFE6] relative" id="menu">
+<div class="max-w-7xl mx-auto px-6 lg:px-12">
+<!-- Split Hero for Taste The Difference with Circular Gourmet Presentation -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
+<div class="lg:col-span-6 space-y-6">
+<span class="text-xs uppercase tracking-[0.24em] font-semibold text-oliveMuted block">OUR MENU</span>
+<h2 class="font-cormorant text-4xl sm:text-5xl lg:text-6xl text-oliveDark font-normal leading-tight">
+            Taste <br><span class="italic text-oliveDark">The Difference</span>
+</h2>
+<p class="text-sm sm:text-base text-oliveMuted font-light leading-relaxed max-w-lg">
+            From freshly sourced ingredients to international gourmet flavors, our menu is crafted to delight every palate with precision and soul.
+          </p>
+<div class="pt-2">
+<a class="inline-flex items-center gap-2.5 bg-oliveDark text-white px-7 py-3.5 rounded-full text-xs uppercase tracking-[0.16em] hover:bg-[#2B3829] transition-all shadow-sm" href="#menu">
+              View Full Menu →
+            </a>
+</div>
+</div>
+<!-- Circular Top-Down Gourmet Presentation Bowl with badge -->
+<div class="lg:col-span-6 flex justify-center lg:justify-end relative"><div class="relative w-full max-w-lg lg:max-w-xl group"><div class="relative rounded-2xl overflow-hidden drop-shadow-md"><img alt="Artisanal ceramic bowl of velvety green pea and herb soup with cream swirl, pumpkin seeds, microgreens, and scattered fresh olive leaves" class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvbJiDdgdwhqghZMkfniP9DyGk22rUB9NWxjfw2uXjwaMeNfctoEzvPxRVTk2LYJG_0FO825Oe9TB6iMoKcVqMaaMZZKmQiEd3uLY0EHQPFxuaVsP7iqqvpvJX_Jlncg2fkPM5iNon5_O8y-X-fwUkyWm4iAs5tVfxQPm0zoX29Npb3BYZN3hDcAAoTZB76wXu-PtPONk1yLrICSxo5OXM_Segw2ac3ZvvhtM_Mx8b3NIC77Z55gN-SGAATISOARmyHbk"></div><div class="absolute -bottom-4 -left-4 sm:bottom-4 sm:left-4 z-10 bg-white/95 backdrop-blur-md px-6 py-2.5 rounded-full shadow-lg border border-[#ECE7DC] flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-oliveDark inline-block"></span><span class="font-script text-xl sm:text-2xl text-oliveDark tracking-wide">Fresh • Seasonal • Local</span></div></div></div>
+</div>
+<!-- Category Filter Tabs with Minimalist Line Icons -->
+<div class="grid grid-cols-2 sm:grid-cols-5 gap-3 max-w-4xl mx-auto" data-purpose="menu-tabs">
+<button class="flex items-center justify-center gap-2.5 px-4 py-3 rounded-xl bg-oliveDark text-white text-xs uppercase tracking-wider font-medium shadow-sm transition-all">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 6v6m0 0v6m0-6h6m-6 0H6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          Starters
+        </button>
+<button class="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/80 hover:bg-white text-oliveDark text-xs uppercase tracking-wider font-medium transition-all border border-[#E4DECf]">
+          Main Course
+        </button>
+<button class="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/80 hover:bg-white text-oliveDark text-xs uppercase tracking-wider font-medium transition-all border border-[#E4DECf]">
+          Pasta &amp; Risotto
+        </button>
+<button class="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/80 hover:bg-white text-oliveDark text-xs uppercase tracking-wider font-medium transition-all border border-[#E4DECf]">
+          Desserts
+        </button>
+<button class="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/80 hover:bg-white text-oliveDark text-xs uppercase tracking-wider font-medium transition-all border border-[#E4DECf] col-span-2 sm:col-span-1">
+          Beverages
+        </button>
+</div>
+</div>
+</section>
+<!-- END: TasteTheDifferenceSection -->
+<!-- BEGIN: FineDiningReimaginedMoodSection -->
+<section class="relative bg-[#131912] text-white py-24 lg:py-28 overflow-hidden">
+<!-- Candlelit Ambient Dinner Table Background -->
+<div class="absolute inset-0 opacity-40">
+<img alt="Romantic ambient candlelight dinner table setting" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsfDIJuSgzfLdnqKX8TYWpdfHM2tuK18LK0cfyWV8Tk5daEtlhb1UxO1YOUMvev9BY4JJRj_uf7gtogbobq3T6KXw3boAd2QsuwUvw9R8ak635GItoOAZU5VzoGVJ3PDUbfCPEPXpXJPiM8qeI0jNFvvJfe6XiS2p92RtYB-MDsfnUMLWSn9ABkOLXfubF16xOyf7_g9lByNZltCDnxl1lHJxoH1fO1GY6uK1LDdpRRFqvDGN_aLF3JA">
+</div>
+<div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<div class="lg:col-span-7 space-y-6">
+<span class="text-xs uppercase tracking-[0.28em] text-[#A8B7A4] font-semibold">Fine Dining Reimagined</span>
+<h2 class="font-cormorant text-4xl sm:text-5xl lg:text-6xl font-normal leading-tight">
+          Immerse Yourself in an <br>
+<span class="italic text-[#E8ECE6]">Atmosphere</span> of Elegance
+        </h2>
+<p class="text-sm sm:text-base text-[#B5BFB2] font-light leading-relaxed max-w-lg">
+          Immerse yourself in a world of rich flavors, tailored wine pairings, and impeccable service. Welcome to the sanctuary of Gibran &amp; Co.
+        </p>
+<div class="pt-2">
+<button class="inline-flex items-center gap-3 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white px-6 py-3 rounded-full text-xs uppercase tracking-[0.16em] transition-all">
+<span class="w-6 h-6 rounded-full bg-white text-oliveDark flex items-center justify-center pl-0.5">
+<svg class="w-3 h-3 fill-current" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+</span>
+<span class="">Watch Our Story</span>
+</button>
+</div>
+</div>
+<div class="lg:col-span-5 flex flex-col items-center lg:items-end text-center lg:text-right">
+<div class="p-8 rounded-2xl glass-dark border border-white/10 max-w-md w-full">
+<p class="font-script text-4xl sm:text-5xl text-warmGold mb-2">Good Food, Happy People</p>
+<p class="text-xs uppercase tracking-widest text-[#9FA89D]">Unforgettable Evenings • Curated Wines</p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: FineDiningReimaginedMoodSection -->
+<!-- BEGIN: ReservationAndInfoStrip -->
+<section class="bg-[#242F22] text-[#FAF8F5] border-t border-white/10 py-10" id="reservations">
+<div class="max-w-7xl mx-auto px-6 lg:px-12">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 items-center">
+<!-- Info Column 1: Location -->
+<div class="flex items-start gap-4">
+<div class="p-2.5 rounded-full bg-white/10 text-warmGold flex-shrink-0">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+<path d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<div>
+<span class="text-xs uppercase tracking-[0.2em] text-[#A4B2A1] block font-medium">Location</span>
+<p class="text-sm font-semibold mt-0.5">Bahrain / Abu Dhabi &amp; Beirut</p>
+</div>
+</div>
+<!-- Info Column 2: Hours -->
+<div class="flex items-start gap-4">
+<div class="p-2.5 rounded-full bg-white/10 text-warmGold flex-shrink-0">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+<path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<div>
+<span class="text-xs uppercase tracking-[0.2em] text-[#A4B2A1] block font-medium">Open Hours</span>
+<p class="text-sm font-semibold mt-0.5">12:00 PM – 11:00 PM (Daily)</p>
+</div>
+</div>
+<!-- Info Column 3: Contact Phone -->
+<div class="flex items-start gap-4" id="contact">
+<div class="p-2.5 rounded-full bg-white/10 text-warmGold flex-shrink-0">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+<path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<div>
+<span class="text-xs uppercase tracking-[0.2em] text-[#A4B2A1] block font-medium">Call Us</span>
+<p class="text-sm font-semibold mt-0.5">+973 123 4567</p>
+</div>
+</div>
+<!-- Info Column 4: Quick Action Button -->
+<div class="flex md:justify-end">
+<a class="w-full md:w-auto inline-flex items-center justify-center gap-3 bg-[#FAF8F5] text-forestDark hover:bg-warmGold hover:text-white px-7 py-3 rounded-full text-xs font-semibold uppercase tracking-[0.16em] transition-all duration-300 shadow-md" href="#reservations">
+<span class="">Book a Table</span>
+<span class="">→</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- END: ReservationAndInfoStrip -->
+<!-- BEGIN: SiteFooter -->
+<footer class="bg-forestDark text-[#A4B0A0] py-16 border-t border-white/5">
+<div class="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col items-center text-center">
+<!-- Footer Brand Monogram -->
+<div class="w-16 h-16 mb-4 bg-white rounded-full p-2 flex items-center justify-center">
+<img alt="Gibran &amp; Co. Logo" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WAKsyeQhcst8usxZaNY6antESMMPTBbFbUeP7vMgooA2QxPrePL8jBMDhLP2diyowJW599g1S6Lj44DXlZoco_rF1w1ttLjy0EXxWEkh3INPXYGpYRny8MgKFvrQuo0KiHsAyWDQIjduV88TA5JwSetnHN2IzISnk5Ydob0mAXbIczVbhy82itSAbBqLj5xo7foj3CwDApAsIy60-MwUWk3WFtXcbOppewLwIC41jIWr00g51e0SmRFrg">
+</div>
+<p class="font-cormorant text-2xl tracking-[0.25em] text-white uppercase font-light">GIBRAN &amp; CO.</p>
+<p class="text-[11px] tracking-[0.22em] uppercase text-warmGold mt-1">Classic Cuisine • Modern Touch</p>
+<p class="text-xs max-w-md mt-6 text-[#9AA596] leading-relaxed">
+        We bring people together over extraordinary food, crafted with care and served with timeless warmth.
+      </p>
+<div class="flex flex-wrap justify-center items-center gap-6 sm:gap-8 mt-8 text-xs uppercase tracking-widest text-[#BCC6B8]">
+<a class="hover:text-white transition-colors" href="#hero">Home</a>
+<a class="hover:text-white transition-colors" href="#pillars">Philosophy</a>
+<a class="hover:text-white transition-colors" href="#menu">Menu</a>
+<a class="hover:text-white transition-colors" href="#signature">Private Dining</a>
+<a class="hover:text-white transition-colors" href="#reservations">Reservation</a>
+</div>
+<div class="mt-12 pt-6 border-t border-white/10 w-full flex flex-col sm:flex-row items-center justify-between text-[11px] text-white/40">
+<p class="">© 2026 GIBRAN &amp; CO. All Rights Reserved.</p>
+<p class="mt-2 sm:mt-0">Designed with passion for exceptional hospitality.</p>
+</div>
+</div>
+</footer>
+<!-- END: SiteFooter -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuTabs = document.querySelectorAll('[data-purpose="menu-tabs"] button');
+      menuTabs.forEach(button => {
+        button.addEventListener('click', () => {
+          menuTabs.forEach(btn => {
+            btn.classList.remove('bg-oliveDark', 'text-white');
+            btn.classList.add('bg-white/80', 'text-oliveDark');
+          });
+          button.classList.add('bg-oliveDark', 'text-white');
+          button.classList.remove('bg-white/80', 'text-oliveDark');
+        });
+      });
+    });
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>

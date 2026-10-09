@@ -1,0 +1,17 @@
+{
+  "systemArchitecture": {
+    "title": "System & Cloud Architecture",
+    "description": "Architecture overview for GIBRAN & CO., connecting client interfaces to the application engine.",
+    "mermaid": "graph TD\n  subgraph Client [\"Client Presentation Layer\"]\n    Web[\"🖥️ Web App (Next.js 16 / React 19)\"]\n    Desktop[\"💻 Desktop App (Electron & Local IPC)\"]\n    CLI[\"⚡ CLI Analyzer (Node.js)\"]\n  end\n\n  subgraph Router [\"Application Router & Edge\"]\n    Routes[\"App Router (/dashboard, /brand, /console)\"]\n    API[\"API Route Handlers (/api/ai, /api/campaigns)\"]\n  end\n\n  subgraph Engine [\"Core Processing & AI Engine\"]\n    AI[\"🧠 Gemini 3.6 Flash Inference\"]\n    Operator[\"⚙️ Brand & Growth Operator Engine\"]\n    StorageAdapter[\"🔄 Universal Storage Adapter\"]\n  end\n\n  subgraph Storage [\"Persistence & Data Layer\"]\n    CloudDB[(\"☁️ Firebase Firestore / Cloud\")]\n    LocalDisk[(\"💾 Local System Storage (~/.listmebrand)\")]\n  end\n\n  Client --> Routes\n  Routes --> API\n  API --> Engine\n  StorageAdapter --> CloudDB\n  StorageAdapter --> LocalDisk\n  Engine --> StorageAdapter"
+  },
+  "userJourney": {
+    "title": "End-to-End User Journey",
+    "description": "User interaction flow from codebase scanning to publishing living documentation.",
+    "mermaid": "sequenceDiagram\n  autonumber\n  actor Founder as 👤 Founder / Developer\n  participant CLI as ⚡ ListMeBrand CLI\n  participant AI as 🧠 AI Growth Engine\n  participant Dash as 🖥️ Web / Desktop Dashboard\n  participant Live as 🌐 Public Brand Hub\n\n  Founder->>CLI: Run 'npx listmebrand init'\n  CLI->>CLI: Safe Repository Scan (Zero Secret Exposure)\n  CLI->>AI: Analyze Codebase & Tech Stack\n  AI-->>CLI: Return Diagrams, Prototype & 7-Day Plan\n  CLI->>Dash: Sync to Workspace / Local Storage\n  Founder->>Dash: Review Growth Missions\n  Founder->>Dash: Customize & Click 'Publish to Web'\n  Dash->>Live: Publish Instant Brand Hub (/brand/[slug])"
+  },
+  "dataArchitecture": {
+    "title": "Domain Data Models & Relationships",
+    "description": "Core entities and relationships across the workspace.",
+    "mermaid": "classDiagram\n  class Brand {\n    +String slug\n    +String name\n    +String tagline\n    +String logo\n  }\n  class BrandPage {\n    +String id\n    +String title\n    +Block[] blocks\n    +Boolean published\n  }\n  class BrandCampaign {\n    +String id\n    +String name\n    +String status\n    +Task[] tasks\n  }\n  class BrandItem {\n    +String id\n    +String type\n    +Record fields\n  }\n\n  Brand \"1\" --> \"*\" BrandPage : contains\n  Brand \"1\" --> \"*\" BrandCampaign : launches\n  Brand \"1\" --> \"*\" BrandItem : organizes"
+  }
+}
