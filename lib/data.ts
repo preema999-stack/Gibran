@@ -5,8 +5,8 @@ export const navLinks = [
   { label: "Menu", href: "#menu" },
   { label: "Gallery", href: "#signature" },
   { label: "Reservation", href: "#reservations" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "About Us", href: "#about" },
+  { label: "Contact Us", href: "#contact" },
 ] as const;
 
 export const pillars: { title: string; caption: string; icon: IconName }[] = [
@@ -96,7 +96,7 @@ export const signatureDishes: Dish[] = [
     name: "Truffle Mushroom Risotto",
     description:
       "Arborio rice, wild forest porcini, aged parmesan & shaved black truffle.",
-    price: "$18",
+    price: "AED 18",
     image: "/images/dish-risotto.jpg",
     tag: "Vegetarian",
   },
@@ -105,7 +105,7 @@ export const signatureDishes: Dish[] = [
     name: "Grilled Lavender Chicken",
     description:
       "Free-range chicken breast infused with Provence lavender, baby carrots & jus.",
-    price: "$22",
+    price: "AED 22",
     image: "/images/dish-chicken.jpg",
     tag: "House Favourite",
   },
@@ -114,7 +114,7 @@ export const signatureDishes: Dish[] = [
     name: "Chocolate Lava Cake",
     description:
       "Valrhona dark chocolate molten centre served with Tahitian vanilla bean gelato.",
-    price: "$12",
+    price: "AED 12",
     image: "/images/dish-lava-cake.jpg",
     tag: "Signature",
   },
@@ -123,7 +123,7 @@ export const signatureDishes: Dish[] = [
     name: "Seasonal Fruit Tart",
     description:
       "Crisp shortbread crust, Madagascar pastry cream, glazed summer berries & mint.",
-    price: "$10",
+    price: "AED 10",
     image: "/images/dish-fruit-tart.jpg",
     tag: "Seasonal",
   },

@@ -154,8 +154,8 @@ export function SignatureDishes() {
               </div>
 
               <div className="mt-4 flex items-center justify-between border-t border-[#F0ECE1] pt-3">
-                <span className="font-serif text-xl font-bold text-oliveDark">
-                  {dish.price}
+                <span className="font-sans text-base sm:text-lg font-bold tabular-nums tracking-normal text-oliveDark">
+                  {dish.price.startsWith("AED") ? dish.price : `AED ${dish.price.replace("$", "")}`}
                 </span>
                 <button
                   type="button"

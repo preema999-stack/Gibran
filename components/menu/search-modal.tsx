@@ -131,8 +131,8 @@ export function SearchModal({
                     </div>
                   </div>
                   <div className="text-right">
-                    <span className="font-serif text-sm font-bold text-[#1C241B]">
-                      ${item.price}
+                    <span className="font-sans text-xs sm:text-sm font-bold tabular-nums tracking-normal text-[#1C241B]">
+                      AED {item.price}
                     </span>
                     {item.badge && (
                       <span className="block text-[8.5px] font-bold uppercase tracking-wider text-[#C5A880]">

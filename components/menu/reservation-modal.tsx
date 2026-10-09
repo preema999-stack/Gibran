@@ -2,6 +2,12 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { WhatsAppIcon, MailIcon, CopyIcon, CheckIcon } from "@/components/icons";
+import {
+  createWhatsAppUrl,
+  createEmailUrl,
+  formatReservationMessage,
+} from "@/lib/reservation-utils";
 
 export function ReservationModal({
   isOpen,
@@ -18,6 +24,9 @@ export function ReservationModal({
   const [seating, setSeating] = useState("Main Dining Salon");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [notifyChannel, setNotifyChannel] = useState<"whatsapp" | "email" | "both">("both");
+  const [copied, setCopied] = useState(false);
   const [confirmationCode, setConfirmationCode] = useState("");
 
   if (!isOpen) return null;
@@ -31,6 +40,7 @@ export function ReservationModal({
 
   const handleReset = () => {
     setStep("form");
+    setCopied(false);
     onClose();
   };
 
@@ -157,32 +167,91 @@ export function ReservationModal({
               </div>
 
               {/* Contact info */}
-              <div className="grid grid-cols-2 gap-3 pt-1">
+              <div className="space-y-3 pt-1">
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-[10px] font-bold uppercase tracking-wider text-[#1C241B]">
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="E.g. Alexander Vance"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className="mt-1 w-full rounded-xl border border-[#DCD5C6] bg-white px-3.5 py-2.5 text-xs text-[#1C241B] focus:border-[#1C241B] focus:ring-0"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-bold uppercase tracking-wider text-[#1C241B]">
+                      Phone Number (WhatsApp)
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      placeholder="+973 3900 1234"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      className="mt-1 w-full rounded-xl border border-[#DCD5C6] bg-white px-3.5 py-2.5 text-xs text-[#1C241B] focus:border-[#1C241B] focus:ring-0"
+                    />
+                  </div>
+                </div>
+
                 <div>
                   <label className="block text-[10px] font-bold uppercase tracking-wider text-[#1C241B]">
-                    Full Name
+                    Email Address (Optional — for confirmation)
                   </label>
                   <input
-                    type="text"
-                    required
-                    placeholder="E.g. Alexander Vance"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    type="email"
+                    placeholder="guest@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="mt-1 w-full rounded-xl border border-[#DCD5C6] bg-white px-3.5 py-2.5 text-xs text-[#1C241B] focus:border-[#1C241B] focus:ring-0"
                   />
                 </div>
-                <div>
-                  <label className="block text-[10px] font-bold uppercase tracking-wider text-[#1C241B]">
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    required
-                    placeholder="+973 3900 1234"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    className="mt-1 w-full rounded-xl border border-[#DCD5C6] bg-white px-3.5 py-2.5 text-xs text-[#1C241B] focus:border-[#1C241B] focus:ring-0"
-                  />
+
+                {/* Send booked message preference */}
+                <div className="rounded-xl border border-[#DCD5C6] bg-[#F7F2E7]/80 p-2.5 space-y-1.5">
+                  <span className="block text-[9.5px] font-bold uppercase tracking-wider text-[#7B8475]">
+                    Send Booked Message Via:
+                  </span>
+                  <div className="grid grid-cols-3 gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => setNotifyChannel("whatsapp")}
+                      className={`flex items-center justify-center gap-1 rounded-lg py-1.5 px-2 text-[10.5px] font-medium transition-all ${
+                        notifyChannel === "whatsapp"
+                          ? "bg-[#25D366] text-white shadow-xs font-semibold"
+                          : "bg-white text-[#4A5346] border border-[#DCD5C6]"
+                      }`}
+                    >
+                      <WhatsAppIcon className="h-3 w-3 fill-current" />
+                      <span>WhatsApp</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setNotifyChannel("email")}
+                      className={`flex items-center justify-center gap-1 rounded-lg py-1.5 px-2 text-[10.5px] font-medium transition-all ${
+                        notifyChannel === "email"
+                          ? "bg-[#1C241B] text-white shadow-xs font-semibold"
+                          : "bg-white text-[#4A5346] border border-[#DCD5C6]"
+                      }`}
+                    >
+                      <MailIcon className="h-3 w-3" />
+                      <span>Email</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setNotifyChannel("both")}
+                      className={`flex items-center justify-center gap-1 rounded-lg py-1.5 px-2 text-[10.5px] font-medium transition-all ${
+                        notifyChannel === "both"
+                          ? "bg-[#6d7835] text-white shadow-xs font-semibold"
+                          : "bg-white text-[#4A5346] border border-[#DCD5C6]"
+                      }`}
+                    >
+                      <span>Both</span>
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -222,7 +291,97 @@ export function ReservationModal({
                 </span>
               </div>
 
-              <div className="pt-4">
+              {/* Send Booked Message Options */}
+              <div className="mx-auto max-w-sm rounded-2xl border border-[#DCD5C6] bg-white p-3.5 space-y-2.5 shadow-xs text-left">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#1C241B]">
+                    Send Booked Message
+                  </span>
+                  <span className="text-[9.5px] text-[#7B8475]">
+                    Instant Delivery
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <a
+                    href={createWhatsAppUrl(
+                      {
+                        bookingCode: confirmationCode,
+                        name,
+                        phone,
+                        email,
+                        guests,
+                        time,
+                        date,
+                        location,
+                        seating,
+                      },
+                      phone
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-1.5 rounded-xl bg-[#25D366] px-3 py-2.5 text-xs font-semibold text-white shadow-xs hover:bg-[#20ba59] transition-all"
+                  >
+                    <WhatsAppIcon className="h-3.5 w-3.5 fill-white" />
+                    <span>WhatsApp</span>
+                  </a>
+                  <a
+                    href={createEmailUrl(
+                      {
+                        bookingCode: confirmationCode,
+                        name,
+                        phone,
+                        email,
+                        guests,
+                        time,
+                        date,
+                        location,
+                        seating,
+                      },
+                      email
+                    )}
+                    className="flex items-center justify-center gap-1.5 rounded-xl bg-[#1C241B] px-3 py-2.5 text-xs font-semibold text-[#FAF7F0] shadow-xs hover:bg-[#2e3a2c] transition-all"
+                  >
+                    <MailIcon className="h-3.5 w-3.5" />
+                    <span>Email</span>
+                  </a>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    const msg = formatReservationMessage({
+                      bookingCode: confirmationCode,
+                      name,
+                      phone,
+                      email,
+                      guests,
+                      time,
+                      date,
+                      location,
+                      seating,
+                    });
+                    navigator.clipboard.writeText(msg).then(() => {
+                      setCopied(true);
+                      setTimeout(() => setCopied(false), 2500);
+                    });
+                  }}
+                  className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-[#DCD5C6] bg-[#FAF8F5] py-1.5 text-[10px] font-medium text-[#4A5346] hover:bg-[#F2ECE0] transition-colors"
+                >
+                  {copied ? (
+                    <>
+                      <CheckIcon className="h-3 w-3 text-[#25D366]" />
+                      <span className="text-[#25D366] font-semibold">Copied to Clipboard!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon className="h-3 w-3" />
+                      <span>Copy Confirmation Text</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              <div className="pt-2">
                 <button
                   type="button"
                   onClick={handleReset}

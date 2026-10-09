@@ -200,7 +200,7 @@ export function LightboxModal({
                       <span className="text-[10px] font-bold uppercase text-on-surface-variant">
                         Price
                       </span>
-                      <span className="font-mono font-bold text-secondary">
+                      <span className="font-sans text-sm font-bold tabular-nums text-secondary">
                         {currentItem.price}
                       </span>
                     </div>

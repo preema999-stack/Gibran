@@ -2,10 +2,11 @@
 
 import { motion, useMotionValueEvent, useScroll, type MotionValue } from "framer-motion";
 import { useRef, useState } from "react";
+import Link from "next/link";
 
 import { journeySlides } from "@/lib/data";
 import { JourneyPlate } from "@/components/journey-plate";
-import { usePrefersReducedMotion, useSmoothScroll } from "@/components/smooth-scroll-provider";
+import { usePrefersReducedMotion } from "@/components/smooth-scroll-provider";
 import { EASE_EDITORIAL, Magnetic } from "@/components/motion-primitives";
 import { ArrowRightIcon, PlayIcon } from "@/components/icons";
 
@@ -14,7 +15,6 @@ const SCROLL_PER_SLIDE_VH = 62;
 
 export function Journey() {
   const section = useRef<HTMLElement>(null);
-  const { scrollTo } = useSmoothScroll();
   const reduced = usePrefersReducedMotion();
 
   const count = journeySlides.length;
@@ -82,14 +82,13 @@ export function Journey() {
               {/* Actions stay put across slides, as in the original design. */}
               <div className="flex flex-wrap items-center gap-6 pt-3">
                 <Magnetic strength={0.2}>
-                  <button
-                    type="button"
-                    onClick={() => scrollTo("#menu", -88)}
+                  <Link
+                    href="/gallery"
                     className="btn-paper group"
                   >
-                    Explore Our Menu
+                    Explore Gallery
                     <ArrowRightIcon className="h-3.5 w-3.5 transition-transform duration-500 ease-editorial group-hover:translate-x-1.5" />
-                  </button>
+                  </Link>
                 </Magnetic>
 
                 <button

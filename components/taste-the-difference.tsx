@@ -108,109 +108,108 @@ export function TasteTheDifference() {
           animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: EASE_EDITORIAL }}
         >
-              {/* Category tabs */}
-              <div
-                className="mx-auto grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5"
-                role="tablist"
-                aria-label="Menu categories"
+          {/* Category tabs */}
+          <div
+            className="mx-auto grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5"
+            role="tablist"
+            aria-label="Menu categories"
+          >
+            {menuCategories.map((item, i) => {
+              const isActive = i === active;
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  role="tab"
+                  id={`tab-${item.id}`}
+                  aria-selected={isActive}
+                  aria-controls={`panel-${item.id}`}
+                  onClick={() => setActive(i)}
+                  className={`relative flex items-center justify-center gap-2 rounded-xl px-3 py-3 text-xs font-medium uppercase tracking-wider transition-colors duration-300 ${isActive
+                    ? "text-white shadow-sm"
+                    : "border border-[#E4DECF] bg-white/80 text-oliveDark hover:bg-white"
+                    }`}
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="menu-tab-pill"
+                      className="absolute inset-0 rounded-xl bg-[#6d7835]"
+                      transition={{ duration: 0.55, ease: EASE_EDITORIAL }}
+                    />
+                  )}
+                  <span className="relative z-10 flex items-center justify-center gap-2">
+                    {i === 0 && <PlusIcon className="h-4 w-4" />}
+                    {item.label}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Tab panel — real content, swapped with AnimatePresence */}
+          <div className="mx-auto mt-10 max-w-4xl">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={category.id}
+                role="tabpanel"
+                id={`panel-${category.id}`}
+                aria-labelledby={`tab-${category.id}`}
+                initial={reduced ? { opacity: 0 } : { opacity: 0, y: 24 }}
+                animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                exit={reduced ? { opacity: 0 } : { opacity: 0, y: -16 }}
+                transition={{ duration: 0.5, ease: EASE_EDITORIAL }}
               >
-                {menuCategories.map((item, i) => {
-                  const isActive = i === active;
-                  return (
-                    <button
-                      key={item.id}
-                      type="button"
-                      role="tab"
-                      id={`tab-${item.id}`}
-                      aria-selected={isActive}
-                      aria-controls={`panel-${item.id}`}
-                      onClick={() => setActive(i)}
-                      className={`relative flex items-center justify-center gap-2 rounded-xl px-3 py-3 text-xs font-medium uppercase tracking-wider transition-colors duration-300 ${
-                        isActive
-                          ? "text-white shadow-sm"
-                          : "border border-[#E4DECF] bg-white/80 text-oliveDark hover:bg-white"
-                      }`}
+                <motion.p
+                  initial={reduced ? undefined : { opacity: 0 }}
+                  animate={reduced ? undefined : { opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="mb-6 text-center text-sm font-light italic text-oliveMuted"
+                >
+                  {category.intro}
+                </motion.p>
+
+                <ul className="grid grid-cols-1 gap-x-10 gap-y-1 sm:grid-cols-2">
+                  {category.items.map((item, i) => (
+                    <motion.li
+                      key={item.name}
+                      initial={reduced ? { opacity: 0 } : { opacity: 0, y: 16 }}
+                      animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                      transition={{
+                        duration: 0.5,
+                        delay: 0.12 + i * 0.07,
+                        ease: EASE_EDITORIAL,
+                      }}
+                      className="group flex items-baseline gap-3 border-b border-dashed border-[#DCD5C6] py-3.5"
                     >
-                      {isActive && (
-                        <motion.span
-                          layoutId="menu-tab-pill"
-                          className="absolute inset-0 rounded-xl bg-[#6d7835]"
-                          transition={{ duration: 0.55, ease: EASE_EDITORIAL }}
-                        />
-                      )}
-                      <span className="relative z-10 flex items-center justify-center gap-2">
-                        {i === 0 && <PlusIcon className="h-4 w-4" />}
-                        {item.label}
+                      <span className="font-serif text-base text-oliveDark transition-colors duration-300 group-hover:text-warmGold">
+                        {item.name}
                       </span>
-                    </button>
-                  );
-                })}
-              </div>
+                      <span className="h-px flex-1 translate-y-[-3px] bg-[#DCD5C6]" />
+                      <span className="shrink-0 text-[11px] uppercase tracking-wider text-oliveMuted">
+                        {item.note}
+                      </span>
+                      <span className="shrink-0 font-serif text-lg font-bold text-oliveDark">
+                        ${item.price}
+                      </span>
+                    </motion.li>
+                  ))}
+                </ul>
+              </motion.div>
+            </AnimatePresence>
 
-              {/* Tab panel — real content, swapped with AnimatePresence */}
-              <div className="mx-auto mt-10 max-w-4xl">
-                <AnimatePresence mode="wait" initial={false}>
-                  <motion.div
-                    key={category.id}
-                    role="tabpanel"
-                    id={`panel-${category.id}`}
-                    aria-labelledby={`tab-${category.id}`}
-                    initial={reduced ? { opacity: 0 } : { opacity: 0, y: 24 }}
-                    animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0 }}
-                    exit={reduced ? { opacity: 0 } : { opacity: 0, y: -16 }}
-                    transition={{ duration: 0.5, ease: EASE_EDITORIAL }}
-                  >
-                    <motion.p
-                      initial={reduced ? undefined : { opacity: 0 }}
-                      animate={reduced ? undefined : { opacity: 1 }}
-                      transition={{ duration: 0.6, delay: 0.1 }}
-                      className="mb-6 text-center text-sm font-light italic text-oliveMuted"
-                    >
-                      {category.intro}
-                    </motion.p>
-
-                    <ul className="grid grid-cols-1 gap-x-10 gap-y-1 sm:grid-cols-2">
-                      {category.items.map((item, i) => (
-                        <motion.li
-                          key={item.name}
-                          initial={reduced ? { opacity: 0 } : { opacity: 0, y: 16 }}
-                          animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0 }}
-                          transition={{
-                            duration: 0.5,
-                            delay: 0.12 + i * 0.07,
-                            ease: EASE_EDITORIAL,
-                          }}
-                          className="group flex items-baseline gap-3 border-b border-dashed border-[#DCD5C6] py-3.5"
-                        >
-                          <span className="font-serif text-base text-oliveDark transition-colors duration-300 group-hover:text-warmGold">
-                            {item.name}
-                          </span>
-                          <span className="h-px flex-1 translate-y-[-3px] bg-[#DCD5C6]" />
-                          <span className="shrink-0 text-[11px] uppercase tracking-wider text-oliveMuted">
-                            {item.note}
-                          </span>
-                          <span className="shrink-0 font-serif text-lg font-bold text-oliveDark">
-                            ${item.price}
-                          </span>
-                        </motion.li>
-                      ))}
-                    </ul>
-                  </motion.div>
-                </AnimatePresence>
-
-                {/* Bottom link to separate /menu page */}
-                <div className="mt-12 flex justify-center">
-                  <Link
-                    href={`/menu?category=${category.id}`}
-                    id="view-full-menu-bottom-button"
-                    className="btn-ink group text-xs"
-                  >
-                    View Full Menu
-                    <ArrowRightIcon className="ml-1.5 h-3.5 w-3.5 transition-transform duration-500 ease-editorial group-hover:translate-x-1.5" />
-                  </Link>
-                </div>
-              </div>
-            </motion.div>
+            {/* Bottom link to separate /menu page */}
+            <div className="mt-12 flex justify-center">
+              <Link
+                href={`/menu?category=${category.id}`}
+                id="view-full-menu-bottom-button"
+                className="btn-ink group text-xs"
+              >
+                View {category.label}
+                <ArrowRightIcon className="ml-1.5 h-3.5 w-3.5 transition-transform duration-500 ease-editorial group-hover:translate-x-1.5" />
+              </Link>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

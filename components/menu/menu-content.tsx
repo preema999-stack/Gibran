@@ -511,8 +511,8 @@ export function MenuContent() {
 
                     {/* Bottom Row: Price & + Button */}
                     <div className="mt-4 flex items-center justify-between border-t border-[#F2ECE0] pt-3">
-                      <span className="font-serif text-base font-bold text-[#1C241B]">
-                        ${dish.price}
+                      <span className="font-sans text-sm sm:text-base font-bold tabular-nums tracking-normal text-[#1C241B]">
+                        AED {dish.price}
                       </span>
                       <motion.button
                         type="button"

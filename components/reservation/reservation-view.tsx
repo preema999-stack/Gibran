@@ -4,12 +4,30 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { PinIcon, ClockIcon, PhoneIcon, ArrowRightIcon, PlayIcon, PauseIcon, UserIcon } from "@/components/icons";
+import {
+  PinIcon,
+  ClockIcon,
+  PhoneIcon,
+  ArrowRightIcon,
+  PlayIcon,
+  PauseIcon,
+  UserIcon,
+  WhatsAppIcon,
+  MailIcon,
+  CopyIcon,
+  CheckIcon,
+} from "@/components/icons";
 import { EASE_EDITORIAL, SplitText, Magnetic } from "@/components/motion-primitives";
+import {
+  createWhatsAppUrl,
+  createEmailUrl,
+  formatReservationMessage,
+} from "@/lib/reservation-utils";
 
 interface ReservationData {
   name: string;
   phone: string;
+  email?: string;
   location: string;
   date: string;
   time: string;
@@ -28,6 +46,7 @@ export function ReservationView() {
   const [formData, setFormData] = useState<ReservationData>({
     name: "",
     phone: "",
+    email: "",
     location: "Bahrain — Block 338 Adliya",
     date: "",
     time: "7:00 PM",
@@ -39,6 +58,8 @@ export function ReservationView() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [bookingRef, setBookingRef] = useState("");
+  const [notifyChannel, setNotifyChannel] = useState<"whatsapp" | "email" | "both">("both");
+  const [copied, setCopied] = useState(false);
   const [isPlayingBgVideo, setIsPlayingBgVideo] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -128,9 +149,11 @@ export function ReservationView() {
 
   const handleReset = () => {
     setIsConfirmed(false);
+    setCopied(false);
     setFormData((prev) => ({
       name: "",
       phone: "",
+      email: "",
       location: prev.location || locationOptions[0],
       date: "",
       time: "7:00 PM",
@@ -281,37 +304,52 @@ export function ReservationView() {
 
                   {/* Form with flowing staggered inputs */}
                   <form onSubmit={handleSubmit} className="space-y-4 pt-2">
-                    {/* Row 1: Name & Phone Number */}
+                    {/* Row 1: Name, Phone & Email */}
                     <motion.div
                       initial={{ opacity: 0, y: 16 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8, delay: 0.5, ease: EASE_EDITORIAL }}
-                      className="grid grid-cols-1 gap-3.5 sm:grid-cols-2"
+                      className="space-y-3"
                     >
-                      <div className="relative">
-                        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 flex items-center pl-4 text-[#C5A880]">
-                          <UserIcon className="h-4 w-4" />
+                      <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+                        <div className="relative">
+                          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 flex items-center pl-4 text-[#C5A880]">
+                            <UserIcon className="h-4 w-4" />
+                          </div>
+                          <input
+                            type="text"
+                            required
+                            value={formData.name}
+                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                            placeholder="Full Name"
+                            className="w-full rounded-full border border-white/25 bg-black/20 py-3.5 pl-11 pr-5 text-xs font-light text-white placeholder-white/55 backdrop-blur-md transition-all focus:border-[#C5A880] focus:bg-black/35 focus:outline-none focus:ring-1 focus:ring-[#C5A880]"
+                          />
                         </div>
-                        <input
-                          type="text"
-                          required
-                          value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          placeholder="Name"
-                          className="w-full rounded-full border border-white/25 bg-black/20 py-3.5 pl-11 pr-5 text-xs font-light text-white placeholder-white/55 backdrop-blur-md transition-all focus:border-[#C5A880] focus:bg-black/35 focus:outline-none focus:ring-1 focus:ring-[#C5A880]"
-                        />
+
+                        <div className="relative">
+                          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 flex items-center pl-4 text-[#C5A880]">
+                            <PhoneIcon className="h-4 w-4" />
+                          </div>
+                          <input
+                            type="tel"
+                            required
+                            value={formData.phone}
+                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                            placeholder="Phone Number (WhatsApp)"
+                            className="w-full rounded-full border border-white/25 bg-black/20 py-3.5 pl-11 pr-5 text-xs font-light text-white placeholder-white/55 backdrop-blur-md transition-all focus:border-[#C5A880] focus:bg-black/35 focus:outline-none focus:ring-1 focus:ring-[#C5A880]"
+                          />
+                        </div>
                       </div>
 
                       <div className="relative">
                         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 flex items-center pl-4 text-[#C5A880]">
-                          <PhoneIcon className="h-4 w-4" />
+                          <MailIcon className="h-4 w-4" />
                         </div>
                         <input
-                          type="tel"
-                          required
-                          value={formData.phone}
-                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          placeholder="Phone Number"
+                          type="email"
+                          value={formData.email || ""}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          placeholder="Email Address (Optional — for confirmation)"
                           className="w-full rounded-full border border-white/25 bg-black/20 py-3.5 pl-11 pr-5 text-xs font-light text-white placeholder-white/55 backdrop-blur-md transition-all focus:border-[#C5A880] focus:bg-black/35 focus:outline-none focus:ring-1 focus:ring-[#C5A880]"
                         />
                       </div>
@@ -391,6 +429,60 @@ export function ReservationView() {
                       </select>
                     </motion.div>
 
+                    {/* Send booked confirmation preference */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 16 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.75, ease: EASE_EDITORIAL }}
+                      className="rounded-2xl border border-white/15 bg-black/30 p-3.5 space-y-2 backdrop-blur-md"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#C5A880]">
+                          Send Booked Message Via:
+                        </span>
+                        <span className="text-[10px] text-white/50">
+                          Instant delivery
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-3 gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setNotifyChannel("whatsapp")}
+                          className={`flex items-center justify-center gap-1.5 rounded-full py-2 px-3 text-[11px] font-medium transition-all ${
+                            notifyChannel === "whatsapp"
+                              ? "bg-[#25D366] text-white shadow-md font-semibold ring-2 ring-white/20"
+                              : "bg-white/10 text-white/75 hover:bg-white/15 hover:text-white"
+                          }`}
+                        >
+                          <WhatsAppIcon className="h-3.5 w-3.5 fill-current" />
+                          <span>WhatsApp</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setNotifyChannel("email")}
+                          className={`flex items-center justify-center gap-1.5 rounded-full py-2 px-3 text-[11px] font-medium transition-all ${
+                            notifyChannel === "email"
+                              ? "bg-[#C5A880] text-[#1C241B] shadow-md font-semibold ring-2 ring-white/20"
+                              : "bg-white/10 text-white/75 hover:bg-white/15 hover:text-white"
+                          }`}
+                        >
+                          <MailIcon className="h-3.5 w-3.5" />
+                          <span>Email</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setNotifyChannel("both")}
+                          className={`flex items-center justify-center gap-1.5 rounded-full py-2 px-3 text-[11px] font-medium transition-all ${
+                            notifyChannel === "both"
+                              ? "bg-white text-[#1C241B] shadow-md font-semibold ring-2 ring-white/20"
+                              : "bg-white/10 text-white/75 hover:bg-white/15 hover:text-white"
+                          }`}
+                        >
+                          <span>Both</span>
+                        </button>
+                      </div>
+                    </motion.div>
+
                     {/* Action button */}
                     <motion.div
                       initial={{ opacity: 0, y: 16 }}
@@ -458,6 +550,116 @@ export function ReservationView() {
                       <span className="text-white/60">Location:</span>
                       <span className="font-medium text-white">{formData.location}</span>
                     </div>
+                    {formData.phone && (
+                      <div className="flex justify-between">
+                        <span className="text-white/60">Phone:</span>
+                        <span className="font-medium text-white">{formData.phone}</span>
+                      </div>
+                    )}
+                    {formData.email && (
+                      <div className="flex justify-between">
+                        <span className="text-white/60">Email:</span>
+                        <span className="font-medium text-white">{formData.email}</span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* SEND BOOKED MESSAGE OPTIONS */}
+                  <div className="rounded-2xl border border-white/20 bg-black/40 p-4 space-y-3 backdrop-blur-xl">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#C5A880]">
+                        Send Booked Message
+                      </span>
+                      <span className="text-[10px] text-white/60">
+                        1-Click Share
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+                      {/* WhatsApp Button */}
+                      <a
+                        href={createWhatsAppUrl(
+                          {
+                            bookingCode: bookingRef,
+                            name: formData.name,
+                            phone: formData.phone,
+                            email: formData.email,
+                            guests: formData.guests,
+                            time: formData.time,
+                            date: formData.date,
+                            location: formData.location,
+                            seating: formData.seating,
+                            notes: formData.notes,
+                          },
+                          formData.phone
+                        )}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-3 text-xs font-semibold text-white shadow-md transition-all hover:bg-[#20ba59] hover:shadow-lg active:scale-[0.98]"
+                      >
+                        <WhatsAppIcon className="h-4 w-4 fill-white transition-transform group-hover:scale-110" />
+                        <span>Send to WhatsApp</span>
+                      </a>
+
+                      {/* Email Button */}
+                      <a
+                        href={createEmailUrl(
+                          {
+                            bookingCode: bookingRef,
+                            name: formData.name,
+                            phone: formData.phone,
+                            email: formData.email,
+                            guests: formData.guests,
+                            time: formData.time,
+                            date: formData.date,
+                            location: formData.location,
+                            seating: formData.seating,
+                            notes: formData.notes,
+                          },
+                          formData.email
+                        )}
+                        className="group flex items-center justify-center gap-2 rounded-xl border border-[#C5A880]/60 bg-[#C5A880]/20 px-4 py-3 text-xs font-semibold text-[#FAF7F0] shadow-md transition-all hover:bg-[#C5A880] hover:text-[#1C241B] hover:shadow-lg active:scale-[0.98]"
+                      >
+                        <MailIcon className="h-4 w-4 transition-transform group-hover:scale-110" />
+                        <span>Send via Email</span>
+                      </a>
+                    </div>
+
+                    {/* Copy to clipboard button */}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const msg = formatReservationMessage({
+                          bookingCode: bookingRef,
+                          name: formData.name,
+                          phone: formData.phone,
+                          email: formData.email,
+                          guests: formData.guests,
+                          time: formData.time,
+                          date: formData.date,
+                          location: formData.location,
+                          seating: formData.seating,
+                          notes: formData.notes,
+                        });
+                        navigator.clipboard.writeText(msg).then(() => {
+                          setCopied(true);
+                          setTimeout(() => setCopied(false), 2500);
+                        });
+                      }}
+                      className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 py-2 text-[11px] font-medium text-white/80 transition-all hover:bg-white/10 hover:text-white"
+                    >
+                      {copied ? (
+                        <>
+                          <CheckIcon className="h-3.5 w-3.5 text-[#25D366]" />
+                          <span className="text-[#25D366] font-semibold">Booking Details Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon className="h-3.5 w-3.5" />
+                          <span>Copy Confirmation Message</span>
+                        </>
+                      )}
+                    </button>
                   </div>
 
                   <div className="flex flex-wrap items-center gap-3 pt-2">

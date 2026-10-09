@@ -86,8 +86,8 @@ export function GalleryView() {
         />
       </motion.div>
 
-      {/* 2. EDITORIAL HEADER & FILTER PILLS */}
-      <section className="relative z-10 mx-auto max-w-[1320px] px-6 pt-16 pb-12 text-center lg:px-12">
+      {/* 2. EDITORIAL HERO HEADER */}
+      <section className="relative z-10 mx-auto max-w-[1320px] px-6 pt-16 pb-10 text-center lg:px-12">
         <motion.div
           initial={reduced ? undefined : { opacity: 0, y: 12 }}
           animate={reduced ? undefined : { opacity: 1, y: 0 }}
@@ -113,44 +113,10 @@ export function GalleryView() {
           initial={reduced ? undefined : { opacity: 0, y: 20 }}
           animate={reduced ? undefined : { opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.35, ease: EASE_EDITORIAL }}
-          className="mx-auto mb-10 max-w-2xl text-base font-light leading-relaxed text-on-surface-variant sm:text-lg"
+          className="mx-auto max-w-2xl text-base font-light leading-relaxed text-on-surface-variant sm:text-lg"
         >
-          Explore the sensory archive of Gibran &amp; Co. — from sunlit limestone colonnades framed by 300-year-old olive trees to the delicate culinary mastery of the Levant.
+          A curated photographic archive of our sunlit courtyards, subterranean majlis, and culinary hearth.
         </motion.p>
-
-        {/* Dynamic Category Filters */}
-        <motion.div
-          initial={reduced ? undefined : { opacity: 0, y: 16 }}
-          animate={reduced ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5, ease: EASE_EDITORIAL }}
-          className="mx-auto flex max-w-3xl flex-wrap items-center justify-center gap-2.5"
-        >
-          {galleryCategories.map((cat, i) => {
-            const isActive = activeCategory === cat.id;
-            return (
-              <motion.button
-                key={cat.id}
-                type="button"
-                onClick={() => setActiveCategory(cat.id)}
-                initial={reduced ? undefined : { opacity: 0, scale: 0.95 }}
-                animate={reduced ? undefined : { opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.5 + i * 0.05, ease: EASE_EDITORIAL }}
-                whileHover={{ scale: 1.03, transition: { duration: 0.25, ease: EASE_EDITORIAL } }}
-                whileTap={{ scale: 0.97 }}
-                className={`rounded-full px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
-                  isActive
-                    ? "bg-primary text-surface shadow-md"
-                    : "border border-outline-variant/40 bg-surface-container-low text-on-surface hover:bg-secondary-container/80"
-                }`}
-              >
-                {cat.label}{" "}
-                <span className="ml-1 font-mono text-[11px] opacity-70">
-                  ({String(cat.count).padStart(2, "0")})
-                </span>
-              </motion.button>
-            );
-          })}
-        </motion.div>
       </section>
 
       {/* 3. CINEMATIC SPOTLIGHT HERO WITH AMBIENT AUDIO EQUALIZER */}
@@ -320,7 +286,7 @@ export function GalleryView() {
                       <h3 className="font-serif text-base font-semibold text-primary transition-colors group-hover:text-secondary">
                         {reel.title}
                       </h3>
-                      <span className="font-mono text-xs font-bold text-secondary">
+                      <span className="font-sans text-xs font-bold tabular-nums text-secondary">
                         {reel.price}
                       </span>
                     </div>
@@ -409,6 +375,53 @@ export function GalleryView() {
           </div>
         </div>
 
+        {/* Dynamic Category Filters & Narrative Intro — Below The Sensory Collection */}
+        <div className="mb-10 text-center">
+          <motion.p
+            initial={reduced ? undefined : { opacity: 0, y: 16 }}
+            whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: EASE_EDITORIAL }}
+            className="mx-auto mb-6 max-w-2xl text-base font-light leading-relaxed text-on-surface-variant sm:text-lg"
+          >
+            Explore the sensory archive of Gibran &amp; Co. — from sunlit limestone colonnades framed by 300-year-old olive trees to the delicate culinary mastery of the Levant.
+          </motion.p>
+
+          <motion.div
+            initial={reduced ? undefined : { opacity: 0, y: 16 }}
+            whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.15, ease: EASE_EDITORIAL }}
+            className="mx-auto flex max-w-3xl flex-wrap items-center justify-center gap-2.5"
+          >
+            {galleryCategories.map((cat, i) => {
+              const isActive = activeCategory === cat.id;
+              return (
+                <motion.button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => setActiveCategory(cat.id)}
+                  initial={reduced ? undefined : { opacity: 0, scale: 0.95 }}
+                  animate={reduced ? undefined : { opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: i * 0.04, ease: EASE_EDITORIAL }}
+                  whileHover={{ scale: 1.03, transition: { duration: 0.25, ease: EASE_EDITORIAL } }}
+                  whileTap={{ scale: 0.97 }}
+                  className={`rounded-full px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
+                    isActive
+                      ? "bg-primary text-surface shadow-md"
+                      : "border border-outline-variant/40 bg-surface-container-low text-on-surface hover:bg-secondary-container/80"
+                  }`}
+                >
+                  {cat.label}{" "}
+                  <span className="ml-1 font-mono text-[11px] opacity-70">
+                    ({String(cat.count).padStart(2, "0")})
+                  </span>
+                </motion.button>
+              );
+            })}
+          </motion.div>
+        </div>
+
         {/* Dynamic Gallery Container */}
         <AnimatePresence mode="wait">
           <motion.div
@@ -419,10 +432,22 @@ export function GalleryView() {
             transition={{ duration: 0.45, ease: EASE_EDITORIAL }}
             className={
               viewMode === "editorial"
-                ? "grid grid-cols-1 md:grid-cols-2 gap-8 items-start"
+                ? filteredItems.length === 1
+                  ? "grid grid-cols-1 max-w-xl mx-auto gap-8 items-start w-full"
+                  : "grid grid-cols-1 md:grid-cols-2 gap-8 items-start w-full"
                 : viewMode === "grid"
-                ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start"
-                : "grid grid-cols-1 md:grid-cols-12 gap-7 items-start"
+                ? filteredItems.length === 1
+                  ? "grid grid-cols-1 max-w-xl mx-auto gap-6 items-start w-full"
+                  : filteredItems.length === 2
+                  ? "grid grid-cols-1 sm:grid-cols-2 max-w-4xl mx-auto gap-6 items-start w-full"
+                  : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start w-full"
+                : activeCategory === "all"
+                ? "grid grid-cols-1 md:grid-cols-12 gap-7 items-start w-full"
+                : filteredItems.length === 1
+                ? "grid grid-cols-1 max-w-xl mx-auto gap-7 items-start w-full"
+                : filteredItems.length === 2
+                ? "grid grid-cols-1 md:grid-cols-2 max-w-5xl mx-auto gap-8 items-start w-full"
+                : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 items-start w-full"
             }
           >
             {/* When Masonry Mode is Active and Category is "all", display the curated asymmetrical layout */}
@@ -469,7 +494,7 @@ export function GalleryView() {
                       <h3 className="font-serif text-xl font-semibold text-primary transition-colors group-hover:text-secondary">
                         {galleryItems[1].headline}
                       </h3>
-                      <span className="font-mono text-sm font-bold text-secondary">
+                      <span className="font-sans text-sm font-bold tabular-nums text-secondary">
                         {galleryItems[1].price}
                       </span>
                     </div>
@@ -523,7 +548,7 @@ export function GalleryView() {
                         </p>
                       </div>
                       <div className="flex items-center justify-between border-t border-surface-container pt-3">
-                        <span className="font-mono text-xs font-bold text-secondary">
+                        <span className="font-sans text-xs font-bold tabular-nums text-secondary">
                           {galleryItems[2].price}
                         </span>
                         <span className="text-[10px] font-bold uppercase text-on-surface-variant">
@@ -736,7 +761,7 @@ export function GalleryView() {
                     transition={{ duration: 0.7, delay: (idx % 6) * 0.08, ease: EASE_EDITORIAL }}
                     whileHover={reduced ? undefined : { y: -6, transition: { duration: 0.4, ease: EASE_EDITORIAL } }}
                     onClick={() => openLightbox(globalIndex >= 0 ? globalIndex : 0)}
-                    className="group cursor-pointer overflow-hidden rounded-2xl border border-outline-variant/30 bg-surface-container-lowest shadow-sm transition-all duration-500 ease-editorial hover:shadow-2xl"
+                    className="group w-full cursor-pointer overflow-hidden rounded-2xl border border-outline-variant/30 bg-surface-container-lowest shadow-sm transition-all duration-500 ease-editorial hover:shadow-2xl"
                   >
                     <div className="relative aspect-[4/3] overflow-hidden bg-surface-container">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -751,7 +776,7 @@ export function GalleryView() {
                         </span>
                       )}
                       {item.price && (
-                        <span className="absolute top-4 right-4 rounded-full bg-primary/70 px-2.5 py-1 font-mono text-[11px] font-bold text-surface backdrop-blur-md">
+                        <span className="absolute top-4 right-4 rounded-full bg-primary/70 px-2.5 py-1 font-sans text-[11px] font-bold tabular-nums text-surface backdrop-blur-md">
                           {item.price}
                         </span>
                       )}

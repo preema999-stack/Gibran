@@ -61,13 +61,13 @@ export function MenuHeader({
             href="/#about"
             className="transition-colors hover:text-[#1C241B]"
           >
-            About
+            About Us
           </Link>
           <Link
             href="/#contact"
             className="transition-colors hover:text-[#1C241B]"
           >
-            Contact
+            Contact Us
           </Link>
         </nav>
 
@@ -134,8 +134,8 @@ export function MenuHeader({
               <Link href="/reservation" className="py-1 text-left">
                 Reservation
               </Link>
-              <Link href="/#about" className="py-1">About</Link>
-              <Link href="/#contact" className="py-1">Contact</Link>
+              <Link href="/#about" className="py-1">About Us</Link>
+              <Link href="/#contact" className="py-1">Contact Us</Link>
             </nav>
           </motion.div>
         )}

@@ -56,7 +56,7 @@ export function ContactSection() {
         >
           <div className="inline-flex items-center justify-center gap-3">
             <span className="h-px w-8 bg-warmGold" />
-            <span className="eyebrow !text-warmGold">Contact &amp; Concierge</span>
+            <span className="eyebrow !text-warmGold">Contact Us &amp; Concierge</span>
             <span className="h-px w-8 bg-warmGold" />
           </div>
 

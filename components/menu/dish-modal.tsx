@@ -74,8 +74,8 @@ export function DishModal({
                   {dish.name}
                 </h3>
               </div>
-              <span className="font-serif text-2xl font-bold text-[#1C241B]">
-                ${dish.price}
+              <span className="font-sans text-xl sm:text-2xl font-bold tabular-nums tracking-normal text-[#1C241B]">
+                AED {dish.price}
               </span>
             </div>
 
