@@ -84,9 +84,11 @@ export function Header() {
     setOpen(false);
 
     if (href === "#menu") {
-      if (pathname !== "/menu") {
-        router.push("/menu");
+      if (pathname === "/") {
+        window.setTimeout(() => scrollTo("#menu", -88), open ? 260 : 0);
+        return;
       }
+      router.push("/menu");
       return;
     }
 
@@ -151,14 +153,14 @@ export function Header() {
             className="group flex items-center gap-3.5 sm:gap-4"
           >
             <div className="flex items-center gap-3.5">
-              <div className="relative flex h-14 w-14 sm:h-16 sm:w-16 lg:h-20 lg:w-20 shrink-0 items-center justify-center rounded-full border-2 border-warmGold/50 bg-white p-1 sm:p-1.5 shadow-md transition-all duration-500 ease-editorial group-hover:scale-105 group-hover:border-warmGold group-hover:shadow-lg">
+              <div className="relative flex h-14 w-14 sm:h-16 sm:w-16 lg:h-20 lg:w-20 shrink-0 items-center justify-center transition-all duration-500 ease-editorial group-hover:scale-105">
                 <Image
-                  src="/images/logo.jpg"
+                  src="/images/logo.png"
                   alt="Gibran & Co. logo"
                   width={80}
                   height={80}
                   priority
-                  className="h-full w-full rounded-full object-contain transition-transform duration-500 ease-editorial group-hover:scale-110 group-hover:rotate-6"
+                  className="h-full w-full object-contain transition-transform duration-500 ease-editorial group-hover:scale-110 group-hover:rotate-6"
                 />
               </div>
               <div className="flex flex-col">
@@ -258,13 +260,13 @@ export function Header() {
             >
               <div>
                 <div className="mb-6 flex items-center gap-3.5 border-b border-[#ECE7DC] pb-6">
-                  <div className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-warmGold/50 bg-white p-1 shadow-md">
+                  <div className="relative flex h-14 w-14 shrink-0 items-center justify-center">
                     <Image
-                      src="/images/logo.jpg"
+                      src="/images/logo.png"
                       alt="Gibran & Co. logo"
                       width={56}
                       height={56}
-                      className="h-full w-full rounded-full object-contain"
+                      className="h-full w-full object-contain"
                     />
                   </div>
                   <div className="flex flex-col">

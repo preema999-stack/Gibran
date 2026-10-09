@@ -38,15 +38,14 @@ export function Footer() {
           whileInView={reduced ? undefined : { opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: EASE_EDITORIAL }}
-          className="group relative mb-6 flex h-24 w-24 sm:h-28 sm:w-28 items-center justify-center rounded-full border-2 border-warmGold/40 bg-white p-2.5 sm:p-3 shadow-2xl transition-all duration-700 hover:border-warmGold hover:scale-105"
+          className="group relative mb-6 flex h-24 w-24 sm:h-28 sm:w-28 items-center justify-center transition-all duration-700 hover:scale-105"
         >
-          <span className="absolute inset-0 rounded-full border-2 border-warmGold/0 transition-colors duration-700 group-hover:border-warmGold/80" />
           <Image
-            src="/images/logo.jpg"
+            src="/images/logo-gold.png"
             alt="Gibran & Co. logo"
             width={112}
             height={112}
-            className="h-full w-full rounded-full object-contain transition-transform duration-700 ease-editorial group-hover:rotate-6 group-hover:scale-105"
+            className="h-full w-full object-contain transition-transform duration-700 ease-editorial group-hover:rotate-6 group-hover:scale-105"
           />
         </motion.div>
 

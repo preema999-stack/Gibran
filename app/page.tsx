@@ -16,10 +16,10 @@ export default function HomePage() {
       <Header />
       <main id="main">
         <Hero />
+        <TasteTheDifference />
         <Journey />
         <SignatureDishes />
         <Marquee />
-        <TasteTheDifference />
         <MoodSection />
         <ReservationSection />
         <Pillars />

@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     description: "Fine dining & exceptional culinary journey.",
     images: ["/images/hero.png"],
   },
-  icons: { icon: "/images/logo.jpg" },
+  icons: { icon: "/images/logo.png" },
 };
 
 export const viewport: Viewport = {

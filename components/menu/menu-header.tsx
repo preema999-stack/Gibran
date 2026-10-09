@@ -19,14 +19,14 @@ export function MenuHeader({
       <div className="mx-auto flex h-24 max-w-7xl items-center justify-between px-6 lg:h-28 lg:px-12">
         {/* Brand Logo & Monogram */}
         <Link href="/" className="group flex items-center gap-3.5 sm:gap-4">
-          <div className="relative flex h-14 w-14 sm:h-16 sm:w-16 lg:h-20 lg:w-20 shrink-0 items-center justify-center rounded-full border-2 border-warmGold/50 bg-white p-1 sm:p-1.5 shadow-md transition-all duration-500 ease-editorial group-hover:scale-105 group-hover:border-warmGold group-hover:shadow-lg">
+          <div className="relative flex h-14 w-14 sm:h-16 sm:w-16 lg:h-20 lg:w-20 shrink-0 items-center justify-center transition-all duration-500 ease-editorial group-hover:scale-105">
             <Image
-              src="/images/logo.jpg"
+              src="/images/logo.png"
               alt="Gibran & Co. Haute Cuisine"
               width={80}
               height={80}
               priority
-              className="h-full w-full rounded-full object-contain transition-transform duration-500 ease-editorial group-hover:scale-110 group-hover:rotate-6"
+              className="h-full w-full object-contain transition-transform duration-500 ease-editorial group-hover:scale-110 group-hover:rotate-6"
             />
           </div>
           <div className="flex flex-col">
