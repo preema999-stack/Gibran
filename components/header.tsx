@@ -150,27 +150,17 @@ export function Header() {
                 go("#hero");
               }
             }}
-            className="group flex items-center gap-3.5 sm:gap-4"
+            className="group flex items-center"
           >
-            <div className="flex items-center gap-3.5">
-              <div className="relative flex h-14 w-14 sm:h-16 sm:w-16 lg:h-20 lg:w-20 shrink-0 items-center justify-center transition-all duration-500 ease-editorial group-hover:scale-105">
-                <Image
-                  src="/images/logo.png"
-                  alt="Gibran & Co. logo"
-                  width={80}
-                  height={80}
-                  priority
-                  className="h-full w-full object-contain transition-transform duration-500 ease-editorial group-hover:scale-110 group-hover:rotate-6"
-                />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-serif text-xl sm:text-2xl lg:text-3xl font-bold leading-none tracking-[0.22em] text-oliveDark transition-colors">
-                  GIBRAN &amp; CO.
-                </span>
-                <span className="mt-1 sm:mt-1.5 text-[9px] sm:text-[10px] lg:text-[11px] font-semibold uppercase tracking-[0.28em] text-warmGold transition-colors">
-                  Fine Dining • Est. 2018
-                </span>
-              </div>
+            <div className="relative flex h-16 w-auto sm:h-20 lg:h-24 items-center justify-center transition-all duration-500 ease-editorial group-hover:scale-105">
+              <Image
+                src="/images/logo.png"
+                alt="Gibran & Co."
+                width={180}
+                height={140}
+                priority
+                className="h-full w-auto object-contain transition-transform duration-500 ease-editorial group-hover:scale-105"
+              />
             </div>
           </Link>
 
@@ -259,23 +249,15 @@ export function Header() {
               className="absolute right-0 top-0 flex h-full w-[min(22rem,88vw)] flex-col justify-between bg-[#FAF8F5] px-8 pb-10 pt-16 shadow-2xl overflow-y-auto"
             >
               <div>
-                <div className="mb-6 flex items-center gap-3.5 border-b border-[#ECE7DC] pb-6">
-                  <div className="relative flex h-14 w-14 shrink-0 items-center justify-center">
+                <div className="mb-6 flex items-center justify-center border-b border-[#ECE7DC] pb-6">
+                  <div className="relative flex h-20 w-auto items-center justify-center">
                     <Image
                       src="/images/logo.png"
                       alt="Gibran & Co. logo"
-                      width={56}
-                      height={56}
-                      className="h-full w-full object-contain"
+                      width={180}
+                      height={140}
+                      className="h-full w-auto object-contain"
                     />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="font-serif text-lg font-bold tracking-[0.2em] text-oliveDark leading-none">
-                      GIBRAN &amp; CO.
-                    </span>
-                    <span className="mt-1 text-[9px] font-semibold uppercase tracking-[0.25em] text-warmGold">
-                      Fine Dining • Est. 2018
-                    </span>
                   </div>
                 </div>
 

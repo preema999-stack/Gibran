@@ -18,24 +18,16 @@ export function MenuHeader({
     <header className="sticky top-0 z-40 w-full border-b border-[#ECE7DC] bg-[#FAF7F0]/95 backdrop-blur-md transition-colors">
       <div className="mx-auto flex h-24 max-w-7xl items-center justify-between px-6 lg:h-28 lg:px-12">
         {/* Brand Logo & Monogram */}
-        <Link href="/" className="group flex items-center gap-3.5 sm:gap-4">
-          <div className="relative flex h-14 w-14 sm:h-16 sm:w-16 lg:h-20 lg:w-20 shrink-0 items-center justify-center transition-all duration-500 ease-editorial group-hover:scale-105">
+        <Link href="/" className="group flex items-center">
+          <div className="relative flex h-16 w-auto sm:h-20 lg:h-24 items-center justify-center transition-all duration-500 ease-editorial group-hover:scale-105">
             <Image
               src="/images/logo.png"
               alt="Gibran & Co. Haute Cuisine"
-              width={80}
-              height={80}
+              width={180}
+              height={140}
               priority
-              className="h-full w-full object-contain transition-transform duration-500 ease-editorial group-hover:scale-110 group-hover:rotate-6"
+              className="h-full w-auto object-contain transition-transform duration-500 ease-editorial group-hover:scale-105"
             />
-          </div>
-          <div className="flex flex-col">
-            <span className="font-serif text-xl sm:text-2xl lg:text-3xl font-bold tracking-[0.22em] text-[#1C241B] leading-none transition-colors">
-              GIBRAN &amp; CO.
-            </span>
-            <span className="mt-1 sm:mt-1.5 text-[9px] sm:text-[10px] lg:text-[11px] font-semibold uppercase tracking-[0.3em] text-warmGold transition-colors">
-              HAUTE CUISINE
-            </span>
           </div>
         </Link>
 

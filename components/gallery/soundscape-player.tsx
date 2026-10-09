@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { PlayIcon, PauseIcon } from "@/components/icons";
+import { Magnetic } from "@/components/motion-primitives";
 
 export function SoundscapePlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -124,19 +125,20 @@ export function SoundscapePlayer() {
   }, []);
 
   return (
-    <button
-      type="button"
-      onClick={toggleSound}
-      aria-label={isPlaying ? "Pause Courtyard Soundscape" : "Play Courtyard Ambiance"}
-      className="pointer-events-auto flex items-center gap-4 rounded-full border border-white/60 bg-surface/90 px-6 py-3.5 text-primary shadow-2xl backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-surface group"
-    >
-      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary text-surface shadow transition-transform group-hover:scale-105">
-        {isPlaying ? (
-          <PauseIcon className="h-5 w-5" />
-        ) : (
-          <PlayIcon className="h-5 w-5 translate-x-0.5" />
-        )}
-      </span>
+    <Magnetic strength={0.18}>
+      <button
+        type="button"
+        onClick={toggleSound}
+        aria-label={isPlaying ? "Pause Courtyard Soundscape" : "Play Courtyard Ambiance"}
+        className="pointer-events-auto flex items-center gap-4 rounded-full border border-white/60 bg-surface/90 px-6 py-3.5 text-primary shadow-2xl backdrop-blur-md transition-all duration-500 ease-editorial hover:scale-105 hover:bg-surface group"
+      >
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary text-surface shadow transition-transform duration-500 ease-editorial group-hover:scale-105">
+          {isPlaying ? (
+            <PauseIcon className="h-5 w-5" />
+          ) : (
+            <PlayIcon className="h-5 w-5 translate-x-0.5" />
+          )}
+        </span>
 
       <div className="pr-2 text-left">
         <div className="flex items-center gap-2">
@@ -179,5 +181,6 @@ export function SoundscapePlayer() {
         </span>
       </div>
     </button>
+  </Magnetic>
   );
 }

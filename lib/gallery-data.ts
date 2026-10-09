@@ -26,7 +26,7 @@ export const galleryCategories = [
 export const galleryItems: GalleryItem[] = [
   {
     id: "olive-arches-dining",
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuBlgIambDGnF998SMyTpXGNrNsWW2fW0dRwsV-UMoi9jlDBLDutaFqcdq8D-KJP_6Y6spMnwFhGx38SOheWrRk80bbEkT4xqe_XRMUzYdhdSzjTZLGpRsa_iBqVhG5ZwEcDVn9LI1Qy-KBbR_86nrc91hFrN2qfOrsZJEC-7GM73X8yMK-QRWVFHAhvgcie8TT_wfOTiF8Ucx_p2QzkYotAM7tvQAv0td_vMyFRo8WUl15LEE7OgrV8HCr2AeYJEqO-VL4",
+    src: "/assets/gallery/olive-arches.jpg",
     headline: "The Olive Arches Dining Sanctuary",
     category: "architecture",
     categoryLabel: "The Courtyard & Architecture",
@@ -41,7 +41,7 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     id: "lamb-ashta",
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuC1hYdqspIbtmLlbTzuu5Ib2nObjLH9otdaxdRJ7fyhkuJh39MZnj9LbTn0zjH-iRpO7hpf6xN-4VsaPhmHGs3juR8Y8sJOTVY9lC3dDB5bnY8bvFhX1FqBiAuBJb1w3ueeb7pixYAjFyR4mTu0XEjfCMaWwYwzqDVNy1OJT-CO_7whau4IJoPtAE_GDxNmnwcc-VGvgF2LesAn7mNiim6d7cMt_Tt7BS77i-XJ4cxnKWyucIjzr1E13Q",
+    src: "/assets/gallery/lamb-ashta.jpg",
     headline: "Slow-Braised Lamb Ashta with Saffron Puree",
     category: "culinary",
     categoryLabel: "Culinary Masterpieces",
@@ -57,7 +57,7 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     id: "herb-veloute",
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuCyiTJ2zQkazH_t-9GY80CIOtmkgy1Ru91ahsXoyPrtRGCrx_-tUaqkRibSbmNJuQHGeGSduvgzcCB7hLifyxSIeZeM7d3YAFmXj8o6htQVEaCg3VIxRtGQoPoFA0hK3xfYAFrb1-jlaQUOItb3XxE9fRXxUVhV0geV5ByL1aKZgmsSV31LXKNrBPX-Kdh0n8_ZIh1POxR9rNYMUDqgmytyTDLxzrNc48KA7dY6EDgzaXS6fj5IG8I4Dw",
+    src: "/assets/gallery/herb-veloute.jpg",
     headline: "Wild Sorrel & Herb Velouté",
     category: "culinary",
     categoryLabel: "Culinary Masterpieces",
@@ -73,7 +73,7 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     id: "wine-cellar-majlis",
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuA4VuX-JMMak0UlBni8lZ34FtLO5vQaEcTS7fu0RHk0GddnPOeut6j4Lhvwbr-mVIfHnlhZFl3h8S_LS1ozNB6NUZ4NLo52uippP2W8pDbEHr1DVlFrUpialbShUNqDJBV4RlF6jn2AxDaHz0XzzHOz9bsVHToNJlt-RveVMQz8DoMrAoMlCVwC6V9Czi5RoymIadLVoxY5rpX4qvv1JGGxTkD_mD8K07baKn5hcQ5fjBzYHv9cLtPmUg",
+    src: "/assets/gallery/wine-cellar.jpg",
     headline: "The Candlelit Wine Cellar & Majlis",
     category: "majlis",
     categoryLabel: "Private Dining & Majlis",
@@ -89,7 +89,7 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     id: "garden-afternoon-light",
-    src: "https://lh3.googleusercontent.com/aida/AEtjO1UgZtZBmQy8OWeEW5spzXaAvhr1jWd_ID2lbd7Bo8_TTjh1lV_VG27HEyoLgSy6FqxozuAvgZvQJ7b0OVpn-_Exi1ITYF8OKBGL6HUBK5psGpi8UgUU5vQEa-S-hyz39DGl8pGos2EACwYQVroPt1Ie9tUMCy1Mr8gAsIlXhWk-SgHwExLJhiwSxvLdl2RWvaQjy6duZ0FKOU7GWB2cInBk7D9A9FF1-VL-CguIKm9U9CD9pqqfYGCr9Hea",
+    src: "/assets/gallery/garden-light.jpg",
     headline: "Afternoon Light in the Garden Patio",
     category: "architecture",
     categoryLabel: "The Courtyard & Architecture",
@@ -104,7 +104,7 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     id: "woodfired-zaatar",
-    src: "https://lh3.googleusercontent.com/aida/AEtjO1XaGCWQP4LfVekwm3GDWkKvdWLik0pJGe5qaLjMC3ilUvYklSFnszSOrdbztNUSVNban1Hd218GiRckHDkwX9qhCJdaX5Eta-eb8sW59lU9dkn0fb_AN2AEt7peBttcto5rIlK_PQIrP2TDuWC4oS3frBImqaXNEM94U-Py2Z3XumvyIX00i2b-nKnt34IFnBtnGZcSQY-kmgobYq7a7XD4zsj6oXo0rG9sxKTvyFYUA3zUKwmQLmhF0HTI",
+    src: "/assets/gallery/woodfired-zaatar.jpg",
     headline: "Wood-Fired Wild Za'atar & Truffle",
     category: "culinary",
     categoryLabel: "Culinary Masterpieces",
@@ -120,7 +120,7 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     id: "roastery-cezve",
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuDtv3zNJxVvlFhga0yqyMWG5th-GfsxIF2-eyJbF1lEWWmColTMQ0e91lYJ0UxNzP0KwttiomzR3rGaGY54Ze1tyMfwngl5AhqJ5lBe29MDLuzxhe0FLbgv3GW4q9MSjT9D9FQwu9OwdXf_lBG9AGy55YwuO1sD19QKqNfN84FavS1qo7_5alOBvJxMcoECquf2YZLkBZ_hUt4g3foC4ahy9FPS4yzWFned5yAGjy1RiC_0_Rn-oBBwlQ",
+    src: "/assets/gallery/roastery-cezve.jpg",
     headline: "The Roastery: Cardamom Dark Roast Cezve",
     category: "roastery",
     categoryLabel: "Artisanal Roastery",
@@ -136,7 +136,7 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     id: "olive-grove-arcade",
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuB7MP1MWdaweFGDZvUJ47zmLO5Op8FWGUtcChYsWQ8SSHzVp-MfFnThjJckDU80Sg4_27ZafjHXtk8dfvLxMYTGQzFIaYuQy1rZmvqeT8c4SImZJkLsx3QNTLXoevV0l758hBkMMLeSTjfhjJ4f8L2956FkMn7dtoBefDanF3JmKhOzk55G4R7-zAJ1Q4_lRP5-5kCtEp8GEO3fFibPzd-rEezE0QN1W6S73iX072qARlkAoL4Rk366cA",
+    src: "/assets/gallery/olive-grove.jpg",
     headline: "Centuries-Old Olive Grove & Arcade",
     category: "architecture",
     categoryLabel: "The Courtyard & Architecture",
@@ -151,7 +151,7 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     id: "plating-pass-craft",
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuC_Uel7yy6HX30oMEQJirO1mfUHXRAbKxo6xFW_GxlXOYw0N66sr3ytfJ3g0z0Jg4Fq284NTzMGTnehl9479EH-DBpWjjsU4lWEK8QgU2CuSCo3iL4ixRV8zQZlMy8_jVjjmOv4-0F7Wr2vYJ9jNPWbJ_f2UosAioTmBkPH6_dMH5hF4ZWx1nXE19mInzI6Jp8A3Uwrwu8vZgZBGJcRwcHGtCh5p_-YDp1_HoEvBdLR7gMg9x0F68mXSw",
+    src: "/assets/gallery/chef-plating.jpg",
     headline: "The Art of Plating: Flora & Fire",
     category: "culinary",
     categoryLabel: "Culinary Masterpieces",
@@ -166,7 +166,7 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     id: "guest-moment-lunch",
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuBK6xvFpMsmrtdJKK3eaOX6DT2QwzAd20tNI1xabkBW4C9Q9mdEDnsgSyzSJ7lp9lY3brd9bsYxxwggVqgreHH-JrjIVl41VbVwgX7hvNBfJROqIfjsrsq4W7nCZHovjx33_PMrZhDi7NFQD4JveXi_Y6JrVdwBDzztxnphfPBAzwoH4JCKZfnY0LTr3AcfbeO8RbRCbGVaTzwcMpXyHbg6xTVWh6k4bQjVG4-OHDx9VXZyAXnZAuD9GA",
+    src: "/assets/gallery/guest-lunch.jpg",
     headline: "Courtyard Mezza Gathering by Olive Trees",
     category: "architecture",
     categoryLabel: "The Courtyard & Architecture",
@@ -181,7 +181,7 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     id: "guest-moment-wine",
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuDMp4eAIdl02U5T7bJ7BtwRQjX1r8j4Cw-Cf3aCgDXqa_FiaoSBGkMMQtryYikcDhP4spHBjt0ktjveyvQhvx2MNqYTJPrpxgenQEOnBeperiHsCwUWN695nncvTnkQRgUv7veAhwri2bKSul4DuBSc4rj4czvnZHOfQl8kBq_7GaVMDREknQm9AA_WgfAGB-TOmzh9Se21bZsfbog646Ew_gBWq9YM6PkDDv-9-9KxM-xtqvOt1as8yw",
+    src: "/assets/gallery/guest-wine.jpg",
     headline: "Candlelit Amber Toast in the Courtyard",
     category: "majlis",
     categoryLabel: "Private Dining & Majlis",
@@ -200,7 +200,7 @@ export const exhibitionReelItems = [
   {
     itemIndex: 1,
     id: "lamb-ashta",
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuC1hYdqspIbtmLlbTzuu5Ib2nObjLH9otdaxdRJ7fyhkuJh39MZnj9LbTn0zjH-iRpO7hpf6xN-4VsaPhmHGs3juR8Y8sJOTVY9lC3dDB5bnY8bvFhX1FqBiAuBJb1w3ueeb7pixYAjFyR4mTu0XEjfCMaWwYwzqDVNy1OJT-CO_7whau4IJoPtAE_GDxNmnwcc-VGvgF2LesAn7mNiim6d7cMt_Tt7BS77i-XJ4cxnKWyucIjzr1E13Q",
+    src: "/assets/gallery/lamb-ashta.jpg",
     badge: "Plate 01",
     title: "Slow-Braised Lamb Ashta",
     price: "BD 14.50",
@@ -209,7 +209,7 @@ export const exhibitionReelItems = [
   {
     itemIndex: 2,
     id: "herb-veloute",
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuCyiTJ2zQkazH_t-9GY80CIOtmkgy1Ru91ahsXoyPrtRGCrx_-tUaqkRibSbmNJuQHGeGSduvgzcCB7hLifyxSIeZeM7d3YAFmXj8o6htQVEaCg3VIxRtGQoPoFA0hK3xfYAFrb1-jlaQUOItb3XxE9fRXxUVhV0geV5ByL1aKZgmsSV31LXKNrBPX-Kdh0n8_ZIh1POxR9rNYMUDqgmytyTDLxzrNc48KA7dY6EDgzaXS6fj5IG8I4Dw",
+    src: "/assets/gallery/herb-veloute.jpg",
     badge: "Plate 02",
     title: "Wild Sorrel & Herb Velouté",
     price: "BD 6.80",
@@ -218,7 +218,7 @@ export const exhibitionReelItems = [
   {
     itemIndex: 3,
     id: "wine-cellar-majlis",
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuA4VuX-JMMak0UlBni8lZ34FtLO5vQaEcTS7fu0RHk0GddnPOeut6j4Lhvwbr-mVIfHnlhZFl3h8S_LS1ozNB6NUZ4NLo52uippP2W8pDbEHr1DVlFrUpialbShUNqDJBV4RlF6jn2AxDaHz0XzzHOz9bsVHToNJlt-RveVMQz8DoMrAoMlCVwC6V9Czi5RoymIadLVoxY5rpX4qvv1JGGxTkD_mD8K07baKn5hcQ5fjBzYHv9cLtPmUg",
+    src: "/assets/gallery/wine-cellar.jpg",
     badge: "Salon 03",
     title: "Candlelit Wine Cellar & Majlis",
     price: "Bespoke",
@@ -227,7 +227,7 @@ export const exhibitionReelItems = [
   {
     itemIndex: 6,
     id: "roastery-cezve",
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuDtv3zNJxVvlFhga0yqyMWG5th-GfsxIF2-eyJbF1lEWWmColTMQ0e91lYJ0UxNzP0KwttiomzR3rGaGY54Ze1tyMfwngl5AhqJ5lBe29MDLuzxhe0FLbgv3GW4q9MSjT9D9FQwu9OwdXf_lBG9AGy55YwuO1sD19QKqNfN84FavS1qo7_5alOBvJxMcoECquf2YZLkBZ_hUt4g3foC4ahy9FPS4yzWFned5yAGjy1RiC_0_Rn-oBBwlQ",
+    src: "/assets/gallery/roastery-cezve.jpg",
     badge: "Roast 12",
     title: "Cardamom Dark Cezve Pour",
     price: "BD 4.20",
@@ -239,25 +239,25 @@ export const guestSocialStream = [
   {
     itemIndex: 9,
     handle: "@nadia.wanderer",
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuBK6xvFpMsmrtdJKK3eaOX6DT2QwzAd20tNI1xabkBW4C9Q9mdEDnsgSyzSJ7lp9lY3brd9bsYxxwggVqgreHH-JrjIVl41VbVwgX7hvNBfJROqIfjsrsq4W7nCZHovjx33_PMrZhDi7NFQD4JveXi_Y6JrVdwBDzztxnphfPBAzwoH4JCKZfnY0LTr3AcfbeO8RbRCbGVaTzwcMpXyHbg6xTVWh6k4bQjVG4-OHDx9VXZyAXnZAuD9GA",
+    src: "/assets/gallery/guest-lunch.jpg",
     alt: "Guest mezza lunch spread",
   },
   {
     itemIndex: 10,
     handle: "@kareem.tasting",
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuDMp4eAIdl02U5T7bJ7BtwRQjX1r8j4Cw-Cf3aCgDXqa_FiaoSBGkMMQtryYikcDhP4spHBjt0ktjveyvQhvx2MNqYTJPrpxgenQEOnBeperiHsCwUWN695nncvTnkQRgUv7veAhwri2bKSul4DuBSc4rj4czvnZHOfQl8kBq_7GaVMDREknQm9AA_WgfAGB-TOmzh9Se21bZsfbog646Ew_gBWq9YM6PkDDv-9-9KxM-xtqvOt1as8yw",
+    src: "/assets/gallery/guest-wine.jpg",
     alt: "Guest wine toast at candlelight",
   },
   {
     itemIndex: 6,
     handle: "@layla.arch",
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuDtv3zNJxVvlFhga0yqyMWG5th-GfsxIF2-eyJbF1lEWWmColTMQ0e91lYJ0UxNzP0KwttiomzR3rGaGY54Ze1tyMfwngl5AhqJ5lBe29MDLuzxhe0FLbgv3GW4q9MSjT9D9FQwu9OwdXf_lBG9AGy55YwuO1sD19QKqNfN84FavS1qo7_5alOBvJxMcoECquf2YZLkBZ_hUt4g3foC4ahy9FPS4yzWFned5yAGjy1RiC_0_Rn-oBBwlQ",
+    src: "/assets/gallery/roastery-cezve.jpg",
     alt: "Morning coffee pour in copper cezve",
   },
   {
     itemIndex: 7,
     handle: "@salman_bh",
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuB7MP1MWdaweFGDZvUJ47zmLO5Op8FWGUtcChYsWQ8SSHzVp-MfFnThjJckDU80Sg4_27ZafjHXtk8dfvLxMYTGQzFIaYuQy1rZmvqeT8c4SImZJkLsx3QNTLXoevV0l758hBkMMLeSTjfhjJ4f8L2956FkMn7dtoBefDanF3JmKhOzk55G4R7-zAJ1Q4_lRP5-5kCtEp8GEO3fFibPzd-rEezE0QN1W6S73iX072qARlkAoL4Rk366cA",
+    src: "/assets/gallery/olive-grove.jpg",
     alt: "Courtyard sunset glow through olive trees",
   },
 ];

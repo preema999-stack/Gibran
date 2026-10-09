@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { GalleryItem } from "@/lib/gallery-data";
 import { CloseIcon, ArrowLeftIcon, ArrowRightIcon } from "@/components/icons";
+import { EASE_EDITORIAL, Magnetic } from "@/components/motion-primitives";
 
 interface LightboxModalProps {
   isOpen: boolean;
@@ -84,7 +85,7 @@ export function LightboxModal({
             initial={{ scale: 0.94, opacity: 0, y: 16 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.96, opacity: 0, y: 12 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.45, ease: EASE_EDITORIAL }}
             className="relative z-10 flex w-full max-w-5xl flex-col overflow-hidden rounded-2xl border border-white/20 bg-surface-container-lowest shadow-2xl md:flex-row max-h-[92vh]"
             onClick={(e) => e.stopPropagation()}
           >
@@ -209,13 +210,15 @@ export function LightboxModal({
 
               {/* Bottom Actions */}
               <div className="mt-6 flex items-center gap-3 border-t border-outline-variant/30 pt-6">
-                <Link
-                  href="/reservation"
-                  onClick={onClose}
-                  className="flex-1 rounded-full bg-primary py-3 text-center text-xs font-bold uppercase tracking-wider text-surface shadow transition-colors hover:bg-primary/90"
-                >
-                  Reserve This Experience
-                </Link>
+                <Magnetic strength={0.2} className="flex-1">
+                  <Link
+                    href="/reservation"
+                    onClick={onClose}
+                    className="w-full inline-flex items-center justify-center rounded-full bg-primary py-3 text-center text-xs font-bold uppercase tracking-wider text-surface shadow transition-all duration-300 ease-editorial hover:bg-primary/90 hover:scale-[1.02]"
+                  >
+                    Reserve This Experience
+                  </Link>
+                </Magnetic>
 
                 <div className="relative">
                   <button
