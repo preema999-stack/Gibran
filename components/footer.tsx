@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 
+import { usePathname, useRouter } from "next/navigation";
 import { navLinks } from "@/lib/data";
 import { usePrefersReducedMotion, useSmoothScroll } from "@/components/smooth-scroll-provider";
 import { EASE_EDITORIAL } from "@/components/motion-primitives";
@@ -10,8 +11,24 @@ import { EASE_EDITORIAL } from "@/components/motion-primitives";
 export function Footer() {
   const { scrollTo } = useSmoothScroll();
   const reduced = usePrefersReducedMotion();
+  const pathname = usePathname();
+  const router = useRouter();
 
-  const go = (href: string) => scrollTo(href, -88);
+  const go = (href: string) => {
+    if (href === "#menu") {
+      router.push("/menu");
+      return;
+    }
+    if (href === "#signature" || href === "/gallery") {
+      router.push("/gallery");
+      return;
+    }
+    if (pathname !== "/" && href.startsWith("#")) {
+      router.push("/" + href);
+      return;
+    }
+    scrollTo(href, -88);
+  };
 
   return (
     <footer className="border-t border-white/5 bg-forestDark py-16 text-[#A4B0A0]">

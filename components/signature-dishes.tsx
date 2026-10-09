@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -74,7 +75,13 @@ export function SignatureDishes() {
             </h2>
           </div>
 
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-3">
+            <Link
+              href="/gallery"
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-oliveDark/20 px-4 py-2 text-[11px] font-semibold uppercase tracking-wider text-oliveDark transition-colors hover:border-[#6d7835] hover:bg-[#6d7835] hover:text-white"
+            >
+              Full Gallery &rarr;
+            </Link>
             <CarouselButton
               label="Previous dishes"
               onClick={() => scrollToCard(index - 1)}

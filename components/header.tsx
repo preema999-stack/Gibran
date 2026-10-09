@@ -27,6 +27,8 @@ export function Header() {
   useEffect(() => {
     if (pathname === "/menu") {
       setActive("#menu");
+    } else if (pathname === "/gallery") {
+      setActive("#signature");
     } else if (
       pathname === "/reservation" ||
       pathname === "/reservations" ||
@@ -84,6 +86,13 @@ export function Header() {
     if (href === "#menu") {
       if (pathname !== "/menu") {
         router.push("/menu");
+      }
+      return;
+    }
+
+    if (href === "#signature" || href === "/gallery") {
+      if (pathname !== "/gallery") {
+        router.push("/gallery");
       }
       return;
     }

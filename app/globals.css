@@ -187,3 +187,23 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #8A9A86;
 }
+
+/* Editorial Gallery Equalizer & Botanical Drift animations */
+@keyframes eq1 { 0%, 100% { height: 4px; } 50% { height: 16px; } }
+@keyframes eq2 { 0%, 100% { height: 14px; } 50% { height: 6px; } }
+@keyframes eq3 { 0%, 100% { height: 8px; } 50% { height: 20px; } }
+@keyframes eq4 { 0%, 100% { height: 18px; } 50% { height: 7px; } }
+
+.eq-bar-1 { animation: eq1 1s ease-in-out infinite; }
+.eq-bar-2 { animation: eq2 0.8s ease-in-out infinite; }
+.eq-bar-3 { animation: eq3 1.2s ease-in-out infinite; }
+.eq-bar-4 { animation: eq4 0.9s ease-in-out infinite; }
+.eq-paused * { animation-play-state: paused !important; height: 5px !important; }
+
+@keyframes leafDrift {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(10px, -15px) rotate(4deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+.leaf-float { animation: leafDrift 14s ease-in-out infinite; }
+

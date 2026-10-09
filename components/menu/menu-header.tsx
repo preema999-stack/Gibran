@@ -53,7 +53,7 @@ export function MenuHeader({
             <span className="absolute -bottom-1 left-0 h-[2px] w-full bg-[#1C241B]" />
           </div>
           <Link
-            href="/#signature"
+            href="/gallery"
             className="transition-colors hover:text-[#1C241B]"
           >
             Gallery
@@ -138,7 +138,7 @@ export function MenuHeader({
             <nav className="flex flex-col space-y-3 text-xs font-semibold uppercase tracking-wider text-[#1C241B]">
               <Link href="/" className="py-1">Home</Link>
               <span className="py-1 font-bold text-[#C5A880]">Menu (Active)</span>
-              <Link href="/#signature" className="py-1">Gallery</Link>
+              <Link href="/gallery" className="py-1">Gallery</Link>
               <Link href="/reservation" className="py-1 text-left">
                 Reservation
               </Link>

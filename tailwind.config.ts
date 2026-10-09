@@ -22,6 +22,21 @@ const config: Config = {
         sageLight: "#E8ECE6",
         warmGold: "#C5A880",
         charcoal: "#242624",
+        // Editorial Gallery semantic design tokens
+        primary: "#161e15",
+        secondary: "#546251",
+        "secondary-container": "#d5e4ce",
+        "on-secondary-container": "#2e3b2b",
+        surface: "#fdf9f0",
+        "surface-dim": "#dddad1",
+        "surface-container-low": "#f7f3ea",
+        "surface-container": "#f1eee5",
+        "surface-container-high": "#ece8df",
+        "surface-container-lowest": "#ffffff",
+        "on-surface": "#1c1c16",
+        "on-surface-variant": "#444842",
+        "outline-variant": "#c5c7c0",
+        accent: "#b58742",
       },
       fontFamily: {
         // next/font keeps the real family names, so these resolve directly.
