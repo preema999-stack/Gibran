@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FULL_MENU_CATEGORIES,
@@ -47,8 +48,28 @@ const cardVariants = {
   },
 };
 
+function resolveCategoryId(param: string | null | undefined): string {
+  if (!param) return "starters";
+  const clean = param.toLowerCase().trim().replace(/^#/, "");
+  const matched = FULL_MENU_CATEGORIES.find((c) => c.id.toLowerCase() === clean);
+  if (matched) return matched.id;
+  if (clean.includes("strat") || clean.includes("start") || clean.includes("appetiz") || clean.includes("mezze")) return "starters";
+  if (clean.includes("main")) return "mains";
+  if (clean.includes("pasta") || clean.includes("risotto")) return "pasta";
+  if (clean.includes("pizza")) return "pizza";
+  if (clean.includes("salad")) return "salads";
+  if (clean.includes("dessert") || clean.includes("sweet")) return "desserts";
+  if (clean.includes("beverage") || clean.includes("drink") || clean.includes("coffee") || clean.includes("wine")) return "beverages";
+  return "starters";
+}
+
 export function MenuContent() {
-  const [activeCategoryId, setActiveCategoryId] = useState("starters");
+  const searchParams = useSearchParams();
+  const categoryParam = searchParams.get("category");
+
+  const [activeCategoryId, setActiveCategoryId] = useState(() => {
+    return resolveCategoryId(categoryParam);
+  });
   const [activeDietary, setActiveDietary] = useState<DietaryTag>("All");
   const [selectedDish, setSelectedDish] = useState<MenuItem | null>(null);
   const [isReservationOpen, setIsReservationOpen] = useState(false);
@@ -56,6 +77,40 @@ export function MenuContent() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isPlayingBannerVideo, setIsPlayingBannerVideo] = useState(false);
   const [tableCount, setTableCount] = useState(0);
+
+  // Sync category state when URL search param or hash changes
+  useEffect(() => {
+    const rawCategory = categoryParam || (typeof window !== "undefined" ? window.location.hash.replace(/^#/, "") : null);
+    if (rawCategory) {
+      const resolved = resolveCategoryId(rawCategory);
+      setActiveCategoryId(resolved);
+      setActiveDietary("All");
+
+      // Smoothly scroll to the menu container when arriving with a category
+      window.requestAnimationFrame(() => {
+        const target = document.getElementById("menu-category-banner");
+        if (target) {
+          const rect = target.getBoundingClientRect();
+          if (rect.top < 0 || rect.top > window.innerHeight) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }
+      });
+    }
+  }, [categoryParam]);
+
+  useEffect(() => {
+    const handleHash = () => {
+      const hash = window.location.hash.replace(/^#/, "");
+      if (hash) {
+        const resolved = resolveCategoryId(hash);
+        setActiveCategoryId(resolved);
+        setActiveDietary("All");
+      }
+    };
+    window.addEventListener("hashchange", handleHash);
+    return () => window.removeEventListener("hashchange", handleHash);
+  }, []);
 
   const activeCategory =
     FULL_MENU_CATEGORIES.find((c) => c.id === activeCategoryId) ||
@@ -155,6 +210,9 @@ export function MenuContent() {
                       onClick={() => {
                         setActiveCategoryId(cat.id);
                         setActiveDietary("All");
+                        if (typeof window !== "undefined") {
+                          window.history.replaceState(null, "", `/menu?category=${cat.id}`);
+                        }
                       }}
                       className={`relative group flex w-full items-center justify-between rounded-xl px-3.5 py-2.5 text-xs transition-colors duration-200 ${
                         isActive
@@ -192,7 +250,7 @@ export function MenuContent() {
                         </motion.svg>
                       ) : (
                         <span className="relative z-10 text-[11px] font-medium text-[#868E81] group-hover:text-[#3A4337]">
-                          {cat.count}
+                          {cat.items.length}
                         </span>
                       )}
                     </motion.button>
@@ -218,7 +276,10 @@ export function MenuContent() {
             className="min-w-0 flex-1 space-y-6"
           >
             {/* FEATURED CATEGORY HERO BANNER WITH FLUID ANIMATIONS */}
-            <div className="relative min-h-[220px] overflow-hidden rounded-[1.75rem] border border-[#ECE5D6]/30 bg-[#161D15] text-white shadow-md sm:min-h-[240px]">
+            <div
+              id="menu-category-banner"
+              className="relative min-h-[220px] overflow-hidden rounded-[1.75rem] border border-[#ECE5D6]/30 bg-[#161D15] text-white shadow-md sm:min-h-[240px]"
+            >
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeCategory.id}

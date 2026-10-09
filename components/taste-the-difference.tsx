@@ -61,7 +61,7 @@ export function TasteTheDifference() {
               transition={{ duration: 0.9, ease: EASE_EDITORIAL, delay: 0.55 }}
             >
               <Link
-                href="/menu"
+                href={`/menu?category=${category.id}`}
                 id="view-full-menu-button"
                 className="btn-ink group"
               >
@@ -201,7 +201,8 @@ export function TasteTheDifference() {
                 {/* Bottom link to separate /menu page */}
                 <div className="mt-12 flex justify-center">
                   <Link
-                    href="/menu"
+                    href={`/menu?category=${category.id}`}
+                    id="view-full-menu-bottom-button"
                     className="btn-ink group text-xs"
                   >
                     View Full Menu

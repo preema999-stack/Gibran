@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Suspense } from "react";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { MenuContent } from "@/components/menu/menu-content";
@@ -14,7 +14,9 @@ export default function MenuPage() {
     <>
       <Header />
       <main className="grain relative min-h-screen bg-[#FAF7F0] pt-6 pb-24">
-        <MenuContent />
+        <Suspense fallback={<div className="min-h-screen" />}>
+          <MenuContent />
+        </Suspense>
       </main>
       <Footer />
     </>
