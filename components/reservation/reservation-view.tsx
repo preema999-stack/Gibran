@@ -712,9 +712,6 @@ export function ReservationView() {
                   <PlayIcon className="h-7 w-7 fill-white translate-x-0.5 transition-transform group-hover:scale-110" />
                 )}
               </motion.button>
-              <span className="rounded-full bg-black/45 px-4 py-1.5 text-[11px] font-medium uppercase tracking-[0.2em] text-[#D2DCD0] backdrop-blur-md border border-white/10 shadow-lg">
-                {isPlayingBgVideo ? "Atmosphere Live • Click to Pause" : "Play Atmosphere Video"}
-              </span>
             </motion.div>
           </div>
         </div>
