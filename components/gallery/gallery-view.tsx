@@ -7,10 +7,10 @@ import { galleryItems, GalleryItem } from "@/lib/gallery-data";
 
 const categories = [
   { id: "all", label: "All" },
-  { id: "architecture", label: "Architecture" },
-  { id: "culinary", label: "Culinary" },
-  { id: "majlis", label: "Majlis" },
-  { id: "roastery", label: "Roastery" },
+  { id: "culinary", label: "Culinary & Dishes" },
+  { id: "architecture", label: "The Courtyard" },
+  { id: "majlis", label: "Evening & Majlis" },
+  { id: "roastery", label: "Roastery & Coffee" },
 ] as const;
 
 export function GalleryView() {
@@ -75,11 +75,10 @@ export function GalleryView() {
                 key={cat.id}
                 type="button"
                 onClick={() => setActiveCategory(cat.id)}
-                className={`relative py-1 transition-colors duration-200 ${
-                  isActive
+                className={`relative py-1 transition-colors duration-200 ${isActive
                     ? "font-semibold text-[#1C241B]"
                     : "text-[#586255]/70 hover:text-[#1C241B]"
-                }`}
+                  }`}
               >
                 <span>{cat.label}</span>
                 {isActive && (
