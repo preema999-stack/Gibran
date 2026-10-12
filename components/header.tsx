@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { navLinks } from "@/lib/data";
 import { usePrefersReducedMotion, useSmoothScroll } from "@/components/smooth-scroll-provider";
 import { EASE_EDITORIAL, Magnetic } from "@/components/motion-primitives";
-import { CloseIcon, MenuIcon, SearchIcon } from "@/components/icons";
+import { CloseIcon, MenuIcon } from "@/components/icons";
 
 export function Header() {
   const [hidden, setHidden] = useState(false);
@@ -28,7 +28,7 @@ export function Header() {
     if (pathname === "/menu") {
       setActive("#menu");
     } else if (pathname === "/gallery") {
-      setActive("#signature");
+      setActive("/gallery");
     } else if (
       pathname === "/reservation" ||
       pathname === "/reservations" ||
@@ -51,7 +51,9 @@ export function Header() {
   useEffect(() => {
     if (pathname !== "/") return;
 
-    const ids = navLinks.map((link) => link.href.slice(1));
+    const ids = navLinks
+      .filter((link) => link.href.startsWith("#"))
+      .map((link) => link.href.slice(1));
     const sections = ids
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => Boolean(el));
@@ -92,7 +94,16 @@ export function Header() {
       return;
     }
 
-    if (href === "#signature" || href === "/gallery") {
+    if (href === "#signature") {
+      if (pathname !== "/") {
+        router.push("/#signature");
+        return;
+      }
+      window.setTimeout(() => scrollTo("#signature", -88), open ? 260 : 0);
+      return;
+    }
+
+    if (href === "/gallery" || href === "#gallery") {
       if (pathname !== "/gallery") {
         router.push("/gallery");
       }
@@ -194,14 +205,6 @@ export function Header() {
 
           {/* Actions */}
           <div className="flex items-center gap-4 lg:gap-5">
-            <button
-              type="button"
-              aria-label="Search"
-              className="group hidden p-2 text-oliveDark transition-colors hover:text-[#C5A880] sm:block"
-            >
-              <SearchIcon className="h-4 w-4 transition-transform duration-500 ease-editorial group-hover:rotate-12" />
-            </button>
-
             <Magnetic strength={0.18} className="hidden sm:block">
               <Link
                 href="/reservation"

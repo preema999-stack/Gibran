@@ -49,10 +49,11 @@ const cardVariants = {
 };
 
 function resolveCategoryId(param: string | null | undefined): string {
-  if (!param) return "starters";
+  if (!param) return "signatures";
   const clean = param.toLowerCase().trim().replace(/^#/, "");
   const matched = FULL_MENU_CATEGORIES.find((c) => c.id.toLowerCase() === clean);
   if (matched) return matched.id;
+  if (clean.includes("signat")) return "signatures";
   if (clean.includes("strat") || clean.includes("start") || clean.includes("appetiz") || clean.includes("mezze")) return "starters";
   if (clean.includes("main")) return "mains";
   if (clean.includes("pasta") || clean.includes("risotto")) return "pasta";
@@ -60,12 +61,13 @@ function resolveCategoryId(param: string | null | undefined): string {
   if (clean.includes("salad")) return "salads";
   if (clean.includes("dessert") || clean.includes("sweet")) return "desserts";
   if (clean.includes("beverage") || clean.includes("drink") || clean.includes("coffee") || clean.includes("wine")) return "beverages";
-  return "starters";
+  return "signatures";
 }
 
 export function MenuContent() {
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get("category");
+  const dishParam = searchParams.get("dish");
 
   const [activeCategoryId, setActiveCategoryId] = useState(() => {
     return resolveCategoryId(categoryParam);
@@ -98,6 +100,19 @@ export function MenuContent() {
       });
     }
   }, [categoryParam]);
+
+  // Support deep-linking to a specific dish modal (e.g., from signature dishes carousel)
+  useEffect(() => {
+    if (dishParam) {
+      const allDishes = FULL_MENU_CATEGORIES.flatMap((c) => c.items);
+      const targetDish = allDishes.find(
+        (item) => item.id.toLowerCase() === dishParam.toLowerCase()
+      );
+      if (targetDish) {
+        setSelectedDish(targetDish);
+      }
+    }
+  }, [dishParam]);
 
   useEffect(() => {
     const handleHash = () => {
@@ -257,6 +272,20 @@ export function MenuContent() {
                   );
                 })}
               </nav>
+
+              {/* Signature Dishes Featured Link */}
+              <div className="mt-4 pt-3 border-t border-[#EAE3D4]/80">
+                <Link
+                  href="/#signature"
+                  className="group flex w-full items-center justify-between rounded-xl border border-[#D5C9B3] bg-white/70 px-3.5 py-2.5 text-xs font-semibold uppercase tracking-wider text-oliveDark transition-all duration-300 hover:border-oliveDark hover:bg-white hover:shadow-xs"
+                >
+                  <span className="flex items-center gap-2">
+                    <span className="text-warmGold">✨</span>
+                    <span>Signature Dishes</span>
+                  </span>
+                  <span className="text-xs transition-transform duration-300 group-hover:translate-x-1">→</span>
+                </Link>
+              </div>
 
               {/* Bottom Script Signature */}
               <div className="mt-8 flex items-center justify-between border-t border-[#EAE3D4] pt-4">
@@ -567,7 +596,14 @@ export function MenuContent() {
       {/* Interactive Modals */}
       <DishModal
         dish={selectedDish}
-        onClose={() => setSelectedDish(null)}
+        onClose={() => {
+          setSelectedDish(null);
+          if (typeof window !== "undefined" && window.location.search.includes("dish=")) {
+            const url = new URL(window.location.href);
+            url.searchParams.delete("dish");
+            window.history.replaceState(null, "", url.toString());
+          }
+        }}
         onAddToSelection={handleAddToSelection}
       />
 

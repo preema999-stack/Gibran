@@ -6,6 +6,7 @@ import Link from "next/link";
 
 import { journeySlides } from "@/lib/data";
 import { JourneyPlate } from "@/components/journey-plate";
+import { StoryModal } from "@/components/story-modal";
 import { usePrefersReducedMotion } from "@/components/smooth-scroll-provider";
 import { EASE_EDITORIAL, Magnetic } from "@/components/motion-primitives";
 import { ArrowRightIcon, PlayIcon } from "@/components/icons";
@@ -16,6 +17,7 @@ const SCROLL_PER_SLIDE_VH = 62;
 export function Journey() {
   const section = useRef<HTMLElement>(null);
   const reduced = usePrefersReducedMotion();
+  const [isStoryOpen, setIsStoryOpen] = useState(false);
 
   const count = journeySlides.length;
 
@@ -93,6 +95,9 @@ export function Journey() {
 
                 <button
                   type="button"
+                  onClick={() => setIsStoryOpen(true)}
+                  aria-haspopup="dialog"
+                  aria-expanded={isStoryOpen}
                   className="group inline-flex items-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-[#FAF8F5]/80 transition-colors hover:text-warmGold"
                 >
                   <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/5 pl-0.5 backdrop-blur-md transition-all duration-500 ease-editorial group-hover:scale-110 group-hover:border-warmGold/60">
@@ -113,6 +118,12 @@ export function Journey() {
           </div>
         </div>
       </div>
+
+      {/* Cinematic Story Modal */}
+      <StoryModal
+        isOpen={isStoryOpen}
+        onClose={() => setIsStoryOpen(false)}
+      />
     </section>
   );
 }

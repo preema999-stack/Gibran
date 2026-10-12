@@ -6,7 +6,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
 import { menuCategories } from "@/lib/data";
-import { Parallax, ScrollReveal } from "@/components/parallax";
 import { EASE_EDITORIAL, SplitText, usePrefersReducedMotion } from "@/components/motion-primitives";
 import { ArrowRightIcon, PlusIcon } from "@/components/icons";
 
@@ -68,36 +67,84 @@ export function TasteTheDifference() {
                 View Full Menu
                 <ArrowRightIcon className="h-3.5 w-3.5 transition-transform duration-500 ease-editorial group-hover:translate-x-1.5" />
               </Link>
+              <a
+                href="#signature"
+                id="view-signature-dishes-button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const target = document.getElementById("signature");
+                  if (target) {
+                    target.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }
+                }}
+                className="group inline-flex items-center gap-2 rounded-full border border-oliveDark/20 bg-white/70 px-6 py-3 text-xs font-semibold uppercase tracking-wider text-oliveDark transition-all duration-300 hover:border-oliveDark hover:bg-white hover:shadow-xs"
+              >
+                <span>Signature Dishes</span>
+                <ArrowRightIcon className="h-3.5 w-3.5 transition-transform duration-500 ease-editorial group-hover:translate-x-1" />
+              </a>
             </motion.div>
           </div>
 
-          {/* Plate image with parallax */}
+          {/* Artisanal Soup Bowl Showcase */}
           <div className="relative flex justify-center lg:col-span-6 lg:justify-end">
-            <ScrollReveal className="group relative w-full max-w-lg lg:max-w-xl">
-              <Parallax speed={90} scale={1.16} className="arch rounded-2xl drop-shadow-md">
-                <Image
-                  src="/images/pea-soup.png"
-                  alt="Artisanal ceramic bowl of velvety green pea and herb soup with cream swirl, pumpkin seeds and microgreens"
-                  width={1024}
-                  height={1058}
-                  sizes="(min-width: 1024px) 36rem, 100vw"
-                  className="h-auto w-full object-cover transition-transform duration-700 ease-editorial group-hover:scale-105"
-                />
-              </Parallax>
+            <motion.div
+              initial={reduced ? undefined : { opacity: 0, y: 30 }}
+              whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, ease: EASE_EDITORIAL }}
+              className="relative w-full max-w-lg select-none"
+            >
+              {/* Perfectly calibrated two-layer bowl: 1. Rotating velvety soup underneath; 2. Ceramic rim overlay in front */}
+              <div className="relative aspect-[491/508] w-full">
+                {/* 1. Natural liquid rotation smoothly contained inside the bowl cavity */}
+                <div
+                  className="pointer-events-none absolute"
+                  style={{
+                    left: "47.86%",
+                    top: "49.80%",
+                    width: "59.06%",
+                    height: "57.09%",
+                    transform: "translate(-50%, -50%)",
+                  }}
+                >
+                  <div className="soup-swirl-motion h-full w-full">
+                    <Image
+                      src="/images/soup_liquid.png"
+                      alt="Velvety green pea and herb soup swirling gently"
+                      width={580}
+                      height={580}
+                      priority
+                      className="h-full w-full object-contain"
+                    />
+                  </div>
+                </div>
 
+                {/* 2. Pristine ceramic bowl rim overlay with spoon, olive leaves, and herbs layered in front */}
+                <Image
+                  src="/images/bowl_rim_overlay.png"
+                  alt="Artisanal ceramic bowl of velvety green pea and herb soup with cream swirl, pumpkin seeds and microgreens"
+                  width={491}
+                  height={508}
+                  sizes="(min-width: 1024px) 32rem, 100vw"
+                  priority
+                  className="relative z-10 h-full w-full object-contain pointer-events-none select-none"
+                />
+              </div>
+
+              {/* Fresh • Seasonal • Local Badge */}
               <motion.div
                 initial={reduced ? undefined : { opacity: 0, y: 24, scale: 0.9 }}
                 whileInView={reduced ? undefined : { opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.5, ease: EASE_EDITORIAL }}
-                className="absolute -bottom-4 -left-4 z-10 flex items-center gap-2 whitespace-nowrap rounded-full border border-[#ECE7DC] bg-white/95 px-6 py-2.5 shadow-lg backdrop-blur-md sm:bottom-4 sm:left-4"
+                className="absolute -bottom-4 -left-4 z-20 flex items-center gap-2 whitespace-nowrap rounded-full border border-[#ECE7DC] bg-white/95 px-6 py-2.5 shadow-lg backdrop-blur-md sm:bottom-4 sm:left-4"
               >
                 <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-oliveDark" />
                 <span className="font-script text-xl tracking-wide text-oliveDark sm:text-2xl">
                   Fresh • Seasonal • Local
                 </span>
               </motion.div>
-            </ScrollReveal>
+            </motion.div>
           </div>
         </div>
 
@@ -110,7 +157,7 @@ export function TasteTheDifference() {
         >
           {/* Category tabs */}
           <div
-            className="mx-auto grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5"
+            className="mx-auto grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6"
             role="tablist"
             aria-label="Menu categories"
           >

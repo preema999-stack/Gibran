@@ -16,10 +16,22 @@ export function Footer() {
 
   const go = (href: string) => {
     if (href === "#menu") {
+      if (pathname === "/") {
+        scrollTo("#menu", -88);
+        return;
+      }
       router.push("/menu");
       return;
     }
-    if (href === "#signature" || href === "/gallery") {
+    if (href === "#signature") {
+      if (pathname !== "/") {
+        router.push("/#signature");
+        return;
+      }
+      scrollTo("#signature", -88);
+      return;
+    }
+    if (href === "/gallery" || href === "#gallery") {
       router.push("/gallery");
       return;
     }

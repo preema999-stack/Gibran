@@ -207,3 +207,19 @@
 }
 .leaf-float { animation: leafDrift 14s ease-in-out infinite; }
 
+/* Silky, natural 60fps/120fps liquid soup rotation */
+@keyframes soupSwirl {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.soup-swirl-motion {
+  animation: soupSwirl 30s linear infinite;
+  will-change: transform;
+}
+
+

@@ -17,7 +17,7 @@ export type MenuItem = {
 export type MenuCategoryData = {
   id: string;
   label: string;
-  icon: "starters" | "mains" | "pasta" | "pizza" | "salads" | "desserts" | "beverages";
+  icon: "signatures" | "starters" | "mains" | "pasta" | "pizza" | "salads" | "desserts" | "beverages";
   count: number;
   eyebrow: string;
   title: string;
@@ -28,6 +28,67 @@ export type MenuCategoryData = {
 };
 
 export const FULL_MENU_CATEGORIES: MenuCategoryData[] = [
+  {
+    id: "signatures",
+    label: "Signature Dishes",
+    icon: "signatures",
+    count: 4,
+    eyebrow: "ARTISANAL MASTERPIECES",
+    title: "Signature Dishes",
+    subtitle: "Our celebrated master creations — porcini risottos, lavender chicken, and molten cacao.",
+    collectionBadge: "CHEF'S SIGNATURE",
+    bannerImage: "/images/dish-risotto.jpg",
+    items: [
+      {
+        id: "risotto",
+        name: "Truffle Mushroom Risotto",
+        description: "Arborio rice, wild forest porcini, aged parmesan & freshly shaved black Norcia truffle.",
+        price: 18,
+        badge: "CHEF'S PICK",
+        image: "/images/dish-risotto.jpg",
+        dietary: ["All", "Vegetarian", "Gluten-Free", "Chef's Selection"],
+        winePairing: "Massaya Gold Reserve 2018",
+        ingredients: ["Acquerello Rice", "Wild Porcini", "Aged 24m Parmesan", "Norcia Truffle"],
+        calories: "510 kcal",
+      },
+      {
+        id: "chicken",
+        name: "Grilled Lavender Chicken",
+        description: "Free-range chicken breast infused with Provence lavender, baby carrots, potato puree & thyme jus.",
+        price: 22,
+        badge: "HOUSE FAVOURITE",
+        image: "/images/dish-chicken.jpg",
+        dietary: ["All", "Non-Vegetarian", "Chef's Selection"],
+        winePairing: "Château Ksara Reserve du Couvent 2019",
+        ingredients: ["Free-Range Chicken", "Provence Lavender", "Baby Carrots", "Thyme Jus"],
+        calories: "580 kcal",
+      },
+      {
+        id: "lava-cake",
+        name: "Chocolate Lava Cake",
+        description: "Valrhona dark chocolate molten centre served warm with Tahitian vanilla bean gelato.",
+        price: 12,
+        badge: "POPULAR",
+        image: "/images/dish-lava-cake.jpg",
+        dietary: ["All", "Vegetarian", "Chef's Selection"],
+        winePairing: "Lebanese Cardamom Coffee",
+        ingredients: ["Valrhona Guanaja 70%", "Tahitian Vanilla Bean", "Organic Eggs", "Cultured Butter"],
+        calories: "490 kcal",
+      },
+      {
+        id: "fruit-tart",
+        name: "Seasonal Fruit Tart",
+        description: "Crisp shortbread crust, Madagascar vanilla pastry cream, glazed summer berries & fresh mint.",
+        price: 10,
+        badge: "POPULAR",
+        image: "/images/dish-fruit-tart.jpg",
+        dietary: ["All", "Vegetarian"],
+        winePairing: "Sage & Lemon Infusion",
+        ingredients: ["Butter Shortbread", "Madagascar Vanilla", "Glazed Berries", "Garden Mint"],
+        calories: "380 kcal",
+      },
+    ],
+  },
   {
     id: "starters",
     label: "Starters",

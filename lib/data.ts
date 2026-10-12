@@ -3,7 +3,7 @@ import type { IconName } from "@/components/icons";
 export const navLinks = [
   { label: "Home", href: "#hero" },
   { label: "Menu", href: "#menu" },
-  { label: "Gallery", href: "#signature" },
+  { label: "Gallery", href: "/gallery" },
   { label: "Reservation", href: "#reservations" },
   { label: "About Us", href: "#about" },
   { label: "Contact Us", href: "#contact" },
@@ -137,6 +137,17 @@ export type MenuCategory = {
 };
 
 export const menuCategories: MenuCategory[] = [
+  {
+    id: "signatures",
+    label: "Signature Dishes",
+    intro: "Our celebrated master creations — porcini risottos, lavender chicken, and molten cacao.",
+    items: [
+      { name: "Truffle Mushroom Risotto", note: "Porcini, aged parmesan, black truffle", price: "18" },
+      { name: "Grilled Lavender Chicken", note: "Provence lavender, baby carrots, jus", price: "22" },
+      { name: "Chocolate Lava Cake", note: "Valrhona molten centre, Tahitian vanilla", price: "12" },
+      { name: "Seasonal Fruit Tart", note: "Shortbread crust, Madagascar pastry cream", price: "10" },
+    ],
+  },
   {
     id: "starters",
     label: "Starters",
