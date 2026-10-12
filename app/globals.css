@@ -207,20 +207,39 @@
 }
 .leaf-float { animation: leafDrift 14s ease-in-out infinite; }
 
-/* Silky, natural 60fps/120fps liquid soup rotation */
-@keyframes soupSwirl {
-  from {
+/* Smooth, natural clockwise liquid soup swirl - fully hardware accelerated on mobile & iOS Safari */
+@-webkit-keyframes soupClockwise {
+  0% {
+    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
-  to {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes soupClockwise {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
 
 .soup-swirl-motion {
-  animation: soupSwirl 40s linear infinite;
-  transform-origin: center center;
+  -webkit-animation: soupClockwise 36s linear infinite !important;
+  animation: soupClockwise 36s linear infinite !important;
+  -webkit-transform-origin: 50% 50% !important;
+  transform-origin: 50% 50% !important;
   will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  perspective: 1000;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
-
-

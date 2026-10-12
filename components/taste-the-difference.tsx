@@ -94,15 +94,48 @@ export function TasteTheDifference() {
               transition={{ duration: 0.9, ease: EASE_EDITORIAL }}
               className="relative w-full max-w-lg select-none"
             >
+              {/* Perfectly fitted two-layer bowl: 1. Rotating soup underneath; 2. Ceramic rim overlay on top */}
               <div className="relative aspect-[491/508] w-full">
+                {/* 1. Soup liquid rotating clockwise smoothly inside the bowl cavity */}
+                <div
+                  className="pointer-events-none absolute"
+                  style={{
+                    left: "49.49%",
+                    top: "50.20%",
+                    width: "53.77%",
+                    height: "51.97%",
+                    transform: "translate(-50%, -50%)",
+                  }}
+                >
+                  <div
+                    className="soup-swirl-motion h-full w-full"
+                    style={{
+                      animation: "soupClockwise 36s linear infinite",
+                      WebkitAnimation: "soupClockwise 36s linear infinite",
+                      transformOrigin: "50% 50%",
+                      WebkitTransformOrigin: "50% 50%",
+                    }}
+                  >
+                    <Image
+                      src="/images/soup_liquid.png"
+                      alt="Velvety green pea and herb soup swirling gently"
+                      width={264}
+                      height={264}
+                      priority
+                      className="h-full w-full object-contain pointer-events-none"
+                    />
+                  </div>
+                </div>
+
+                {/* 2. Pristine ceramic bowl rim overlay with spoon, olive leaves, and herbs layered in front */}
                 <Image
-                  src="/images/pea-soup.png"
+                  src="/images/bowl_rim_overlay.png"
                   alt="Artisanal ceramic bowl of velvety green pea and herb soup with cream swirl, pumpkin seeds and microgreens"
                   width={491}
                   height={508}
                   sizes="(min-width: 1024px) 32rem, 100vw"
                   priority
-                  className="h-full w-full object-contain pointer-events-none select-none"
+                  className="relative z-10 h-full w-full object-contain pointer-events-none select-none"
                 />
               </div>
 
