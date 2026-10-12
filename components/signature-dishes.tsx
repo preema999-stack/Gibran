@@ -55,11 +55,11 @@ export function SignatureDishes() {
   return (
     <section
       id="signature"
-      className="grain relative scroll-mt-20 lg:scroll-mt-24 border-b border-[#ECE7DC] bg-[#FAF7F0] py-20 lg:py-24"
+      className="grain relative scroll-mt-20 lg:scroll-mt-24 border-b border-[#ECE7DC] bg-[#FAF7F0] py-16 sm:py-20 lg:py-24"
     >
       <div className="shell">
         {/* Header */}
-        <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
+        <div className="mb-8 sm:mb-12 flex flex-wrap items-end justify-between gap-4 sm:gap-6">
           <div>
             <motion.span
               className="eyebrow mb-2"
@@ -70,7 +70,7 @@ export function SignatureDishes() {
             >
               Artisanal Flavors
             </motion.span>
-            <h2 className="font-serif text-3xl font-normal leading-tight text-oliveDark sm:text-4xl lg:text-5xl">
+            <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-normal leading-tight text-oliveDark">
               <SplitText text="Our Signature Dishes" as="span" />
             </h2>
           </div>
@@ -113,7 +113,7 @@ export function SignatureDishes() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.85, delay: i * 0.09, ease: EASE_EDITORIAL }}
-              className="flex w-[84vw] shrink-0 snap-start flex-col sm:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.125rem)]"
+              className="flex w-[82vw] xs:w-[76vw] shrink-0 snap-start flex-col sm:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.125rem)]"
             >
               <Link
                 href={`/menu?category=signatures&dish=${dish.id}`}
@@ -121,7 +121,7 @@ export function SignatureDishes() {
                 title={`View ${dish.name} in Menu`}
               >
                 <div>
-                  <div className="relative mb-4 h-52 w-full overflow-hidden rounded-xl bg-sand">
+                  <div className="relative mb-4 h-48 sm:h-52 w-full overflow-hidden rounded-xl bg-sand">
                     <Image
                       src={dish.image}
                       alt={dish.name}

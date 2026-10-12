@@ -204,7 +204,7 @@ export function MenuContent() {
               </p>
 
               {/* Category Nav List with animated gliding pill */}
-              <nav className="mt-6 flex flex-col space-y-1.5">
+              <nav className="mt-6 grid grid-cols-2 gap-1.5 sm:grid-cols-4 lg:flex lg:flex-col lg:space-y-1.5 lg:gap-0">
                 {FULL_MENU_CATEGORIES.map((cat, idx) => {
                   const isActive = cat.id === activeCategoryId;
                   const Icon = categoryIconMap[cat.icon];
@@ -573,7 +573,7 @@ export function MenuContent() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 350, damping: 25 }}
-            className="fixed bottom-6 right-6 z-40 hidden sm:flex items-center gap-4 rounded-full border border-white/20 bg-[#162115]/90 px-6 py-3 text-white shadow-2xl backdrop-blur-xl"
+            className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 z-40 flex items-center justify-between sm:justify-start gap-3 sm:gap-4 rounded-full border border-white/20 bg-[#162115]/95 px-4 sm:px-6 py-3 text-white shadow-2xl backdrop-blur-xl"
           >
             <div className="flex items-center gap-2.5">
               <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#6d7835] text-xs font-bold text-white">

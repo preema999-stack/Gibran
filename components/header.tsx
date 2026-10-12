@@ -151,7 +151,7 @@ export function Header() {
             : "rgba(236, 231, 220, 0.6)",
         }}
       >
-        <div className="shell flex h-24 items-center justify-between lg:h-28">
+        <div className="shell flex h-20 sm:h-24 items-center justify-between lg:h-28">
           {/* Brand */}
           <Link
             href="/"
@@ -163,7 +163,7 @@ export function Header() {
             }}
             className="group flex items-center"
           >
-            <div className="relative flex h-16 w-auto sm:h-20 lg:h-24 items-center justify-center transition-all duration-500 ease-editorial group-hover:scale-105">
+            <div className="relative flex h-14 w-auto sm:h-20 lg:h-24 items-center justify-center transition-all duration-500 ease-editorial group-hover:scale-105">
               <Image
                 src="/images/logo.png"
                 alt="Gibran & Co."
@@ -249,11 +249,21 @@ export function Header() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.55, ease: EASE_EDITORIAL }}
-              className="absolute right-0 top-0 flex h-full w-[min(22rem,88vw)] flex-col justify-between bg-[#FAF8F5] px-8 pb-10 pt-16 shadow-2xl overflow-y-auto"
+              className="absolute right-0 top-0 flex h-full w-[min(22rem,88vw)] flex-col justify-between bg-[#FAF8F5] px-6 sm:px-8 pb-10 pt-16 shadow-2xl overflow-y-auto"
             >
+              {/* Close Button Inside Drawer */}
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                aria-label="Close menu"
+                className="absolute right-4 top-4 rounded-full p-2 text-oliveDark transition-colors hover:text-warmGold"
+              >
+                <CloseIcon className="h-5 w-5" />
+              </button>
+
               <div>
                 <div className="mb-6 flex items-center justify-center border-b border-[#ECE7DC] pb-6">
-                  <div className="relative flex h-20 w-auto items-center justify-center">
+                  <div className="relative flex h-16 sm:h-20 w-auto items-center justify-center">
                     <Image
                       src="/images/logo.png"
                       alt="Gibran & Co. logo"

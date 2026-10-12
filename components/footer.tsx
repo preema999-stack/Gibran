@@ -62,7 +62,7 @@ export function Footer() {
         </motion.div>
 
         <motion.p
-          className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light uppercase tracking-[0.25em] text-white"
+          className="font-serif text-2xl sm:text-4xl lg:text-5xl font-light uppercase tracking-[0.18em] sm:tracking-[0.25em] text-white"
           initial={reduced ? undefined : { opacity: 0, y: 16 }}
           whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -72,7 +72,7 @@ export function Footer() {
         </motion.p>
 
         <motion.p
-          className="mt-2 text-xs sm:text-sm uppercase tracking-[0.25em] text-warmGold font-medium"
+          className="mt-2 text-xs sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.25em] text-warmGold font-medium"
           initial={reduced ? undefined : { opacity: 0 }}
           whileInView={reduced ? undefined : { opacity: 1 }}
           viewport={{ once: true }}
@@ -92,7 +92,7 @@ export function Footer() {
           served with timeless warmth.
         </motion.p>
 
-        <nav className="mt-8 flex flex-wrap items-center justify-center gap-6 text-xs uppercase tracking-widest text-[#BCC6B8] sm:gap-8">
+        <nav className="mt-8 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-[11px] sm:text-xs uppercase tracking-widest text-[#BCC6B8]">
           {navLinks.map((link, i) => (
             <motion.button
               key={link.href}

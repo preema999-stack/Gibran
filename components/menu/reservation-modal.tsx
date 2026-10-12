@@ -62,14 +62,14 @@ export function ReservationModal({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.3 }}
-          className="relative z-10 w-full max-w-lg overflow-hidden rounded-3xl border border-[#ECE5D6] bg-[#FAF8F5] p-6 shadow-2xl sm:p-8"
+          className="relative z-10 w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-3xl border border-[#ECE5D6] bg-[#FAF8F5] p-5 shadow-2xl sm:p-8"
         >
           {/* Close button */}
           <button
             type="button"
             onClick={handleReset}
             aria-label="Close reservation modal"
-            className="absolute right-5 top-5 rounded-full p-2 text-[#6E7569] hover:bg-[#EDE7DA] hover:text-[#1C241B] transition-colors"
+            className="absolute right-4 top-4 sm:right-5 sm:top-5 rounded-full p-2 text-[#6E7569] hover:bg-[#EDE7DA] hover:text-[#1C241B] transition-colors"
           >
             <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -77,7 +77,7 @@ export function ReservationModal({
           </button>
 
           {step === "form" ? (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-[0.26em] text-[#C5A880]">
                   Gibran &amp; Co. Reservations
@@ -107,7 +107,7 @@ export function ReservationModal({
               </div>
 
               {/* Guests and Date */}
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 xs:grid-cols-2 gap-2.5 sm:gap-3">
                 <div>
                   <label className="block text-[10px] font-bold uppercase tracking-wider text-[#1C241B]">
                     Guests
@@ -148,13 +148,13 @@ export function ReservationModal({
                 <label className="block text-[10px] font-bold uppercase tracking-wider text-[#1C241B]">
                   Seating Experience
                 </label>
-                <div className="mt-1.5 grid grid-cols-3 gap-2">
+                <div className="mt-1.5 grid grid-cols-1 xs:grid-cols-3 gap-1.5 sm:gap-2">
                   {["Main Dining Salon", "Olive Terrace", "Chef's Table"].map((seat) => (
                     <button
                       key={seat}
                       type="button"
                       onClick={() => setSeating(seat)}
-                      className={`rounded-xl px-2.5 py-2 text-center text-[11px] font-medium transition-all ${
+                      className={`rounded-xl px-2 py-2 text-center text-[10px] sm:text-[11px] font-medium transition-all ${
                         seating === seat
                           ? "bg-[#1C241B] text-white shadow-sm"
                           : "border border-[#DCD5C6] bg-white text-[#4A5346] hover:bg-[#F2ECE0]"
@@ -168,7 +168,7 @@ export function ReservationModal({
 
               {/* Contact info */}
               <div className="space-y-3 pt-1">
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 xs:grid-cols-2 gap-2.5 sm:gap-3">
                   <div>
                     <label className="block text-[10px] font-bold uppercase tracking-wider text-[#1C241B]">
                       Full Name

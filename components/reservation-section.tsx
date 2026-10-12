@@ -17,7 +17,7 @@ export function ReservationSection() {
   return (
     <section
       id="reservations"
-      className="grain relative border-b border-white/10 bg-[#161D15] py-20 text-[#FAF8F5] lg:py-28"
+      className="grain relative border-b border-white/10 bg-[#161D15] py-16 sm:py-20 lg:py-28 text-[#FAF8F5]"
     >
       <div className="shell relative z-10">
         <div className="mx-auto max-w-4xl text-center">
@@ -33,7 +33,7 @@ export function ReservationSection() {
             <span className="h-px w-8 bg-warmGold" />
           </motion.div>
 
-          <h2 className="mt-4 font-serif text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-normal leading-tight tracking-tight text-white">
+          <h2 className="mt-4 font-serif text-2xl xs:text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-normal leading-tight tracking-tight text-white">
             <SplitText text="Reserve Your Table for" as="span" />
             <br />
             <SplitText
@@ -49,7 +49,7 @@ export function ReservationSection() {
             whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.85, ease: EASE_EDITORIAL, delay: 0.2 }}
-            className="mx-auto mt-6 max-w-2xl text-sm sm:text-base font-light leading-relaxed text-[#BCC6B8] tracking-wide"
+            className="mx-auto mt-4 sm:mt-6 max-w-2xl text-xs sm:text-base font-light leading-relaxed text-[#BCC6B8] tracking-wide px-2 sm:px-0"
           >
             Step into an atmosphere of unhurried elegance, candlelit ambiance, and
             Levantine culinary poise. Reserve your table in advance for lunch or dinner
@@ -65,7 +65,7 @@ export function ReservationSection() {
               hidden: {},
               show: { transition: { staggerChildren: 0.1, delayChildren: 0.3 } },
             }}
-            className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6"
+            className="mt-8 sm:mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-6"
           >
             {highlights.map((item) => (
               <motion.div
@@ -78,7 +78,7 @@ export function ReservationSection() {
                     transition: { duration: 0.7, ease: EASE_EDITORIAL },
                   },
                 }}
-                className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-md transition-colors hover:border-warmGold/40 hover:bg-white/[0.07]"
+                className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 sm:p-5 backdrop-blur-md transition-colors hover:border-warmGold/40 hover:bg-white/[0.07]"
               >
                 <span className="block font-serif text-base font-semibold text-white">
                   {item.label}
@@ -96,12 +96,12 @@ export function ReservationSection() {
             whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.85, ease: EASE_EDITORIAL, delay: 0.45 }}
-            className="mt-12 flex flex-wrap items-center justify-center gap-5"
+            className="mt-8 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-5 max-w-md sm:max-w-none mx-auto"
           >
-            <Magnetic strength={0.22}>
+            <Magnetic strength={0.22} className="w-full sm:w-auto">
               <Link
                 href="/reservation"
-                className="btn-pill group bg-[#6d7835] text-white shadow-xl hover:bg-[#5b642c] hover:scale-[1.02]"
+                className="btn-pill group w-full sm:w-auto justify-center bg-[#6d7835] text-white shadow-xl hover:bg-[#5b642c] hover:scale-[1.02]"
               >
                 <span>Book a Table Online</span>
                 <ArrowRightIcon className="h-3.5 w-3.5 transition-transform duration-500 ease-editorial group-hover:translate-x-1.5" />
@@ -110,7 +110,7 @@ export function ReservationSection() {
 
             <a
               href="tel:+9731234567"
-              className="group inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/5 px-6 py-3.5 text-xs font-medium uppercase tracking-[0.18em] text-[#FAF8F5] backdrop-blur-md transition-all duration-300 hover:border-warmGold hover:bg-white/10 hover:text-warmGold"
+              className="group inline-flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-full border border-white/20 bg-white/5 px-5 sm:px-6 py-3.5 text-[11px] sm:text-xs font-medium uppercase tracking-[0.16em] sm:tracking-[0.18em] text-[#FAF8F5] backdrop-blur-md transition-all duration-300 hover:border-warmGold hover:bg-white/10 hover:text-warmGold"
             >
               <PhoneIcon className="h-4 w-4 text-warmGold transition-transform duration-300 group-hover:scale-110" />
               <span>Call Concierge: +973 123 4567</span>
@@ -122,9 +122,9 @@ export function ReservationSection() {
             whileInView={reduced ? undefined : { opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-8 flex items-center justify-center gap-2 text-xs text-[#8A9588]"
+            className="mt-6 sm:mt-8 flex items-center justify-center gap-2 text-[11px] sm:text-xs text-[#8A9588] px-4 text-center"
           >
-            <ClockIcon className="h-3.5 w-3.5 text-warmGold" />
+            <ClockIcon className="h-3.5 w-3.5 text-warmGold shrink-0" />
             <span>Open Daily • 12:00 PM – 11:00 PM across all houses</span>
           </motion.div>
         </div>

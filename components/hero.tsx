@@ -48,7 +48,7 @@ export function Hero() {
       id="hero"
       className="grain relative overflow-hidden border-b border-[#ECE7DC] bg-[#FAF7F0]"
     >
-      <div className="relative flex min-h-[560px] items-center overflow-hidden sm:min-h-[600px] lg:min-h-[660px] xl:min-h-[720px] 2xl:min-h-[780px]">
+      <div className="relative flex min-h-[520px] items-center overflow-hidden sm:min-h-[600px] lg:min-h-[660px] xl:min-h-[720px] 2xl:min-h-[780px]">
         {/* Background video */}
         <motion.div
           className="pointer-events-none absolute inset-0 z-0 select-none overflow-hidden"
@@ -73,6 +73,8 @@ export function Hero() {
                 "linear-gradient(to right, rgb(250,247,240) 0%, rgba(250,247,240,0.95) 24%, rgba(250,247,240,0.6) 42%, rgba(250,247,240,0.15) 58%, transparent 72%)",
             }}
           />
+          {/* Subtle mobile overlay to ensure crisp contrast on small screens */}
+          <div className="absolute inset-0 bg-[#FAF7F0]/65 sm:hidden" />
           <div
             className="absolute inset-x-0 bottom-0 h-20"
             style={{
@@ -87,10 +89,10 @@ export function Hero() {
           className="relative z-10 w-full"
           style={reduced ? undefined : { y: copyY, opacity: copyOpacity }}
         >
-          <div className="shell py-14 sm:py-16 lg:py-24 2xl:py-28">
-            <div className="max-w-xl space-y-6 lg:space-y-7">
+          <div className="shell py-12 sm:py-16 lg:py-24 2xl:py-28">
+            <div className="max-w-xl space-y-5 sm:space-y-6 lg:space-y-7">
               <motion.span
-                className="eyebrow !tracking-[0.25em] !font-medium"
+                className="eyebrow !tracking-[0.2em] sm:!tracking-[0.25em] !font-medium"
                 initial={reduced ? undefined : { opacity: 0, y: 14 }}
                 animate={reduced ? undefined : { opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: EASE_EDITORIAL, delay: 0.15 }}
@@ -98,7 +100,7 @@ export function Hero() {
                 Good Food • Good Vibes • Great Company
               </motion.span>
 
-              <h1 className="font-serif text-5xl font-normal leading-[1.05] tracking-tight text-oliveDark sm:text-6xl lg:text-[72px]">
+              <h1 className="font-serif text-4xl sm:text-6xl lg:text-[72px] font-normal leading-[1.08] sm:leading-[1.05] tracking-tight text-oliveDark">
                 <SplitText text="More Than" as="span" delay={0.25} immediate />
                 <br />
                 <SplitText

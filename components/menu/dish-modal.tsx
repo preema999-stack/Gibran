@@ -33,7 +33,7 @@ export function DishModal({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 16 }}
           transition={{ duration: 0.3 }}
-          className="relative z-10 w-full max-w-xl overflow-hidden rounded-3xl border border-[#ECE5D6] bg-[#FAF8F5] shadow-2xl"
+          className="relative z-10 w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-3xl border border-[#ECE5D6] bg-[#FAF8F5] shadow-2xl"
         >
           {/* Close button */}
           <button
@@ -48,7 +48,7 @@ export function DishModal({
           </button>
 
           {/* Dish Image */}
-          <div className="relative h-64 w-full bg-[#EFE9DC]">
+          <div className="relative h-52 sm:h-64 w-full bg-[#EFE9DC]">
             <Image
               src={dish.image}
               alt={dish.name}
@@ -64,7 +64,7 @@ export function DishModal({
           </div>
 
           {/* Content */}
-          <div className="p-6 sm:p-8">
+          <div className="p-5 sm:p-8">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#C5A880]">
@@ -116,7 +116,7 @@ export function DishModal({
             )}
 
             {/* Actions */}
-            <div className="mt-6 flex items-center justify-between gap-4 pt-2">
+            <div className="mt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 pt-2">
               <span className="text-xs text-[#8A9283]">
                 {dish.calories ? `${dish.calories} • ` : ""}Fresh to Order
               </span>
@@ -126,7 +126,7 @@ export function DishModal({
                   onAddToSelection(dish);
                   onClose();
                 }}
-                className="inline-flex items-center gap-2 rounded-full bg-[#6d7835] px-6 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-md hover:bg-[#5b642c] hover:scale-[1.02] transition-all"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#6d7835] px-6 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-md hover:bg-[#5b642c] hover:scale-[1.02] transition-all"
               >
                 Add to Table Selection
                 <span>+</span>

@@ -61,13 +61,13 @@ export function GalleryView() {
   return (
     <div className="relative min-h-screen w-full bg-[#FAF7F0] text-[#1C241B]">
       {/* 1. ULTRA-MINIMAL HEADER */}
-      <header className="mx-auto max-w-4xl px-6 pt-24 pb-8 text-center sm:pt-32 sm:pb-12">
+      <header className="mx-auto max-w-4xl px-4 pt-20 pb-6 text-center sm:px-6 sm:pt-32 sm:pb-12">
         <h1 className="font-serif text-3xl font-light tracking-wide text-[#1C241B] sm:text-4xl md:text-5xl">
           Gallery
         </h1>
 
         {/* Minimal text-only filters with refined underline */}
-        <nav className="mt-8 flex flex-wrap items-center justify-center gap-6 text-[11px] uppercase tracking-[0.22em] text-[#586255] sm:gap-8">
+        <nav className="mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-[10px] sm:text-[11px] uppercase tracking-[0.18em] sm:tracking-[0.22em] text-[#586255]">
           {categories.map((cat) => {
             const isActive = activeCategory === cat.id;
             return (
@@ -96,10 +96,10 @@ export function GalleryView() {
       </header>
 
       {/* 2. AIRY, BORDERLESS PHOTOGRAPHY GRID */}
-      <main className="mx-auto max-w-6xl px-6 pb-28 sm:px-8">
+      <main className="mx-auto max-w-6xl px-4 pb-20 sm:px-8 sm:pb-28">
         <motion.div
           layout
-          className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 sm:gap-10 lg:gap-12"
+          className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 sm:gap-8 lg:gap-12"
         >
           <AnimatePresence>
             {filteredItems.map((item) => (
@@ -145,12 +145,12 @@ export function GalleryView() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 backdrop-blur-sm sm:p-8"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-3 backdrop-blur-sm sm:p-8"
             onClick={handleClose}
           >
             {/* Minimal Header: Counter & Close */}
             <div
-              className="absolute top-0 inset-x-0 flex items-center justify-between px-6 py-5 text-white/70"
+              className="absolute top-0 inset-x-0 z-20 flex items-center justify-between px-4 py-4 text-white/70 sm:px-6 sm:py-5"
               onClick={(e) => e.stopPropagation()}
             >
               <span className="font-mono text-xs tracking-widest text-[#C5A880]">
@@ -162,7 +162,7 @@ export function GalleryView() {
                 type="button"
                 onClick={handleClose}
                 aria-label="Close"
-                className="flex h-9 w-9 items-center justify-center rounded-full text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 sm:bg-transparent text-white/70 transition-colors hover:bg-white/20 hover:text-white"
               >
                 <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.5}>
                   <line x1="18" y1="6" x2="6" y2="18" />
@@ -179,9 +179,9 @@ export function GalleryView() {
                 handlePrev();
               }}
               aria-label="Previous image"
-              className="absolute left-4 top-1/2 -translate-y-1/2 p-2 text-white/60 transition-colors hover:text-white sm:left-6"
+              className="absolute left-2 top-1/2 z-20 -translate-y-1/2 flex h-9 w-9 sm:h-auto sm:w-auto items-center justify-center rounded-full bg-black/40 sm:bg-transparent p-2 text-white/80 transition-colors hover:bg-black/60 hover:text-white sm:left-6"
             >
-              <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={1.5}>
+              <svg viewBox="0 0 24 24" className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" strokeWidth={1.5}>
                 <polyline points="15 18 9 12 15 6" />
               </svg>
             </button>
@@ -194,25 +194,25 @@ export function GalleryView() {
                 handleNext();
               }}
               aria-label="Next image"
-              className="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-white/60 transition-colors hover:text-white sm:right-6"
+              className="absolute right-2 top-1/2 z-20 -translate-y-1/2 flex h-9 w-9 sm:h-auto sm:w-auto items-center justify-center rounded-full bg-black/40 sm:bg-transparent p-2 text-white/80 transition-colors hover:bg-black/60 hover:text-white sm:right-6"
             >
-              <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={1.5}>
+              <svg viewBox="0 0 24 24" className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" strokeWidth={1.5}>
                 <polyline points="9 18 15 12 9 6" />
               </svg>
             </button>
 
             {/* Lightbox Image & Clean Title */}
             <div
-              className="relative flex max-h-[85vh] max-w-4xl flex-col items-center justify-center"
+              className="relative flex max-h-[85vh] max-w-[92vw] sm:max-w-4xl flex-col items-center justify-center px-2"
               onClick={(e) => e.stopPropagation()}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={selectedItem.src}
                 alt={selectedItem.headline}
-                className="max-h-[75vh] w-auto max-w-[90vw] rounded object-contain shadow-2xl"
+                className="max-h-[68vh] sm:max-h-[75vh] w-auto max-w-full rounded object-contain shadow-2xl"
               />
-              <p className="mt-4 font-serif text-base font-light text-white/90">
+              <p className="mt-3 sm:mt-4 font-serif text-sm sm:text-base font-light text-white/90 text-center">
                 {selectedItem.headline}
               </p>
             </div>

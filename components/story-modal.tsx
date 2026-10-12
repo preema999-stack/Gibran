@@ -79,10 +79,10 @@ export function StoryModal({
             className="relative z-10 w-full max-w-4xl overflow-hidden rounded-2xl border border-white/15 bg-[#121612] shadow-2xl"
           >
             {/* Top Bar */}
-            <div className="flex items-center justify-between border-b border-white/10 px-5 py-3.5 sm:px-6">
-              <div className="flex items-center gap-2.5">
-                <span className="h-2 w-2 rounded-full bg-warmGold animate-pulse" />
-                <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#FAF8F5]/90">
+            <div className="flex items-center justify-between border-b border-white/10 px-4 py-3 sm:px-6 sm:py-3.5">
+              <div className="flex items-center gap-2 sm:gap-2.5 min-w-0 pr-2">
+                <span className="h-2 w-2 rounded-full bg-warmGold animate-pulse shrink-0" />
+                <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] sm:tracking-[0.2em] text-[#FAF8F5]/90 truncate">
                   {title}
                 </span>
               </div>

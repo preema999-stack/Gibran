@@ -28,7 +28,7 @@ export function MoodSection() {
   return (
     <section
       ref={section}
-      className="relative overflow-hidden bg-[#131912] py-24 text-white lg:py-28"
+      className="relative overflow-hidden bg-[#131912] py-16 sm:py-24 text-white lg:py-28"
     >
       {/* Candlelit background with depth */}
       <motion.div
@@ -52,8 +52,8 @@ export function MoodSection() {
       </motion.div>
 
       <div className="relative z-10">
-        <div className="shell grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
-          <div className="space-y-6 lg:col-span-7">
+        <div className="shell grid grid-cols-1 items-center gap-8 sm:gap-12 lg:grid-cols-12">
+          <div className="space-y-5 sm:space-y-6 lg:col-span-7">
             <motion.span
               className="block text-xs font-semibold uppercase tracking-[0.28em] text-[#A8B7A4]"
               initial={reduced ? undefined : { opacity: 0, y: 12 }}
@@ -64,7 +64,7 @@ export function MoodSection() {
               Fine Dining Reimagined
             </motion.span>
 
-            <h2 className="font-serif text-4xl font-normal leading-tight sm:text-5xl lg:text-6xl">
+            <h2 className="font-serif text-3xl font-normal leading-tight sm:text-5xl lg:text-6xl">
               <SplitText text="Immerse Yourself in an" as="span" />
               <br />
               <SplitText
@@ -104,7 +104,7 @@ export function MoodSection() {
 
             {/* Animated stat counters */}
             <motion.dl
-              className="grid max-w-lg grid-cols-3 gap-6 border-t border-white/10 pt-8"
+              className="grid max-w-lg grid-cols-3 gap-3 sm:gap-6 border-t border-white/10 pt-6 sm:pt-8"
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, margin: "-60px" }}
@@ -127,11 +127,11 @@ export function MoodSection() {
                 >
                   <dt className="sr-only">{stat.label}</dt>
                   <dd>
-                    <span className="block font-serif text-3xl text-warmGold sm:text-4xl">
+                    <span className="block font-serif text-2xl text-warmGold sm:text-4xl">
                       <Counter to={stat.value} reduced={reduced} />
                       {stat.suffix}
                     </span>
-                    <span className="mt-1 block text-[10px] uppercase tracking-[0.18em] text-[#9FA89D]">
+                    <span className="mt-1 block text-[9.5px] sm:text-[10px] uppercase tracking-[0.14em] sm:tracking-[0.18em] text-[#9FA89D]">
                       {stat.label}
                     </span>
                   </dd>
@@ -151,12 +151,12 @@ export function MoodSection() {
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 1, ease: EASE_EDITORIAL }}
               whileHover={reduced ? undefined : { scale: 1.02 }}
-              className="glass-dark w-full max-w-md rounded-2xl p-8"
+              className="glass-dark w-full max-w-md rounded-2xl p-6 sm:p-8"
             >
-              <p className="font-script text-4xl text-warmGold sm:text-5xl">
+              <p className="font-script text-3xl text-warmGold sm:text-5xl">
                 Good Food, Happy People
               </p>
-              <p className="mt-2 text-xs uppercase tracking-widest text-[#9FA89D]">
+              <p className="mt-2 text-[11px] sm:text-xs uppercase tracking-widest text-[#9FA89D]">
                 Unforgettable Evenings • Curated Wines
               </p>
             </motion.div>

@@ -52,6 +52,8 @@ export function Journey() {
           <JourneyPlate className="z-0" />
 
           <div className="absolute inset-0 z-10 w-full bg-gradient-to-r from-[#181D17] via-[#181D17]/85 to-transparent lg:w-1/2" />
+          {/* Mobile dark veil so text is 100% legible against video on mobile phones */}
+          <div className="absolute inset-0 z-10 bg-[#181D17]/75 sm:hidden" />
           {/* `inset-x-0 bottom-0`, not `inset-0 … bottom-0`: with top, height
               and bottom all set, `bottom` is ignored and the fade would sit at
               the top of the plate. */}
@@ -82,7 +84,7 @@ export function Journey() {
               </div>
 
               {/* Actions stay put across slides, as in the original design. */}
-              <div className="flex flex-wrap items-center gap-6 pt-3">
+              <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-2 sm:pt-3">
                 <Magnetic strength={0.2}>
                   <Link
                     href="/gallery"
@@ -180,7 +182,7 @@ function SlideCopy({ slide }: { slide: (typeof journeySlides)[number] }) {
         </span>
       </MaskLine>
 
-      <h2 className="font-serif text-4xl font-normal leading-[1.08] tracking-tight text-[#FAF8F5] sm:text-5xl lg:text-[62px]">
+      <h2 className="font-serif text-3xl sm:text-5xl lg:text-[62px] font-normal leading-[1.12] sm:leading-[1.08] tracking-tight text-[#FAF8F5]">
         <MaskLine>
           <span className="block">{slide.line1}</span>
         </MaskLine>

@@ -15,10 +15,10 @@ export function TasteTheDifference() {
   const category = menuCategories[active];
 
   return (
-    <section id="menu" className="grain relative bg-[#F4EFE6] py-24 lg:py-28">
+    <section id="menu" className="grain relative bg-[#F4EFE6] py-16 sm:py-20 lg:py-28">
       <div className="shell">
         {/* Split hero */}
-        <div className="mb-16 grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
+        <div className="mb-12 sm:mb-16 grid grid-cols-1 items-center gap-8 sm:gap-12 lg:grid-cols-12">
           <div className="space-y-6 lg:col-span-6">
             <motion.span
               className="eyebrow !font-semibold"
@@ -30,7 +30,7 @@ export function TasteTheDifference() {
               Our Menu
             </motion.span>
 
-            <h2 className="font-serif text-4xl font-normal leading-tight text-oliveDark sm:text-5xl lg:text-6xl">
+            <h2 className="font-serif text-3xl font-normal leading-tight text-oliveDark sm:text-5xl lg:text-6xl">
               <SplitText text="Taste" as="span" />
               <br />
               <SplitText
@@ -94,40 +94,15 @@ export function TasteTheDifference() {
               transition={{ duration: 0.9, ease: EASE_EDITORIAL }}
               className="relative w-full max-w-lg select-none"
             >
-              {/* Perfectly calibrated two-layer bowl: 1. Rotating velvety soup underneath; 2. Ceramic rim overlay in front */}
               <div className="relative aspect-[491/508] w-full">
-                {/* 1. Natural liquid rotation smoothly contained inside the bowl cavity */}
-                <div
-                  className="pointer-events-none absolute"
-                  style={{
-                    left: "47.86%",
-                    top: "49.80%",
-                    width: "59.06%",
-                    height: "57.09%",
-                    transform: "translate(-50%, -50%)",
-                  }}
-                >
-                  <div className="soup-swirl-motion h-full w-full">
-                    <Image
-                      src="/images/soup_liquid.png"
-                      alt="Velvety green pea and herb soup swirling gently"
-                      width={580}
-                      height={580}
-                      priority
-                      className="h-full w-full object-contain"
-                    />
-                  </div>
-                </div>
-
-                {/* 2. Pristine ceramic bowl rim overlay with spoon, olive leaves, and herbs layered in front */}
                 <Image
-                  src="/images/bowl_rim_overlay.png"
+                  src="/images/pea-soup.png"
                   alt="Artisanal ceramic bowl of velvety green pea and herb soup with cream swirl, pumpkin seeds and microgreens"
                   width={491}
                   height={508}
                   sizes="(min-width: 1024px) 32rem, 100vw"
                   priority
-                  className="relative z-10 h-full w-full object-contain pointer-events-none select-none"
+                  className="h-full w-full object-contain pointer-events-none select-none"
                 />
               </div>
 
@@ -137,10 +112,10 @@ export function TasteTheDifference() {
                 whileInView={reduced ? undefined : { opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.5, ease: EASE_EDITORIAL }}
-                className="absolute -bottom-4 -left-4 z-20 flex items-center gap-2 whitespace-nowrap rounded-full border border-[#ECE7DC] bg-white/95 px-6 py-2.5 shadow-lg backdrop-blur-md sm:bottom-4 sm:left-4"
+                className="absolute -bottom-2 left-2 z-20 flex items-center gap-2 whitespace-nowrap rounded-full border border-[#ECE7DC] bg-white/95 px-4 py-2 shadow-lg backdrop-blur-md sm:bottom-4 sm:left-4 sm:px-6 sm:py-2.5"
               >
                 <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-oliveDark" />
-                <span className="font-script text-xl tracking-wide text-oliveDark sm:text-2xl">
+                <span className="font-script text-lg sm:text-2xl tracking-wide text-oliveDark">
                   Fresh • Seasonal • Local
                 </span>
               </motion.div>
@@ -157,7 +132,7 @@ export function TasteTheDifference() {
         >
           {/* Category tabs */}
           <div
-            className="mx-auto grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6"
+            className="mx-auto grid max-w-4xl grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-6"
             role="tablist"
             aria-label="Menu categories"
           >
@@ -172,7 +147,7 @@ export function TasteTheDifference() {
                   aria-selected={isActive}
                   aria-controls={`panel-${item.id}`}
                   onClick={() => setActive(i)}
-                  className={`relative flex items-center justify-center gap-2 rounded-xl px-3 py-3 text-xs font-medium uppercase tracking-wider transition-colors duration-300 ${isActive
+                  className={`relative flex items-center justify-center gap-1.5 sm:gap-2 rounded-xl px-2.5 py-2.5 sm:px-3 sm:py-3 text-[11px] sm:text-xs font-medium uppercase tracking-wider transition-colors duration-300 ${isActive
                     ? "text-white shadow-sm"
                     : "border border-[#E4DECF] bg-white/80 text-oliveDark hover:bg-white"
                     }`}
@@ -184,9 +159,9 @@ export function TasteTheDifference() {
                       transition={{ duration: 0.55, ease: EASE_EDITORIAL }}
                     />
                   )}
-                  <span className="relative z-10 flex items-center justify-center gap-2">
-                    {i === 0 && <PlusIcon className="h-4 w-4" />}
-                    {item.label}
+                  <span className="relative z-10 flex items-center justify-center gap-1.5 sm:gap-2 text-center">
+                    {i === 0 && <PlusIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />}
+                    <span>{item.label}</span>
                   </span>
                 </button>
               );

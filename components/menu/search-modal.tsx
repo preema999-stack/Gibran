@@ -34,7 +34,7 @@ export function SearchModal({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-start justify-center p-4 pt-20 sm:pt-28">
+      <div className="fixed inset-0 z-50 flex items-start justify-center p-3 pt-16 sm:p-4 sm:pt-28">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -47,7 +47,7 @@ export function SearchModal({
           initial={{ opacity: 0, scale: 0.96, y: -20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: -20 }}
-          className="relative z-10 w-full max-w-2xl overflow-hidden rounded-3xl border border-[#ECE5D6] bg-[#FAF8F5] p-6 shadow-2xl"
+          className="relative z-10 w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-[#ECE5D6] bg-[#FAF8F5] p-4 sm:p-6 shadow-2xl"
         >
           {/* Header search bar */}
           <div className="relative flex items-center border-b border-[#ECE5D6] pb-4">
@@ -101,7 +101,7 @@ export function SearchModal({
           </div>
 
           {/* Dish list */}
-          <div className="mt-4 max-h-[380px] overflow-y-auto pr-1 space-y-2.5">
+          <div className="mt-4 max-h-[50vh] sm:max-h-[380px] overflow-y-auto pr-1 space-y-2.5">
             {filtered.length > 0 ? (
               filtered.map((item) => (
                 <div

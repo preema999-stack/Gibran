@@ -218,7 +218,8 @@
 }
 
 .soup-swirl-motion {
-  animation: soupSwirl 30s linear infinite;
+  animation: soupSwirl 40s linear infinite;
+  transform-origin: center center;
   will-change: transform;
 }
 

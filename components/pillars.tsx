@@ -92,11 +92,11 @@ export function Pillars() {
             <span className="h-px w-8 bg-warmGold" />
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-oliveDark">
+          <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-oliveDark">
             A Heritage of Taste, Hospitality &amp; Soul
           </h2>
 
-          <p className="mx-auto max-w-2xl text-sm sm:text-base font-light leading-relaxed text-oliveMuted/90 tracking-wide">
+          <p className="mx-auto max-w-2xl text-xs sm:text-base font-light leading-relaxed text-oliveMuted/90 tracking-wide px-2 sm:px-0">
             Rooted in the rich culinary artistry of the Levant, Gibran &amp; Co. gathers
             market-fresh ingredients, ancestral recipes, and thoughtful design into an
             unhurried dining experience across our iconic regional houses.
@@ -105,7 +105,7 @@ export function Pillars() {
 
         {/* 4 Brand Pillars Grid */}
         <motion.div
-          className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-4 lg:gap-8"
+          className="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-4 lg:gap-8"
           initial={reduced ? undefined : "hidden"}
           whileInView={reduced ? undefined : "show"}
           viewport={{ once: true, margin: "-70px" }}
@@ -128,18 +128,18 @@ export function Pillars() {
                   },
                 }}
                 whileHover={reduced ? undefined : { y: -6 }}
-                className="group flex flex-col items-center rounded-2xl border border-[#ECE7DC]/60 bg-[#F6F2E8]/70 p-5 text-center transition-all duration-500 hover:border-warmGold/40 hover:bg-[#F2ECE0] hover:shadow-sm"
+                className="group flex flex-col items-center rounded-2xl border border-[#ECE7DC]/60 bg-[#F6F2E8]/70 p-3.5 sm:p-5 text-center transition-all duration-500 hover:border-warmGold/40 hover:bg-[#F2ECE0] hover:shadow-sm"
               >
-                <div className="relative mb-3 flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-[#EAE4D5] text-oliveDark">
+                <div className="relative mb-2.5 sm:mb-3 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center overflow-hidden rounded-full bg-[#EAE4D5] text-oliveDark">
                   {/* Ring that draws itself in on hover */}
                   <span className="absolute inset-0 rounded-full border border-warmGold/0 transition-colors duration-500 group-hover:border-warmGold/60" />
-                  <Icon className="relative h-5 w-5 transition-transform duration-700 ease-editorial group-hover:rotate-[18deg] group-hover:scale-110" />
+                  <Icon className="relative h-4 w-4 sm:h-5 sm:w-5 transition-transform duration-700 ease-editorial group-hover:rotate-[18deg] group-hover:scale-110" />
                 </div>
 
-                <h4 className="font-serif text-lg font-semibold text-oliveDark">
+                <h4 className="font-serif text-base sm:text-lg font-semibold text-oliveDark">
                   {pillar.title}
                 </h4>
-                <p className="mt-0.5 text-[11px] uppercase tracking-wider text-oliveMuted">
+                <p className="mt-0.5 text-[10px] sm:text-[11px] uppercase tracking-wider text-oliveMuted">
                   {pillar.caption}
                 </p>
               </motion.article>
@@ -161,11 +161,11 @@ export function Pillars() {
               <span className="eyebrow !text-oliveDark">Our Locations</span>
             </div>
 
-            <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-normal text-oliveDark">
+            <h3 className="font-serif text-xl xs:text-2xl sm:text-3xl lg:text-4xl font-normal text-oliveDark">
               Visit Us in Bahrain, Abu Dhabi &amp; Beirut
             </h3>
 
-            <p className="text-xs sm:text-sm font-light text-oliveMuted leading-relaxed">
+            <p className="text-xs sm:text-sm font-light text-oliveMuted leading-relaxed px-2 sm:px-0">
               Each destination captures our signature Levantine warmth, paired with
               distinctive architectural elegance tailored to its city.
             </p>
@@ -173,7 +173,7 @@ export function Pillars() {
 
           {/* 3 Location Cards */}
           <motion.div
-            className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8"
+            className="grid grid-cols-1 gap-5 md:grid-cols-3 lg:gap-8"
             initial={reduced ? undefined : "hidden"}
             whileInView={reduced ? undefined : "show"}
             viewport={{ once: true, margin: "-60px" }}
@@ -194,7 +194,7 @@ export function Pillars() {
                   },
                 }}
                 whileHover={reduced ? undefined : { y: -5 }}
-                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-[#ECE7DC] bg-white/80 p-6 sm:p-7 shadow-[0_4px_20px_-4px_rgba(28,36,27,0.05)] backdrop-blur-sm transition-all duration-500 hover:border-warmGold/60 hover:bg-white hover:shadow-[0_12px_32px_-8px_rgba(43,51,41,0.12)]"
+                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-[#ECE7DC] bg-white/80 p-5 sm:p-7 shadow-[0_4px_20px_-4px_rgba(28,36,27,0.05)] backdrop-blur-sm transition-all duration-500 hover:border-warmGold/60 hover:bg-white hover:shadow-[0_12px_32px_-8px_rgba(43,51,41,0.12)]"
               >
                 {/* Top decorative accent */}
                 <span className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-warmGold/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />

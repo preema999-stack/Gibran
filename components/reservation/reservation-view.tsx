@@ -238,7 +238,7 @@ export function ReservationView() {
       </motion.div>
 
       {/* MAIN CONTAINER */}
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-6 py-10 sm:px-8 lg:px-12 lg:py-16">
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-4 py-8 sm:px-8 lg:px-12 lg:py-16">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
           {/* LEFT FORM COLUMN */}
           <div className="lg:col-span-6 xl:col-span-5">
@@ -285,7 +285,7 @@ export function ReservationView() {
                   </motion.div>
 
                   {/* Heading with flowing word-by-word SplitText */}
-                  <h1 className="font-serif text-4xl font-normal leading-[1.12] text-[#FAF7F0] sm:text-5xl lg:text-[54px] xl:text-6xl">
+                  <h1 className="font-serif text-3xl sm:text-5xl lg:text-[54px] xl:text-6xl font-normal leading-[1.12] text-[#FAF7F0]">
                     <SplitText text="Reserve Your" as="span" delay={0.18} immediate />
                     <br />
                     <SplitText text="Table" as="span" delay={0.32} immediate />
@@ -444,35 +444,35 @@ export function ReservationView() {
                           Instant delivery
                         </span>
                       </div>
-                      <div className="grid grid-cols-3 gap-2">
+                      <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
                         <button
                           type="button"
                           onClick={() => setNotifyChannel("whatsapp")}
-                          className={`flex items-center justify-center gap-1.5 rounded-full py-2 px-3 text-[11px] font-medium transition-all ${
+                          className={`flex items-center justify-center gap-1 sm:gap-1.5 rounded-full py-2 px-2 sm:px-3 text-[10px] sm:text-[11px] font-medium transition-all ${
                             notifyChannel === "whatsapp"
                               ? "bg-[#25D366] text-white shadow-md font-semibold ring-2 ring-white/20"
                               : "bg-white/10 text-white/75 hover:bg-white/15 hover:text-white"
                           }`}
                         >
-                          <WhatsAppIcon className="h-3.5 w-3.5 fill-current" />
+                          <WhatsAppIcon className="h-3.5 w-3.5 fill-current shrink-0" />
                           <span>WhatsApp</span>
                         </button>
                         <button
                           type="button"
                           onClick={() => setNotifyChannel("email")}
-                          className={`flex items-center justify-center gap-1.5 rounded-full py-2 px-3 text-[11px] font-medium transition-all ${
+                          className={`flex items-center justify-center gap-1 sm:gap-1.5 rounded-full py-2 px-2 sm:px-3 text-[10px] sm:text-[11px] font-medium transition-all ${
                             notifyChannel === "email"
                               ? "bg-[#C5A880] text-[#1C241B] shadow-md font-semibold ring-2 ring-white/20"
                               : "bg-white/10 text-white/75 hover:bg-white/15 hover:text-white"
                           }`}
                         >
-                          <MailIcon className="h-3.5 w-3.5" />
+                          <MailIcon className="h-3.5 w-3.5 shrink-0" />
                           <span>Email</span>
                         </button>
                         <button
                           type="button"
                           onClick={() => setNotifyChannel("both")}
-                          className={`flex items-center justify-center gap-1.5 rounded-full py-2 px-3 text-[11px] font-medium transition-all ${
+                          className={`flex items-center justify-center gap-1 sm:gap-1.5 rounded-full py-2 px-2 sm:px-3 text-[10px] sm:text-[11px] font-medium transition-all ${
                             notifyChannel === "both"
                               ? "bg-white text-[#1C241B] shadow-md font-semibold ring-2 ring-white/20"
                               : "bg-white/10 text-white/75 hover:bg-white/15 hover:text-white"

@@ -37,7 +37,7 @@ export function Marquee({
       {marqueeItems.map((item) => (
         <span key={item} className="flex shrink-0 items-center">
           <span
-            className={`px-8 font-serif text-2xl italic sm:text-3xl ${styles.text}`}
+            className={`px-4 sm:px-8 font-serif text-xl sm:text-3xl italic ${styles.text}`}
           >
             {item}
           </span>
@@ -50,7 +50,7 @@ export function Marquee({
   if (reduced) {
     return (
       <div className={`overflow-hidden ${styles.root} ${className}`}>
-        <div className="flex justify-center py-5">{row}</div>
+        <div className="flex justify-center py-4 sm:py-5">{row}</div>
       </div>
     );
   }
@@ -62,13 +62,13 @@ export function Marquee({
     >
       {/* Feather the edges so items enter and leave softly */}
       <div
-        className={`pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r ${styles.fade} to-transparent`}
+        className={`pointer-events-none absolute inset-y-0 left-0 z-10 w-8 sm:w-16 bg-gradient-to-r ${styles.fade} to-transparent`}
       />
       <div
-        className={`pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l ${styles.fade} to-transparent`}
+        className={`pointer-events-none absolute inset-y-0 right-0 z-10 w-8 sm:w-16 bg-gradient-to-l ${styles.fade} to-transparent`}
       />
 
-      <div className="marquee-track flex w-max animate-marquee py-5 group-hover:[animation-play-state:paused]">
+      <div className="marquee-track flex w-max animate-marquee py-3.5 sm:py-5 group-hover:[animation-play-state:paused]">
         {row}
         {row}
       </div>

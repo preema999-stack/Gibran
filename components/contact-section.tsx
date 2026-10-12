@@ -60,11 +60,11 @@ export function ContactSection() {
             <span className="h-px w-8 bg-warmGold" />
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-oliveDark">
+          <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-normal text-oliveDark">
             We Look Forward to Welcoming You
           </h2>
 
-          <p className="text-sm sm:text-base font-light text-oliveMuted leading-relaxed">
+          <p className="text-xs sm:text-base font-light text-oliveMuted leading-relaxed px-2 sm:px-0">
             Our guest concierge team is dedicated to providing tailored hospitality,
             whether reserving an intimate table or planning an exclusive private gathering.
           </p>
@@ -72,7 +72,7 @@ export function ContactSection() {
 
         {/* 4 Contact cards */}
         <motion.div
-          className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
+          className="mt-10 sm:mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 sm:gap-6"
           initial={reduced ? undefined : "hidden"}
           whileInView={reduced ? undefined : "show"}
           viewport={{ once: true, margin: "-60px" }}
@@ -95,7 +95,7 @@ export function ContactSection() {
                   },
                 }}
                 whileHover={reduced ? undefined : { y: -4 }}
-                className="group flex flex-col justify-between rounded-2xl border border-[#ECE7DC] bg-white/70 p-6 shadow-sm backdrop-blur-sm transition-all duration-500 hover:border-warmGold/50 hover:bg-white hover:shadow-md"
+                className="group flex flex-col justify-between rounded-2xl border border-[#ECE7DC] bg-white/70 p-5 sm:p-6 shadow-sm backdrop-blur-sm transition-all duration-500 hover:border-warmGold/50 hover:bg-white hover:shadow-md"
               >
                 <div>
                   <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-[#FAF7F0] border border-[#ECE7DC] text-oliveDark transition-colors group-hover:border-warmGold/60 group-hover:text-warmGold">
