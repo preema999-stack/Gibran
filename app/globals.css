@@ -16,14 +16,20 @@
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: auto; /* Lenis owns scrolling */
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-[#FAF7F0] font-sans text-charcoal antialiased;
-    /* `clip` rather than `hidden`: `hidden` would turn the body into a scroll
-       container and silently break every `position: sticky` descendant
-       (the header, and the pinned journey section). */
+    /* `clip` on body rather than `hidden`: `clip` does not turn the body into a scroll
+       container, preserving `position: sticky` descendants while `overflow-x: hidden`
+       on `html` locks horizontal panning on mobile devices. */
+    width: 100%;
+    max-width: 100%;
     overflow-x: clip;
+    position: relative;
   }
 
   /* Lenis recommended rules */

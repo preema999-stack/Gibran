@@ -21,7 +21,7 @@ export function Pillars() {
   return (
     <section
       id="about"
-      className="grain relative border-b border-[#ECE7DC] bg-[#FAF7F0] py-16 lg:py-24 scroll-mt-20 overflow-hidden"
+      className="grain relative w-full max-w-full border-b border-[#ECE7DC] bg-[#FAF7F0] py-16 lg:py-24 scroll-mt-20 overflow-hidden"
     >
       <span id="pillars" aria-hidden="true" className="absolute -top-24 pointer-events-none" />
 

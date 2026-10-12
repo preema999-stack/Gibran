@@ -139,7 +139,7 @@ export function Header() {
     <>
       <motion.header
         {...headerMotion}
-        className="sticky top-0 z-50 w-full border-b transition-colors duration-500"
+        className="sticky top-0 z-50 w-full max-w-full overflow-x-clip border-b transition-colors duration-500"
         style={{
           backgroundColor: scrolled
             ? "rgba(250, 247, 240, 0.86)"

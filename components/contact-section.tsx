@@ -44,7 +44,7 @@ export function ContactSection() {
   return (
     <section
       id="contact"
-      className="grain relative border-b border-[#ECE7DC] bg-[#FAF7F0] py-16 lg:py-24"
+      className="grain relative w-full max-w-full overflow-hidden border-b border-[#ECE7DC] bg-[#FAF7F0] py-16 lg:py-24"
     >
       <div className="shell">
         <motion.div

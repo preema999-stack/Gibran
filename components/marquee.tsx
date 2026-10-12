@@ -57,7 +57,7 @@ export function Marquee({
 
   return (
     <div
-      className={`group relative overflow-hidden ${styles.root} ${className}`}
+      className={`group relative w-full max-w-full overflow-hidden ${styles.root} ${className}`}
       aria-hidden="true"
     >
       {/* Feather the edges so items enter and leave softly */}

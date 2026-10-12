@@ -17,7 +17,7 @@ export function ReservationSection() {
   return (
     <section
       id="reservations"
-      className="grain relative border-b border-white/10 bg-[#161D15] py-16 sm:py-20 lg:py-28 text-[#FAF8F5]"
+      className="grain relative w-full max-w-full overflow-hidden border-b border-white/10 bg-[#161D15] py-16 sm:py-20 lg:py-28 text-[#FAF8F5]"
     >
       <div className="shell relative z-10">
         <div className="mx-auto max-w-4xl text-center">

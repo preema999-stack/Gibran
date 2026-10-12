@@ -34,12 +34,12 @@ export function Journey() {
     <section
       ref={section}
       id="culinary-journey"
-      className="relative border-b border-white/10 bg-[#181D17] text-white"
+      className="relative w-full max-w-full border-b border-white/10 bg-[#181D17] text-white"
       style={{ height: `${count * SCROLL_PER_SLIDE_VH + 100}vh` }}
     >
       {/* Pinned viewport. `overflow-hidden` lives here, never on an ancestor
           of a sticky element, or the pin silently fails. */}
-      <div className="sticky top-0 h-screen overflow-hidden">
+      <div className="sticky top-0 h-screen w-full max-w-full overflow-hidden">
         {/* Plate + its scrims. The scrims MUST stay nested inside the plate:
             `lg:w-1/2` then means half the plate (half of 3/5), so the footage
             dissolves into the ground exactly at the plate's left edge. As a
@@ -244,7 +244,7 @@ function JourneyIndicator({
   reduced: boolean;
 }) {
   return (
-    <div className="mt-4 flex items-center gap-8 border-t border-white/10 pt-8 text-xs text-[#9FA89D]">
+    <div className="mt-4 flex flex-wrap sm:flex-nowrap items-center gap-3 sm:gap-8 border-t border-white/10 pt-6 sm:pt-8 text-xs text-[#9FA89D]">
       <div className="flex items-center gap-2">
         <span className="font-semibold text-warmGold">
           {String(active + 1).padStart(2, "0")}

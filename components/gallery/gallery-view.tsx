@@ -8,7 +8,7 @@ import { galleryItems, GalleryItem } from "@/lib/gallery-data";
 const categories = [
   { id: "all", label: "All" },
   { id: "culinary", label: "Culinary & Dishes" },
-  { id: "architecture", label: "The Courtyard" },
+  { id: "ambience", label: "Ambience & Courtyard" },
   { id: "majlis", label: "Evening & Majlis" },
   { id: "roastery", label: "Roastery & Coffee" },
 ] as const;

@@ -2,7 +2,7 @@ export interface GalleryItem {
   id: string;
   src: string;
   headline: string;
-  category: "architecture" | "culinary" | "majlis" | "roastery";
+  category: "architecture" | "culinary" | "majlis" | "roastery" | "ambience";
   categoryLabel: string;
   desc: string;
   meta: string;
@@ -16,9 +16,9 @@ export interface GalleryItem {
 }
 
 export const galleryCategories = [
-  { id: "all", label: "All", count: 14 },
-  { id: "culinary", label: "Culinary & Dishes", count: 8 },
-  { id: "architecture", label: "The Courtyard", count: 3 },
+  { id: "all", label: "All", count: 20 },
+  { id: "culinary", label: "Culinary & Dishes", count: 9 },
+  { id: "ambience", label: "Ambience & Courtyard", count: 7 },
   { id: "majlis", label: "Evening & Majlis", count: 2 },
   { id: "roastery", label: "Roastery & Coffee", count: 2 },
 ] as const;
@@ -140,21 +140,6 @@ export const galleryItems: GalleryItem[] = [
     tags: ["Pistachio Baklava", "Clotted Ashta", "Orange Blossom"],
   },
   {
-    id: "chef-plating",
-    src: "/assets/gallery/chef-plating.jpg",
-    headline: "Visible Care: Live Show Kitchen & Rotisserie Pass",
-    category: "culinary",
-    categoryLabel: "Culinary Masterpieces",
-    badge: "The Show Kitchen",
-    frame: "CRAFT 01",
-    desc: "Culinary care made visible. Executive chef carving flame-roasted meats and assembling fresh mezza bowls against glossy soft sage ceramic tiles and pale stone counters.",
-    meta: "Show Kitchen • Live Preparation",
-    location: "Open Kitchen Pass",
-    specs: "Soft Sage 75×150 Tile • Flame Rotisserie • Fresh Mezza Display",
-    aperture: "Design Standards Render",
-    tags: ["Show Kitchen", "Chef Pass", "Live Cooking"],
-  },
-  {
     id: "guest-lunch",
     src: "/assets/gallery/guest-lunch.jpg",
     headline: "The Grand Courtyard Mezza Table Feast",
@@ -170,16 +155,31 @@ export const galleryItems: GalleryItem[] = [
     aperture: "Design Standards Render",
     tags: ["Mezza Feast", "Warm Pita", "Khayzaran Table"],
   },
+  {
+    id: "chef-plating",
+    src: "/assets/gallery/chef-plating.jpg",
+    headline: "Visible Care: Live Show Kitchen & Rotisserie Pass",
+    category: "culinary",
+    categoryLabel: "Culinary Masterpieces",
+    badge: "The Show Kitchen",
+    frame: "CRAFT 01",
+    desc: "Culinary care made visible. Executive chef carving flame-roasted meats and assembling fresh mezza bowls against glossy soft sage ceramic tiles and pale stone counters.",
+    meta: "Show Kitchen • Live Preparation",
+    location: "Open Kitchen Pass",
+    specs: "Soft Sage 75×150 Tile • Flame Rotisserie • Fresh Mezza Display",
+    aperture: "Design Standards Render",
+    tags: ["Show Kitchen", "Chef Pass", "Live Cooking"],
+  },
 
   // ==========================================
-  // COURTYARD & ARCHITECTURE
+  // AMBIENCE & COURTYARD
   // ==========================================
   {
     id: "principal-dining-hall",
     src: "/assets/gallery/principal-dining-hall.jpg",
     headline: "The Principal Dining Hall & Waterfront Colonnade",
-    category: "architecture",
-    categoryLabel: "The Courtyard & Architecture",
+    category: "ambience",
+    categoryLabel: "Ambience & Courtyard",
     badge: "Principal View",
     frame: "SPACE 01",
     desc: "A calm, polished interpretation of a modern Lebanese deli. Bazerkan geometric tile flooring, HONEXT perforated acoustic timber ceiling, and whitewash ceramic pendant clusters overlooking the bay.",
@@ -190,14 +190,29 @@ export const galleryItems: GalleryItem[] = [
     tags: ["Bazerkan Tile", "Acoustic Ceiling", "Waterfront View"],
   },
   {
+    id: "courtyard-terrace-ambience",
+    src: "/assets/gallery/courtyard-terrace-ambience.jpg",
+    headline: "Lantern-Lit Courtyard Terrace & Living Olive Trees",
+    category: "ambience",
+    categoryLabel: "Ambience & Courtyard",
+    badge: "Alfresco Sunset",
+    frame: "SPACE 02",
+    desc: "Ancient living olive trees potted in whitewashed terracotta urns, gentle 2700K glowing lanterns resting on oak tables, and sea breezes drifting across the stone courtyard as dusk descends.",
+    meta: "Alfresco Terrace • Golden Hour",
+    location: "Courtyard Pergola Terrace",
+    specs: "Living Olive Trees • 2700K Glare-Free Lanterns • Caned Armchairs",
+    aperture: "Twilight Golden Hour",
+    tags: ["Olive Trees", "Lantern Glow", "Courtyard Terrace"],
+  },
+  {
     id: "calm-envelope-coffee-station",
     src: "/assets/gallery/calm-envelope-coffee-station.jpg",
-    headline: "Open Coffee Station & Waterfront Glazing",
-    category: "architecture",
-    categoryLabel: "The Courtyard & Architecture",
+    headline: "Sun-Drenched Coffee Station & Waterfront Glazing",
+    category: "ambience",
+    categoryLabel: "Ambience & Courtyard",
     badge: "First Sightline",
-    frame: "SPACE 02",
-    desc: "Seamless micro-cement counter in pale stone facing the entrance. Low-profile espresso machinery ensures baristas remain in direct sightline with guests enjoying bay panoramas.",
+    frame: "SPACE 03",
+    desc: "Seamless micro-cement counter in pale stone facing the entrance. Low-profile espresso machinery ensures baristas remain in direct sightline with guests enjoying morning bay panoramas.",
     meta: "Calm Envelope • First Sightline",
     location: "Coffee Bar Station",
     specs: "900mm Pale Stone Micro-Cement • R50mm Radiused Corners",
@@ -208,16 +223,61 @@ export const galleryItems: GalleryItem[] = [
     id: "heritage-abstracted-colonnade",
     src: "/assets/gallery/heritage-abstracted-colonnade.jpg",
     headline: "The Abstracted Lebanese Arch & Central Social Table",
-    category: "architecture",
-    categoryLabel: "The Courtyard & Architecture",
+    category: "ambience",
+    categoryLabel: "Ambience & Courtyard",
     badge: "Heritage Abstracted",
-    frame: "SPACE 03",
+    frame: "SPACE 04",
     desc: "Arches reinterpreted as flush 20–30mm plaster recesses rather than literal historic ornamentation. The central communal table rests beneath the ceramic vessel pendant cluster.",
     meta: "Heritage Abstracted • Principal Arch",
     location: "Central Arcade",
     specs: "20–30mm Plaster Recess • Mineral Lime Plaster • No Faux Stone",
     aperture: "Architectural Relief",
     tags: ["Abstracted Arch", "Lime Plaster", "Communal Table"],
+  },
+  {
+    id: "social-table-vessel-pendant-cluster",
+    src: "/assets/gallery/social-table-vessel-pendant-cluster.jpg",
+    headline: "Whitewash Clay Vessel Pendant Light Cluster",
+    category: "ambience",
+    categoryLabel: "Ambience & Courtyard",
+    badge: "Focal Luminaire",
+    frame: "SPACE 05",
+    desc: "Handcrafted earthenware pendant bodies in matte whitewash clay with warm interior gold reflection, hung in a graduated cluster over the social table under 3000K warm dimmable illumination.",
+    meta: "Vessel Cluster • 3000K Warmth",
+    location: "Centred over Social Table",
+    specs: "Handcrafted Clay Bodies • 3000K CRI 90+ • Perforated Ceiling",
+    aperture: "Warmth 3000K",
+    tags: ["Vessel Cluster", "Whitewash Clay", "3000K Lighting"],
+  },
+  {
+    id: "afternoon-sunlight-scene",
+    src: "/assets/gallery/afternoon-sunlight-scene.jpg",
+    headline: "Afternoon Light Scene: Sun-Drenched Dining Harmony",
+    category: "ambience",
+    categoryLabel: "Ambience & Courtyard",
+    badge: "Scene 02",
+    frame: "SPACE 06",
+    desc: "Even, calm daylight illumination balanced so natural exterior daylight and interior warm fixtures read as one continuous tranquil environment across the seating field.",
+    meta: "Scene 02 • Afternoon Ambiance",
+    location: "Main Seating Field",
+    specs: "Balanced Daylight Integration • 3000K CRI 90+ • Caned Seating",
+    aperture: "Afternoon Rhythm",
+    tags: ["Afternoon Glow", "Balanced Lighting", "Natural Harmony"],
+  },
+  {
+    id: "seamless-stone-coffee-counter",
+    src: "/assets/gallery/seamless-stone-coffee-counter.jpg",
+    headline: "Seamless Pale Stone Micro-Cement Counter Ambience",
+    category: "ambience",
+    categoryLabel: "Ambience & Courtyard",
+    badge: "The Counter",
+    frame: "SPACE 07",
+    desc: "First object seen from the entrance and the most photographed element. 900mm high seamless polished plaster with gentle R50mm radiused corners and quartz worktops.",
+    meta: "The Counter • Customer View",
+    location: "Main Counter Run",
+    specs: "900mm Height • 40mm Quartz Worktop • 50mm Shadow Gap Skirting",
+    aperture: "Counter Benchmark",
+    tags: ["Micro-Cement", "Seamless Joinery", "Quartz Edge"],
   },
 
   // ==========================================
@@ -322,12 +382,12 @@ export const exhibitionReelItems = [
   },
   {
     itemIndex: 3,
-    id: "roastery-cezve",
-    src: "/assets/gallery/roastery-cezve.jpg",
-    badge: "Roast 12",
-    title: "Cardamom Dark Cezve Pour",
-    price: "AED 18",
-    desc: "Single-origin beans brewed on hot golden sand in hammered brass.",
+    id: "courtyard-terrace-ambience",
+    src: "/assets/gallery/courtyard-terrace-ambience.jpg",
+    badge: "Space 01",
+    title: "Lantern Courtyard Terrace",
+    price: "Alfresco Dining",
+    desc: "Twilight sea views, olive trees in whitewashed urns, and warm glowing lanterns.",
   },
 ];
 
@@ -347,8 +407,8 @@ export const guestSocialStream = [
   {
     itemIndex: 2,
     handle: "@layla.arch",
-    src: "/assets/gallery/roastery-cezve.jpg",
-    alt: "Morning coffee pour in copper cezve",
+    src: "/assets/gallery/courtyard-terrace-ambience.jpg",
+    alt: "Evening terrace with lanterns and olive trees",
   },
   {
     itemIndex: 3,

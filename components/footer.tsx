@@ -43,7 +43,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="border-t border-white/5 bg-forestDark py-16 text-[#A4B0A0]">
+    <footer className="relative w-full max-w-full overflow-hidden border-t border-white/5 bg-forestDark py-16 text-[#A4B0A0]">
       <div className="shell flex flex-col items-center text-center">
         <motion.div
           initial={reduced ? undefined : { opacity: 0, scale: 0.85, y: 16 }}

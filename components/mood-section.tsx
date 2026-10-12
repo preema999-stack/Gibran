@@ -28,7 +28,7 @@ export function MoodSection() {
   return (
     <section
       ref={section}
-      className="relative overflow-hidden bg-[#131912] py-16 sm:py-24 text-white lg:py-28"
+      className="relative w-full max-w-full overflow-hidden bg-[#131912] py-16 sm:py-24 text-white lg:py-28"
     >
       {/* Candlelit background with depth */}
       <motion.div

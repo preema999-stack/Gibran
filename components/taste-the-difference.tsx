@@ -15,7 +15,7 @@ export function TasteTheDifference() {
   const category = menuCategories[active];
 
   return (
-    <section id="menu" className="grain relative bg-[#F4EFE6] py-16 sm:py-20 lg:py-28">
+    <section id="menu" className="grain relative w-full max-w-full overflow-hidden bg-[#F4EFE6] py-16 sm:py-20 lg:py-28">
       <div className="shell">
         {/* Split hero */}
         <div className="mb-12 sm:mb-16 grid grid-cols-1 items-center gap-8 sm:gap-12 lg:grid-cols-12">
@@ -145,10 +145,10 @@ export function TasteTheDifference() {
                 whileInView={reduced ? undefined : { opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.5, ease: EASE_EDITORIAL }}
-                className="absolute -bottom-2 left-2 z-20 flex items-center gap-2 whitespace-nowrap rounded-full border border-[#ECE7DC] bg-white/95 px-4 py-2 shadow-lg backdrop-blur-md sm:bottom-4 sm:left-4 sm:px-6 sm:py-2.5"
+                className="absolute -bottom-2 left-2 z-20 flex max-w-[calc(100%-1rem)] items-center gap-2 whitespace-nowrap rounded-full border border-[#ECE7DC] bg-white/95 px-3 py-1.5 shadow-lg backdrop-blur-md sm:bottom-4 sm:left-4 sm:px-6 sm:py-2.5"
               >
-                <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-oliveDark" />
-                <span className="font-script text-lg sm:text-2xl tracking-wide text-oliveDark">
+                <span className="inline-block h-2 w-2 shrink-0 animate-pulse rounded-full bg-oliveDark" />
+                <span className="font-script text-base sm:text-2xl tracking-wide text-oliveDark truncate">
                   Fresh • Seasonal • Local
                 </span>
               </motion.div>
@@ -180,7 +180,7 @@ export function TasteTheDifference() {
                   aria-selected={isActive}
                   aria-controls={`panel-${item.id}`}
                   onClick={() => setActive(i)}
-                  className={`relative flex items-center justify-center gap-1.5 sm:gap-2 rounded-xl px-2.5 py-2.5 sm:px-3 sm:py-3 text-[11px] sm:text-xs font-medium uppercase tracking-wider transition-colors duration-300 ${isActive
+                  className={`relative flex items-center justify-center gap-1 sm:gap-2 rounded-xl px-1.5 py-2 sm:px-3 sm:py-3 text-[10px] sm:text-xs font-medium uppercase tracking-wider transition-colors duration-300 ${isActive
                     ? "text-white shadow-sm"
                     : "border border-[#E4DECF] bg-white/80 text-oliveDark hover:bg-white"
                     }`}
@@ -192,9 +192,9 @@ export function TasteTheDifference() {
                       transition={{ duration: 0.55, ease: EASE_EDITORIAL }}
                     />
                   )}
-                  <span className="relative z-10 flex items-center justify-center gap-1.5 sm:gap-2 text-center">
-                    {i === 0 && <PlusIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />}
-                    <span>{item.label}</span>
+                  <span className="relative z-10 flex items-center justify-center gap-1 sm:gap-2 text-center">
+                    {i === 0 && <PlusIcon className="h-3 w-3 sm:h-4 sm:w-4 shrink-0" />}
+                    <span className="truncate sm:overflow-visible">{item.label}</span>
                   </span>
                 </button>
               );
@@ -223,7 +223,7 @@ export function TasteTheDifference() {
                   {category.intro}
                 </motion.p>
 
-                <ul className="grid grid-cols-1 gap-x-10 gap-y-1 sm:grid-cols-2">
+                <ul className="grid grid-cols-1 gap-x-12 gap-y-2 lg:grid-cols-2">
                   {category.items.map((item, i) => (
                     <motion.li
                       key={item.name}
@@ -234,18 +234,22 @@ export function TasteTheDifference() {
                         delay: 0.12 + i * 0.07,
                         ease: EASE_EDITORIAL,
                       }}
-                      className="group flex items-baseline gap-3 border-b border-dashed border-[#DCD5C6] py-3.5"
+                      className="group border-b border-dashed border-[#DCD5C6] py-3.5 sm:py-4"
                     >
-                      <span className="font-serif text-base text-oliveDark transition-colors duration-300 group-hover:text-warmGold">
-                        {item.name}
-                      </span>
-                      <span className="h-px flex-1 translate-y-[-3px] bg-[#DCD5C6]" />
-                      <span className="shrink-0 text-[11px] uppercase tracking-wider text-oliveMuted">
+                      {/* Heading Row: Dish name on left, hairline leader, price on right */}
+                      <div className="flex items-baseline justify-between gap-3">
+                        <h3 className="font-serif text-lg sm:text-xl font-normal text-oliveDark transition-colors duration-300 group-hover:text-warmGold min-w-0">
+                          {item.name}
+                        </h3>
+                        <span className="h-px flex-1 translate-y-[-3px] bg-[#DCD5C6] min-w-[12px]" />
+                        <span className="shrink-0 font-serif text-lg sm:text-xl font-bold text-oliveDark">
+                          ${item.price}
+                        </span>
+                      </div>
+                      {/* Ingredients directly under the heading */}
+                      <p className="mt-1 text-xs uppercase tracking-wider text-oliveMuted leading-relaxed">
                         {item.note}
-                      </span>
-                      <span className="shrink-0 font-serif text-lg font-bold text-oliveDark">
-                        ${item.price}
-                      </span>
+                      </p>
                     </motion.li>
                   ))}
                 </ul>
