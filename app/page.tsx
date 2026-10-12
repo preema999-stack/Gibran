@@ -14,7 +14,7 @@ export default function HomePage() {
   return (
     <>
       <Header />
-      <main id="main" className="relative w-full max-w-full overflow-x-hidden">
+      <main id="main">
         <Hero />
         <TasteTheDifference />
         <Journey />

@@ -163,9 +163,9 @@ export function TasteTheDifference() {
           animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: EASE_EDITORIAL }}
         >
-          {/* Category tabs */}
+          {/* Category tabs — responsive pill bar with generous padding and smooth active indicator */}
           <div
-            className="mx-auto grid max-w-4xl grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-6"
+            className="mx-auto flex max-w-4xl items-center justify-start sm:justify-center gap-2 sm:gap-2.5 overflow-x-auto px-2 py-1.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             role="tablist"
             aria-label="Menu categories"
           >
@@ -180,21 +180,20 @@ export function TasteTheDifference() {
                   aria-selected={isActive}
                   aria-controls={`panel-${item.id}`}
                   onClick={() => setActive(i)}
-                  className={`relative flex items-center justify-center gap-1 sm:gap-2 rounded-xl px-1.5 py-2 sm:px-3 sm:py-3 text-[10px] sm:text-xs font-medium uppercase tracking-wider transition-colors duration-300 ${isActive
+                  className={`relative shrink-0 rounded-full px-4 py-2 sm:px-5 sm:py-2.5 text-xs font-medium uppercase tracking-wider transition-colors duration-300 ${isActive
                     ? "text-white shadow-sm"
-                    : "border border-[#E4DECF] bg-white/80 text-oliveDark hover:bg-white"
+                    : "border border-[#E4DECF] bg-white/80 text-oliveDark hover:border-oliveDark/40 hover:bg-white"
                     }`}
                 >
                   {isActive && (
                     <motion.span
                       layoutId="menu-tab-pill"
-                      className="absolute inset-0 rounded-xl bg-[#6d7835]"
-                      transition={{ duration: 0.55, ease: EASE_EDITORIAL }}
+                      className="absolute inset-0 rounded-full bg-[#6d7835]"
+                      transition={{ duration: 0.45, ease: EASE_EDITORIAL }}
                     />
                   )}
-                  <span className="relative z-10 flex items-center justify-center gap-1 sm:gap-2 text-center">
-                    {i === 0 && <PlusIcon className="h-3 w-3 sm:h-4 sm:w-4 shrink-0" />}
-                    <span className="truncate sm:overflow-visible">{item.label}</span>
+                  <span className="relative z-10 whitespace-nowrap">
+                    {item.label}
                   </span>
                 </button>
               );
