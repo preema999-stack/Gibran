@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import { usePrefersReducedMotion, useSmoothScroll } from "@/components/smooth-scroll-provider";
 import { EASE_EDITORIAL, Magnetic, SplitText } from "@/components/motion-primitives";
@@ -10,6 +9,7 @@ import { ArrowRightIcon } from "@/components/icons";
 
 export function Hero() {
   const section = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const { scrollTo } = useSmoothScroll();
   const reduced = usePrefersReducedMotion();
 
@@ -17,6 +17,24 @@ export function Hero() {
     target: section,
     offset: ["start start", "end start"],
   });
+
+  // Ensure video autoplays smoothly across browsers
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (reduced) {
+      video.pause();
+      return;
+    }
+
+    const attempt = video.play();
+    if (attempt) {
+      attempt.catch(() => {
+        // Autoplay policy fallback: silent degradation
+      });
+    }
+  }, [reduced]);
 
   // Background drifts slower than the page → depth.
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
@@ -31,17 +49,21 @@ export function Hero() {
       className="grain relative overflow-hidden border-b border-[#ECE7DC] bg-[#FAF7F0]"
     >
       <div className="relative flex min-h-[560px] items-center overflow-hidden sm:min-h-[600px] lg:min-h-[660px] xl:min-h-[720px] 2xl:min-h-[780px]">
-        {/* Background image */}
+        {/* Background video */}
         <motion.div
-          className="pointer-events-none absolute inset-0 z-0 select-none"
+          className="pointer-events-none absolute inset-0 z-0 select-none overflow-hidden"
           style={reduced ? undefined : { y: bgY, scale: bgScale }}
         >
-          <Image
-            src="/images/heroimage2.png"
-            alt="Luxury Mediterranean dining room with grand arched windows and olive trees"
-            fill
-            priority
-            sizes="100vw"
+          <video
+            ref={videoRef}
+            src="/video/coffee.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            aria-hidden="true"
+            tabIndex={-1}
             className="h-full w-full object-cover object-center"
           />
           <div
