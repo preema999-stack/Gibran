@@ -1378,7 +1378,7 @@ export function AdminDashboard({
                 ⚠️
               </div>
               <h3 className="font-serif text-lg font-normal text-[#1C241B]">
-                Delete "{itemToDelete.name}"?
+                Delete &ldquo;{itemToDelete.name}&rdquo;?
               </h3>
               <p className="mt-2 text-xs text-[#6E7569] leading-relaxed">
                 This item will be permanently removed from the live public food menu.
@@ -1484,7 +1484,7 @@ export function AdminDashboard({
                 ⚠️
               </div>
               <h3 className="font-serif text-lg font-normal text-[#1C241B]">
-                Delete Group "{groupToDelete.name}"?
+                Delete Group &ldquo;{groupToDelete.name}&rdquo;?
               </h3>
               <p className="mt-2 text-xs text-[#6E7569] leading-relaxed">
                 Deleting this group will also remove its subgroups and all dishes inside them.
@@ -1537,7 +1537,7 @@ export function AdminDashboard({
                 ⚠️
               </div>
               <h3 className="font-serif text-lg font-normal text-[#1C241B]">
-                Delete Subgroup "{subgroupToDelete.name}"?
+                Delete Subgroup &ldquo;{subgroupToDelete.name}&rdquo;?
               </h3>
               <p className="mt-2 text-xs text-[#6E7569] leading-relaxed">
                 Deleting this subgroup will also remove all dishes inside it.
