@@ -2,7 +2,7 @@ export interface GalleryItem {
   id: string;
   src: string;
   headline: string;
-  category: "architecture" | "culinary" | "majlis" | "roastery" | "ambience";
+  category: "architecture" | "culinary" | "majlis" | "roastery" | "ambience" | "films";
   categoryLabel: string;
   desc: string;
   meta: string;
@@ -13,12 +13,16 @@ export interface GalleryItem {
   specs?: string;
   location?: string;
   aperture?: string;
+  isVideo?: boolean;
+  videoSrc?: string;
+  duration?: string;
 }
 
 export const galleryCategories = [
-  { id: "all", label: "All", count: 20 },
-  { id: "culinary", label: "Culinary & Dishes", count: 9 },
-  { id: "ambience", label: "Ambience & Courtyard", count: 7 },
+  { id: "all", label: "All", count: 23 },
+  { id: "films", label: "Films & Motion", count: 3 },
+  { id: "culinary", label: "Culinary & Dishes", count: 10 },
+  { id: "ambience", label: "Ambience & Courtyard", count: 9 },
   { id: "majlis", label: "Evening & Majlis", count: 2 },
   { id: "roastery", label: "Roastery & Coffee", count: 2 },
 ] as const;
@@ -170,10 +174,48 @@ export const galleryItems: GalleryItem[] = [
     aperture: "Design Standards Render",
     tags: ["Show Kitchen", "Chef Pass", "Live Cooking"],
   },
+  {
+    id: "chef-craft-motion",
+    src: "/assets/gallery/chef-video-poster.jpg",
+    videoSrc: "/video/chef video.mp4",
+    isVideo: true,
+    duration: "0:10",
+    headline: "Visible Craft: Executive Chefs at the Show Kitchen Pass",
+    category: "culinary",
+    categoryLabel: "Cinematic Film • Live Hearth & Pass",
+    badge: "Motion Film",
+    frame: "FILM 01",
+    price: "Live Craft",
+    desc: "A cinematic capture of executive culinary craftsmanship at Gibran & Co. Artisanal prep of fresh Levantine dishes, seasonal cold mezza, and flame-roasted specialties against soft sage tiles and honed stone counters.",
+    meta: "Cinematic Reel • Show Kitchen Pass",
+    location: "Live Kitchen Pass, Gibran & Co.",
+    specs: "1080p Cine Log • 24fps • Live Hearth Soundscape",
+    aperture: "Cinema Lens 35mm T1.5",
+    tags: ["Culinary Film", "Executive Chefs", "Show Kitchen", "Mezza Pass"],
+  },
 
   // ==========================================
   // AMBIENCE & COURTYARD
   // ==========================================
+  {
+    id: "gibran-story-motion",
+    src: "/assets/gallery/gibran-story-poster.jpg",
+    videoSrc: "/video/gibran-story.mp4",
+    isVideo: true,
+    duration: "0:10",
+    headline: "The Grand Arrival: Gibran & Co. Deli & Dining Colonnade",
+    category: "ambience",
+    categoryLabel: "Cinematic Film • Architecture & Heritage",
+    badge: "Motion Film",
+    frame: "FILM 02",
+    price: "Architecture",
+    desc: "Step through the threshold into Gibran & Co. Sunlight pours across Bazerkan geometric patterned floors, HONEXT acoustic timber ceiling, living olive trees in terracotta urns, and the seamless curved stone coffee counter.",
+    meta: "Brand Journey • Principal Hall",
+    location: "Main Colonnade & Hall, Gibran & Co.",
+    specs: "1080p Cine Log • 24fps • Natural Daylight",
+    aperture: "Cinema Lens 24mm T2.0",
+    tags: ["Interior Film", "Dining Hall", "Bazerkan Tile", "Brand Story"],
+  },
   {
     id: "principal-dining-hall",
     src: "/assets/gallery/principal-dining-hall.jpg",
@@ -248,6 +290,25 @@ export const galleryItems: GalleryItem[] = [
     specs: "Handcrafted Clay Bodies • 3000K CRI 90+ • Perforated Ceiling",
     aperture: "Warmth 3000K",
     tags: ["Vessel Cluster", "Whitewash Clay", "3000K Lighting"],
+  },
+  {
+    id: "architecture-vessel-motion",
+    src: "/assets/gallery/architecture-video-poster.jpg",
+    videoSrc: "/video/srchitecture.mp4",
+    isVideo: true,
+    duration: "0:10",
+    headline: "Architectural Harmony: Whitewash Vessel Pendants & Social Table",
+    category: "ambience",
+    categoryLabel: "Cinematic Film • Light & Space",
+    badge: "Motion Film",
+    frame: "FILM 03",
+    price: "Interior Design",
+    desc: "A serene study of light and architectural relief. Handcrafted earthenware vessel pendants suspended in graduated clusters above the solid wood communal table, set against soft arched alcoves and warm 3000K illumination.",
+    meta: "Architectural Film • 3000K Illumination",
+    location: "Central Arcade & Social Table",
+    specs: "1080p Cine Log • 24fps • 3000K Warm Dim",
+    aperture: "Cinema Lens 50mm T1.8",
+    tags: ["Architecture Film", "Vessel Pendants", "Communal Table", "Arched Relief"],
   },
   {
     id: "afternoon-sunlight-scene",

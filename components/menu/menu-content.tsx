@@ -273,20 +273,6 @@ export function MenuContent() {
                 })}
               </nav>
 
-              {/* Signature Dishes Featured Link */}
-              <div className="mt-4 pt-3 border-t border-[#EAE3D4]/80">
-                <Link
-                  href="/#signature"
-                  className="group flex w-full items-center justify-between rounded-xl border border-[#D5C9B3] bg-white/70 px-3.5 py-2.5 text-xs font-semibold uppercase tracking-wider text-oliveDark transition-all duration-300 hover:border-oliveDark hover:bg-white hover:shadow-xs"
-                >
-                  <span className="flex items-center gap-2">
-                    <span className="text-warmGold">✨</span>
-                    <span>Signature Dishes</span>
-                  </span>
-                  <span className="text-xs transition-transform duration-300 group-hover:translate-x-1">→</span>
-                </Link>
-              </div>
-
               {/* Bottom Script Signature */}
               <div className="mt-8 flex items-center justify-between border-t border-[#EAE3D4] pt-4">
                 <span className="font-script text-xl text-[#7A8A76]">

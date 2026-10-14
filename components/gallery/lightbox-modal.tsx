@@ -89,15 +89,28 @@ export function LightboxModal({
             className="relative z-10 flex w-full max-w-5xl flex-col overflow-hidden rounded-2xl border border-white/20 bg-surface-container-lowest shadow-2xl md:flex-row max-h-[92vh]"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Left Image View */}
+            {/* Left Image/Video View */}
             <div className="relative flex min-h-[300px] sm:min-h-[360px] md:min-h-[500px] md:w-7/12 items-center justify-center overflow-hidden bg-black">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={currentItem.src}
-                alt={currentItem.headline}
-                key={currentItem.src}
-                className="h-full w-full max-h-[85vh] object-contain transition-all duration-500"
-              />
+              {currentItem.isVideo && currentItem.videoSrc ? (
+                <video
+                  key={currentItem.videoSrc}
+                  src={currentItem.videoSrc}
+                  poster={currentItem.src}
+                  controls
+                  autoPlay
+                  loop
+                  playsInline
+                  className="h-full w-full max-h-[85vh] object-contain"
+                />
+              ) : (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  src={currentItem.src}
+                  alt={currentItem.headline}
+                  key={currentItem.src}
+                  className="h-full w-full max-h-[85vh] object-contain transition-all duration-500"
+                />
+              )}
 
               {/* Prev Button */}
               <button
