@@ -487,7 +487,7 @@ export function AdminDashboard({
               Total Live Dishes
             </span>
             <div className="mt-2.5 flex items-baseline gap-2">
-              <span className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight text-[#1C241B] tabular-nums">
+              <span className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-[#1C241B] tabular-nums">
                 {totalDishes}
               </span>
               <span className="inline-flex items-center rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-sans font-medium text-emerald-700 border border-emerald-200/60">
@@ -501,7 +501,7 @@ export function AdminDashboard({
               Menu Groups
             </span>
             <div className="mt-2.5 flex items-baseline gap-2">
-              <span className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight text-[#1C241B] tabular-nums">
+              <span className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-[#1C241B] tabular-nums">
                 {totalGroups}
               </span>
               <span className="font-sans text-xs text-[#7A8374]">
@@ -515,7 +515,7 @@ export function AdminDashboard({
               Subgroups
             </span>
             <div className="mt-2.5 flex items-baseline gap-2">
-              <span className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight text-[#1C241B] tabular-nums">
+              <span className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-[#1C241B] tabular-nums">
                 {totalSubgroups}
               </span>
               <span className="inline-flex items-center rounded-full bg-[#FAF5EE] px-2 py-0.5 text-[11px] font-sans font-medium text-[#9E7B4F] border border-[#E8DEC9]">
@@ -532,7 +532,7 @@ export function AdminDashboard({
               <span className="font-sans text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#9E7B4F]">
                 AED
               </span>
-              <span className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight text-[#1C241B] tabular-nums">
+              <span className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-[#1C241B] tabular-nums">
                 {avgPrice}
               </span>
             </div>
