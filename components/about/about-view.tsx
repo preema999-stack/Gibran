@@ -39,13 +39,16 @@ export function AboutView() {
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#182317] via-transparent to-[#182317]/60" />
         </div>
 
-        {/* BOTTOM-LEFT ACCENT BRANCH */}
+        {/* LARGE CASCADING BOTANICAL OLIVE BRANCH ACCENT */}
         <motion.div
-          animate={reduced ? undefined : { y: [0, -8, 0], rotate: [0, 2, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-          className="pointer-events-none absolute bottom-4 -left-4 z-10 select-none opacity-80 sm:bottom-8 sm:left-2 lg:bottom-12 lg:left-4"
+          animate={reduced ? undefined : { y: [0, 8, 0], rotate: [2, 3.5, 2] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
+          className="pointer-events-none absolute top-[36%] sm:top-[38%] lg:top-[40%] -left-12 sm:-left-16 md:-left-20 lg:-left-24 z-10 select-none opacity-95"
         >
-          <OliveBranchBotanical variant={1} className="h-44 w-44 sm:h-56 sm:w-56 lg:h-64 lg:w-64" />
+          <OliveBranchBotanical
+            variant="cascade-left"
+            className="w-64 h-[360px] sm:w-80 sm:h-[450px] md:w-[380px] md:h-[530px] lg:w-[460px] lg:h-[640px] xl:w-[500px] xl:h-[700px]"
+          />
         </motion.div>
 
         {/* CASCADING BOTANICAL OLIVE BRANCH DRAPE (Matching natural ceiling garland) */}

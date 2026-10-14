@@ -213,13 +213,16 @@ export function ReservationView() {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#172316] via-[#172316]/92 to-[#172316]/75 lg:hidden" />
       </div>
 
-      {/* BOTANICAL OLIVE BRANCH ACCENTS */}
+      {/* LARGE CASCADING BOTANICAL OLIVE BRANCH ACCENT (Following left green contour) */}
       <motion.div
-        animate={{ y: [0, -10, 0], rotate: [0, 2, 0] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-        className="pointer-events-none absolute bottom-4 -left-4 z-10 select-none opacity-85 sm:bottom-8 sm:left-2 lg:bottom-12 lg:left-4"
+        animate={{ y: [0, 8, 0], rotate: [2, 3.5, 2] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
+        className="pointer-events-none absolute top-[36%] sm:top-[38%] lg:top-[39%] -left-12 sm:-left-16 md:-left-20 lg:-left-24 xl:-left-28 z-10 select-none opacity-95"
       >
-        <OliveBranchBotanical variant={1} className="h-44 w-44 sm:h-60 sm:w-60 lg:h-72 lg:w-72" />
+        <OliveBranchBotanical
+          variant="cascade-left"
+          className="w-64 h-[360px] sm:w-80 sm:h-[450px] md:w-[380px] md:h-[530px] lg:w-[460px] lg:h-[640px] xl:w-[520px] xl:h-[720px]"
+        />
       </motion.div>
 
       {/* CASCADING BOTANICAL OLIVE BRANCH DRAPE (Matching natural ceiling garland) */}

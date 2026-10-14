@@ -4,7 +4,7 @@ import Image from "next/image";
 interface OliveBranchProps {
   className?: string;
   flip?: boolean;
-  variant?: 1 | 2 | 3 | "drape";
+  variant?: 1 | 2 | 3 | 4 | "drape" | "cascade-left";
   alt?: string;
 }
 
@@ -19,6 +19,8 @@ export function OliveBranchBotanical({
     imageSrc = "/images/olive-branch-botanical-lively-2.png";
   } else if (variant === 3 || variant === "drape") {
     imageSrc = "/images/olive-branch-drape.png";
+  } else if (variant === 4 || variant === "cascade-left") {
+    imageSrc = "/images/olive-branch-cascade-left.png";
   }
 
   return (
