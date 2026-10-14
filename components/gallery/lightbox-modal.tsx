@@ -76,6 +76,7 @@ export function LightboxModal({
       document.body.style.paddingRight = originalPadding;
       lenis?.start();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, currentIndex, items.length, lenis]);
 
   useEffect(() => {

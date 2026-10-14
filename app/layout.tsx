@@ -1,48 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Playfair_Display, Montserrat, Manrope, Alex_Brush } from "next/font/google";
-
 import "./globals.css";
 import { SmoothScrollProvider } from "@/components/smooth-scroll-provider";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { FirebaseAnalytics } from "@/components/firebase-analytics";
 import { FloatingWhatsApp } from "@/components/floating-whatsapp";
-
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  style: ["normal", "italic"],
-  variable: "--font-cormorant",
-  display: "swap",
-});
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
-  variable: "--font-playfair",
-  display: "swap",
-});
-
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-montserrat",
-  display: "swap",
-});
-
-const manrope = Manrope({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-manrope",
-  display: "swap",
-});
-
-const alexBrush = Alex_Brush({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-alex-brush",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://gibranandco.example.com"),
@@ -91,11 +52,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={`${cormorant.variable} ${playfair.variable} ${montserrat.variable} ${manrope.variable} ${alexBrush.variable}`}
-      suppressHydrationWarning
-    >
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Manrope:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body className="font-sans">
         <SmoothScrollProvider>
           <a
