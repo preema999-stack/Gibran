@@ -4,6 +4,7 @@ import { Cormorant_Garamond, Playfair_Display, Montserrat, Manrope, Alex_Brush }
 import "./globals.css";
 import { SmoothScrollProvider } from "@/components/smooth-scroll-provider";
 import { ScrollProgress } from "@/components/scroll-progress";
+import { FirebaseAnalytics } from "@/components/firebase-analytics";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -103,6 +104,7 @@ export default function RootLayout({
             Skip to content
           </a>
           <ScrollProgress />
+          <FirebaseAnalytics />
           {children}
         </SmoothScrollProvider>
       </body>

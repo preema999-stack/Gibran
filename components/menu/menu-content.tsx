@@ -9,7 +9,9 @@ import {
   FULL_MENU_CATEGORIES,
   type DietaryTag,
   type MenuItem,
+  type MenuCategoryData,
 } from "@/lib/full-menu-data";
+import { subscribeToFirebaseMenu } from "@/lib/firebase-menu";
 import { categoryIconMap } from "@/components/menu/category-icons";
 import { DishModal } from "@/components/menu/dish-modal";
 import { ReservationModal } from "@/components/menu/reservation-modal";
@@ -69,6 +71,7 @@ export function MenuContent() {
   const categoryParam = searchParams.get("category");
   const dishParam = searchParams.get("dish");
 
+  const [categories, setCategories] = useState<MenuCategoryData[]>(FULL_MENU_CATEGORIES);
   const [activeCategoryId, setActiveCategoryId] = useState(() => {
     return resolveCategoryId(categoryParam);
   });
@@ -79,6 +82,16 @@ export function MenuContent() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isPlayingBannerVideo, setIsPlayingBannerVideo] = useState(false);
   const [tableCount, setTableCount] = useState(0);
+
+  // Real-time synchronization directly with Firebase
+  useEffect(() => {
+    const unsubscribe = subscribeToFirebaseMenu((updated) => {
+      if (updated && Array.isArray(updated.categories)) {
+        setCategories(updated.categories);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   // Sync category state when URL search param or hash changes
   useEffect(() => {
@@ -104,7 +117,7 @@ export function MenuContent() {
   // Support deep-linking to a specific dish modal (e.g., from signature dishes carousel)
   useEffect(() => {
     if (dishParam) {
-      const allDishes = FULL_MENU_CATEGORIES.flatMap((c) => c.items);
+      const allDishes = categories.flatMap((c) => c.items);
       const targetDish = allDishes.find(
         (item) => item.id.toLowerCase() === dishParam.toLowerCase()
       );
@@ -112,7 +125,7 @@ export function MenuContent() {
         setSelectedDish(targetDish);
       }
     }
-  }, [dishParam]);
+  }, [dishParam, categories]);
 
   useEffect(() => {
     const handleHash = () => {
@@ -128,10 +141,21 @@ export function MenuContent() {
   }, []);
 
   const activeCategory =
-    FULL_MENU_CATEGORIES.find((c) => c.id === activeCategoryId) ||
-    FULL_MENU_CATEGORIES[0];
+    categories.find((c) => c.id === activeCategoryId) ||
+    categories[0] || {
+      id: "all",
+      label: "Menu",
+      icon: "signatures" as const,
+      count: 0,
+      eyebrow: "CULINARY SELECTION",
+      title: "Menu",
+      subtitle: "Explore our authentic culinary creations.",
+      collectionBadge: "GIBRAN MENU",
+      bannerImage: "/images/dish-risotto.jpg",
+      items: [],
+    };
 
-  const filteredItems = activeCategory.items.filter((item) => {
+  const filteredItems = (activeCategory.items || []).filter((item) => {
     if (activeDietary === "All") return true;
     return item.dietary.includes(activeDietary);
   });
@@ -205,9 +229,9 @@ export function MenuContent() {
 
               {/* Category Nav List with animated gliding pill */}
               <nav className="mt-6 grid grid-cols-2 gap-1.5 sm:grid-cols-4 lg:flex lg:flex-col lg:space-y-1.5 lg:gap-0">
-                {FULL_MENU_CATEGORIES.map((cat, idx) => {
+                {categories.map((cat, idx) => {
                   const isActive = cat.id === activeCategoryId;
-                  const Icon = categoryIconMap[cat.icon];
+                  const Icon = categoryIconMap[cat.icon] || categoryIconMap["signatures"];
 
                   return (
                     <motion.button
@@ -442,13 +466,13 @@ export function MenuContent() {
                   whileTap={{ scale: 0.9 }}
                   aria-label="Previous category"
                   onClick={() => {
-                    const currentIndex = FULL_MENU_CATEGORIES.findIndex(
+                    const currentIndex = categories.findIndex(
                       (c) => c.id === activeCategoryId
                     );
                     const prevIndex =
-                      (currentIndex - 1 + FULL_MENU_CATEGORIES.length) %
-                      FULL_MENU_CATEGORIES.length;
-                    setActiveCategoryId(FULL_MENU_CATEGORIES[prevIndex].id);
+                      (currentIndex - 1 + categories.length) %
+                      categories.length;
+                    setActiveCategoryId(categories[prevIndex].id);
                   }}
                   className="flex h-7 w-7 items-center justify-center rounded-full border border-[#DCD5C6] bg-transparent text-xs text-[#20291E] transition-colors"
                 >
@@ -460,12 +484,12 @@ export function MenuContent() {
                   whileTap={{ scale: 0.9 }}
                   aria-label="Next category"
                   onClick={() => {
-                    const currentIndex = FULL_MENU_CATEGORIES.findIndex(
+                    const currentIndex = categories.findIndex(
                       (c) => c.id === activeCategoryId
                     );
                     const nextIndex =
-                      (currentIndex + 1) % FULL_MENU_CATEGORIES.length;
-                    setActiveCategoryId(FULL_MENU_CATEGORIES[nextIndex].id);
+                      (currentIndex + 1) % categories.length;
+                    setActiveCategoryId(categories[nextIndex].id);
                   }}
                   className="flex h-7 w-7 items-center justify-center rounded-full border border-[#DCD5C6] bg-transparent text-xs text-[#20291E] transition-colors"
                 >
@@ -484,67 +508,80 @@ export function MenuContent() {
                 exit={{ opacity: 0, y: -12, transition: { duration: 0.3, ease: EASE_EDITORIAL } }}
                 className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
               >
-                {filteredItems.map((dish) => (
-                  <motion.article
-                    key={dish.id}
-                    variants={cardVariants}
-                    whileHover={{ y: -8, transition: { duration: 0.45, ease: EASE_EDITORIAL } }}
-                    onClick={() => setSelectedDish(dish)}
-                    className="group flex cursor-pointer flex-col justify-between rounded-2xl border border-[#ECE5D6] bg-white p-3.5 shadow-xs transition-shadow duration-300 hover:shadow-xl hover:border-[#D5CDBC]"
-                  >
-                    {/* Dish Image Container */}
-                    <div className="relative mb-3 h-44 w-full overflow-hidden rounded-xl bg-[#F2EDE2] sm:h-48">
-                      <Image
-                        src={dish.image}
-                        alt={dish.name}
-                        fill
-                        sizes="(min-width: 1024px) 25vw, (min-width: 640px) 45vw, 90vw"
-                        className="h-full w-full object-cover transition-transform duration-700 ease-editorial group-hover:scale-108"
-                      />
+                {filteredItems.length === 0 ? (
+                  <div className="col-span-full rounded-2xl border-2 border-dashed border-[#D5C9B3] bg-white/70 p-12 text-center">
+                    <span className="text-3xl block mb-2">🌿</span>
+                    <h3 className="font-serif text-lg font-normal text-[#1C241B]">
+                      Seasonal Selections Coming Soon
+                    </h3>
+                    <p className="mt-1 text-xs text-[#7A8374] max-w-sm mx-auto leading-relaxed">
+                      Our kitchen team is curating fresh recipes for {activeCategory.title}. Check back shortly or explore our other menu selections.
+                    </p>
+                  </div>
+                ) : (
+                  filteredItems.map((dish) => (
+                    <motion.article
+                      key={dish.id}
+                      variants={cardVariants}
+                      whileHover={{ y: -8, transition: { duration: 0.45, ease: EASE_EDITORIAL } }}
+                      onClick={() => setSelectedDish(dish)}
+                      className="group flex cursor-pointer flex-col justify-between rounded-2xl border border-[#ECE5D6] bg-white p-3.5 shadow-xs transition-shadow duration-300 hover:shadow-xl hover:border-[#D5CDBC]"
+                    >
+                      {/* Dish Image Container */}
+                      <div className="relative mb-3 h-44 w-full overflow-hidden rounded-xl bg-[#F2EDE2] sm:h-48">
+                        <Image
+                          src={dish.image}
+                          alt={dish.name}
+                          fill
+                          unoptimized
+                          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 45vw, 90vw"
+                          className="h-full w-full object-cover transition-transform duration-700 ease-editorial group-hover:scale-108"
+                        />
 
-                      {/* Top Left Badge */}
-                      {dish.badge && (
-                        <motion.span
-                          initial={{ opacity: 0, scale: 0.85 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          className="absolute left-3 top-3 rounded-full bg-white/95 px-2.5 py-1 text-[9px] font-bold tracking-wider text-[#1C241B] uppercase shadow-xs backdrop-blur-sm"
+                        {/* Top Left Badge */}
+                        {dish.badge && (
+                          <motion.span
+                            initial={{ opacity: 0, scale: 0.85 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="absolute left-3 top-3 rounded-full bg-white/95 px-2.5 py-1 text-[9px] font-bold tracking-wider text-[#1C241B] uppercase shadow-xs backdrop-blur-sm"
+                          >
+                            {dish.badge}
+                          </motion.span>
+                        )}
+                      </div>
+
+                      {/* Title & Description */}
+                      <div className="min-h-[72px]">
+                        <h3 className="font-serif text-base font-semibold leading-snug text-[#1C241B] group-hover:text-[#6d7835] transition-colors">
+                          {dish.name}
+                        </h3>
+                        <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-[#6E7569]">
+                          {dish.description}
+                        </p>
+                      </div>
+
+                      {/* Bottom Row: Price & + Button */}
+                      <div className="mt-4 flex items-center justify-between border-t border-[#F2ECE0] pt-3">
+                        <span className="font-sans text-sm sm:text-base font-bold tabular-nums tracking-normal text-[#1C241B]">
+                          AED {dish.price}
+                        </span>
+                        <motion.button
+                          type="button"
+                          whileHover={{ scale: 1.18, backgroundColor: "#5b642c" }}
+                          whileTap={{ scale: 0.88 }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleAddToSelection(dish);
+                          }}
+                          aria-label={`Add ${dish.name} to selection`}
+                          className="flex h-7 w-7 items-center justify-center rounded-full border border-[#6d7835] bg-[#6d7835] text-xs font-bold text-white shadow-xs transition-colors"
                         >
-                          {dish.badge}
-                        </motion.span>
-                      )}
-                    </div>
-
-                    {/* Title & Description */}
-                    <div className="min-h-[72px]">
-                      <h3 className="font-serif text-base font-semibold leading-snug text-[#1C241B] group-hover:text-[#6d7835] transition-colors">
-                        {dish.name}
-                      </h3>
-                      <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-[#6E7569]">
-                        {dish.description}
-                      </p>
-                    </div>
-
-                    {/* Bottom Row: Price & + Button */}
-                    <div className="mt-4 flex items-center justify-between border-t border-[#F2ECE0] pt-3">
-                      <span className="font-sans text-sm sm:text-base font-bold tabular-nums tracking-normal text-[#1C241B]">
-                        AED {dish.price}
-                      </span>
-                      <motion.button
-                        type="button"
-                        whileHover={{ scale: 1.18, backgroundColor: "#5b642c" }}
-                        whileTap={{ scale: 0.88 }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleAddToSelection(dish);
-                        }}
-                        aria-label={`Add ${dish.name} to selection`}
-                        className="flex h-7 w-7 items-center justify-center rounded-full border border-[#6d7835] bg-[#6d7835] text-xs font-bold text-white shadow-xs transition-colors"
-                      >
-                        +
-                      </motion.button>
-                    </div>
-                  </motion.article>
-                ))}
+                          +
+                        </motion.button>
+                      </div>
+                    </motion.article>
+                  ))
+                )}
               </motion.div>
             </AnimatePresence>
           </motion.div>
@@ -602,6 +639,7 @@ export function MenuContent() {
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}
         onSelectDish={(dish) => setSelectedDish(dish)}
+        categories={categories}
       />
 
       {/* Toast Notification */}

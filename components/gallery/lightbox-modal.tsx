@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { GalleryItem } from "@/lib/gallery-data";
 import { CloseIcon, ArrowLeftIcon, ArrowRightIcon } from "@/components/icons";
 import { EASE_EDITORIAL, Magnetic } from "@/components/motion-primitives";
+import { useSmoothScroll } from "@/components/smooth-scroll-provider";
 
 interface LightboxModalProps {
   isOpen: boolean;
@@ -22,6 +23,8 @@ export function LightboxModal({
   onClose,
   onSelectIndex,
 }: LightboxModalProps) {
+  const { lenis } = useSmoothScroll();
+  const modalBoxRef = useRef<HTMLDivElement>(null);
   const [copied, setCopied] = useState(false);
 
   const currentItem = items[currentIndex] || items[0];
@@ -45,6 +48,8 @@ export function LightboxModal({
   useEffect(() => {
     if (!isOpen) return;
 
+    lenis?.stop();
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
       if (e.key === "ArrowLeft") handlePrev();
@@ -52,24 +57,51 @@ export function LightboxModal({
     };
 
     window.addEventListener("keydown", handleKeyDown);
-    const originalOverflow = document.body.style.overflow;
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
+    const originalPadding = document.body.style.paddingRight;
+
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+
+    document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = originalOverflow;
+      document.documentElement.style.overflow = originalHtmlOverflow;
+      document.body.style.overflow = originalBodyOverflow;
+      document.body.style.paddingRight = originalPadding;
+      lenis?.start();
     };
-  }, [isOpen, currentIndex, items.length]);
+  }, [isOpen, currentIndex, items.length, lenis]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const el = modalBoxRef.current;
+    if (!el) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      e.stopPropagation();
+    };
+    el.addEventListener("wheel", handleWheel, { passive: false });
+    return () => {
+      el.removeEventListener("wheel", handleWheel);
+    };
+  }, [isOpen]);
 
   return (
     <AnimatePresence>
       {isOpen && currentItem && (
         <motion.div
+          data-lenis-prevent="true"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.28 }}
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 bg-primary/80 backdrop-blur-xl"
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 bg-primary/80 backdrop-blur-xl overscroll-contain"
           role="dialog"
           aria-modal="true"
         >
@@ -82,11 +114,13 @@ export function LightboxModal({
 
           {/* Modal Container */}
           <motion.div
+            ref={modalBoxRef}
+            data-lenis-prevent="true"
             initial={{ scale: 0.94, opacity: 0, y: 16 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.96, opacity: 0, y: 12 }}
             transition={{ duration: 0.45, ease: EASE_EDITORIAL }}
-            className="relative z-10 flex w-full max-w-5xl flex-col overflow-hidden rounded-2xl border border-white/20 bg-surface-container-lowest shadow-2xl md:flex-row max-h-[92vh]"
+            className="relative z-10 flex w-full max-w-5xl flex-col overflow-hidden overscroll-contain rounded-2xl border border-white/20 bg-surface-container-lowest shadow-2xl md:flex-row max-h-[92vh]"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Left Image/Video View */}

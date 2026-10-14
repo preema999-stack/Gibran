@@ -1,13 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FULL_MENU_CATEGORIES,
   type DietaryTag,
   type MenuItem,
+  type MenuCategoryData,
 } from "@/lib/full-menu-data";
+import { subscribeToFirebaseMenu } from "@/lib/firebase-menu";
 import { categoryIconMap } from "@/components/menu/category-icons";
 import { MenuHeader } from "@/components/menu/menu-header";
 import { MenuFooter } from "@/components/menu/menu-footer";
@@ -30,7 +32,10 @@ export function FullMenuView({
   isModal?: boolean;
   onClose?: () => void;
 }) {
-  const [activeCategoryId, setActiveCategoryId] = useState("starters");
+  const [categories, setCategories] = useState<MenuCategoryData[]>(FULL_MENU_CATEGORIES);
+  const [activeCategoryId, setActiveCategoryId] = useState(() => {
+    return categories[0]?.id || "starters";
+  });
   const [activeDietary, setActiveDietary] = useState<DietaryTag>("All");
   const [selectedDish, setSelectedDish] = useState<MenuItem | null>(null);
   const [isReservationOpen, setIsReservationOpen] = useState(false);
@@ -38,11 +43,31 @@ export function FullMenuView({
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isPlayingBannerVideo, setIsPlayingBannerVideo] = useState(false);
 
-  const activeCategory =
-    FULL_MENU_CATEGORIES.find((c) => c.id === activeCategoryId) ||
-    FULL_MENU_CATEGORIES[0];
+  useEffect(() => {
+    const unsubscribe = subscribeToFirebaseMenu((updated) => {
+      if (updated?.categories && Array.isArray(updated.categories)) {
+        setCategories(updated.categories);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
-  const filteredItems = activeCategory.items.filter((item) => {
+  const activeCategory =
+    categories.find((c) => c.id === activeCategoryId) ||
+    categories[0] || {
+      id: "all",
+      label: "Menu",
+      icon: "signatures" as const,
+      count: 0,
+      eyebrow: "CULINARY SELECTION",
+      title: "Menu",
+      subtitle: "Explore our culinary creations",
+      collectionBadge: "GIBRAN MENU",
+      bannerImage: "/images/dish-risotto.jpg",
+      items: [],
+    };
+
+  const filteredItems = (activeCategory.items || []).filter((item) => {
     if (activeDietary === "All") return true;
     return item.dietary.includes(activeDietary);
   });
@@ -68,62 +93,53 @@ export function FullMenuView({
       {isModal && (
         <div className="sticky top-0 z-50 flex items-center justify-between border-b border-[#ECE5D6] bg-[#FAF7F0] px-6 py-2.5 shadow-xs">
           <div className="flex items-center gap-2">
-            <span className="inline-block h-2 w-2 rounded-full bg-[#1C241B]" />
-            <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#6E7569]">
-              Haute Cuisine Interactive Menu View
+            <span className="font-serif text-sm font-semibold tracking-wide">
+              GIBRAN &amp; CO.
             </span>
+            <span className="text-xs text-[#8A9A86]">• Full Menu</span>
           </div>
-          <div className="flex items-center gap-4">
-            <button
-              type="button"
-              onClick={onClose}
-              className="inline-flex items-center gap-1.5 rounded-full bg-[#6d7835] px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white shadow-sm hover:bg-[#5b642c] transition-all"
-            >
-              <span>✕</span> Close
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="flex h-8 w-8 items-center justify-center rounded-full bg-[#FAF7F0] text-xs font-bold text-[#1C241B] hover:bg-[#EAE4D5] transition-colors"
+          >
+            ✕
+          </button>
         </div>
       )}
 
-      {/* Top Header */}
-      <MenuHeader
-        onOpenSearch={() => setIsSearchOpen(true)}
-        onOpenReservation={() => setIsReservationOpen(true)}
-      />
+      {/* Main Container */}
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        {/* Optional Menu Header Component */}
+        <MenuHeader
+          onOpenSearch={() => setIsSearchOpen(true)}
+          onOpenReservation={() => setIsReservationOpen(true)}
+        />
 
-      {/* Main Menu Layout */}
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-8 xl:gap-10">
-          {/* LEFT SIDEBAR: CULINARY CURATION */}
-          <aside className="w-full shrink-0 lg:w-[260px] xl:w-[280px]">
-            <div className="relative rounded-[1.75rem] border border-[#ECE5D6] bg-[#F4EFE6] p-5 shadow-xs sm:p-6">
-              {/* Subtle top-right decorative watermark */}
-              <div className="pointer-events-none absolute right-4 top-4 select-none opacity-10">
-                <svg className="h-12 w-12" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
-                </svg>
-              </div>
-
+        {/* 2-Column Layout */}
+        <div className="mt-8 flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-10">
+          {/* LEFT SIDEBAR: CULINARY CATEGORIES */}
+          <aside className="w-full shrink-0 lg:w-64 xl:w-72">
+            <div className="rounded-3xl border border-[#ECE5D6] bg-[#F4EFE6] p-5 shadow-xs sm:p-6">
               {/* Tag / Eyebrow */}
-              <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.22em] text-[#6E7569]">
+              <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#6E7569]">
                 <span className="text-xs">🌿</span>
-                <span>Culinary Curation</span>
+                <span>Curated Menu</span>
               </div>
 
               {/* Title & Description */}
-              <h2 className="mt-2 font-serif text-3xl font-normal leading-tight text-[#1C241B]">
+              <h2 className="mt-2 font-serif text-2xl font-normal text-[#1C241B] sm:text-3xl">
                 Our Menu
               </h2>
               <p className="mt-2 text-xs leading-relaxed text-[#6E7569]">
-                A curated selection of authentic Mediterranean and Levantine
-                flavors for every refined palate.
+                A curated selection of authentic Mediterranean and Levantine flavors for every refined palate.
               </p>
 
               {/* Category Nav List */}
               <nav className="mt-6 flex flex-col space-y-1.5">
-                {FULL_MENU_CATEGORIES.map((cat) => {
+                {categories.map((cat) => {
                   const isActive = cat.id === activeCategoryId;
-                  const Icon = categoryIconMap[cat.icon];
+                  const Icon = categoryIconMap[cat.icon] || categoryIconMap["signatures"];
 
                   return (
                     <button
@@ -147,21 +163,13 @@ export function FullMenuView({
                         />
                         <span>{cat.label}</span>
                       </span>
-
-                      {isActive ? (
-                        <svg
-                          className="h-3.5 w-3.5 stroke-white/80"
-                          fill="none"
-                          strokeWidth={2}
-                          viewBox="0 0 24 24"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                        </svg>
-                      ) : (
-                        <span className="text-[11px] font-medium text-[#868E81] group-hover:text-[#3A4337]">
-                          {cat.count}
-                        </span>
-                      )}
+                      <span
+                        className={`text-[11px] font-medium ${
+                          isActive ? "text-white/80" : "text-[#868E81] group-hover:text-[#3A4337]"
+                        }`}
+                      >
+                        {cat.items.length}
+                      </span>
                     </button>
                   );
                 })}
@@ -169,20 +177,20 @@ export function FullMenuView({
 
               {/* Bottom Script Signature */}
               <div className="mt-8 flex items-center justify-between border-t border-[#EAE3D4] pt-4">
-                <span className="font-script text-lg text-[#6E7569]/80">
+                <span className="font-script text-xl text-[#7A8A76]">
                   Seasonal organic produce
                 </span>
-                <span className="text-xs text-[#8A9A86]">🍃</span>
+                <span className="text-sm text-[#8A9A86]">🍃</span>
               </div>
             </div>
           </aside>
 
           {/* RIGHT CONTENT AREA */}
-          <div className="min-w-0 flex-1 space-y-6">
+          <main className="min-w-0 flex-1 space-y-6">
             {/* FEATURED CATEGORY HERO BANNER */}
-            <div className="relative min-h-[220px] overflow-hidden rounded-[1.75rem] border border-[#ECE5D6]/30 bg-[#161D15] text-white shadow-md sm:min-h-[240px]">
+            <div className="relative min-h-[220px] overflow-hidden rounded-3xl border border-[#ECE5D6]/30 bg-[#161D15] text-white shadow-md sm:min-h-[240px]">
               {/* Background Plate / Visual */}
-              <div className="absolute inset-y-0 right-0 z-0 w-full sm:w-3/5 lg:w-7/12">
+              <div className="absolute inset-y-0 right-0 z-0 w-full sm:w-3/5 lg:w-7/12 overflow-hidden">
                 {isPlayingBannerVideo ? (
                   <video
                     src="/video/cake.mp4"
@@ -199,56 +207,44 @@ export function FullMenuView({
                     fill
                     priority
                     sizes="(min-width: 1024px) 60vw, 100vw"
-                    className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                    className="h-full w-full object-cover transition-transform duration-700 ease-editorial hover:scale-105"
                   />
                 )}
                 {/* Dark gradient fade over the image */}
-                <div className="absolute inset-0 bg-gradient-to-r from-[#161D15] via-[#161D15]/85 to-transparent sm:w-2/3" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#161D15] via-[#161D15]/80 to-transparent sm:w-2/3" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#161D15] via-transparent to-transparent h-20 bottom-0 top-auto sm:hidden" />
               </div>
 
-              {/* Play Button (Top Right) */}
+              {/* Play Button */}
               <button
                 type="button"
                 onClick={() => setIsPlayingBannerVideo(!isPlayingBannerVideo)}
-                aria-label="Toggle motion preview"
-                className="absolute right-5 top-5 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-[#6d7835] text-white shadow-md backdrop-blur-md transition-all hover:scale-110 hover:bg-[#5b642c]"
+                aria-label="Toggle motion video"
+                className="absolute right-4 top-4 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-md hover:bg-white/30 transition-all"
               >
                 {isPlayingBannerVideo ? (
-                  <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
-                    <rect x="6" y="4" width="4" height="16" rx="1" />
-                    <rect x="14" y="4" width="4" height="16" rx="1" />
-                  </svg>
+                  <span className="text-xs font-mono font-bold">❚❚</span>
                 ) : (
-                  <svg className="h-3.5 w-3.5 fill-current translate-x-0.5" viewBox="0 0 24 24">
-                    <polygon points="5 3 19 12 5 21 5 3" />
-                  </svg>
+                  <span className="text-xs font-mono font-bold">▶</span>
                 )}
               </button>
 
-              {/* "Motion Preview Active" Badge (Bottom Right) */}
-              <div className="absolute bottom-4 right-5 z-20 hidden items-center gap-1.5 rounded-full bg-black/60 px-3 py-1 text-[10px] font-medium tracking-wider text-white/90 backdrop-blur-md sm:flex">
-                <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[#C5A880]" />
-                <span className="uppercase text-[9.5px]">Motion Preview Active</span>
-              </div>
-
-              {/* Banner Left Copy */}
-              <div className="relative z-10 flex h-full flex-col justify-center p-6 sm:max-w-md sm:p-8 lg:p-9">
-                <span className="inline-block self-start rounded-full border border-white/20 bg-black/40 px-3.5 py-1 text-[9.5px] font-semibold uppercase tracking-[0.2em] text-white/90 backdrop-blur-sm">
-                  {activeCategory.collectionBadge}
-                </span>
-
-                <span className="mt-4 block text-[10px] font-bold uppercase tracking-[0.24em] text-[#C5A880]">
-                  {activeCategory.eyebrow}
-                </span>
-
-                <h1 className="mt-1 font-serif text-3xl font-normal leading-tight text-white sm:text-4xl lg:text-[42px]">
-                  {activeCategory.title}
-                </h1>
-
-                <p className="mt-2 text-xs leading-relaxed text-white/80 sm:text-sm">
-                  {activeCategory.subtitle}
-                </p>
+              {/* Banner Text Overlay */}
+              <div className="relative z-10 flex min-h-[220px] flex-col justify-between p-6 sm:min-h-[240px] sm:p-8 lg:p-10">
+                <div>
+                  <span className="inline-block rounded-full bg-[#343F31] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#D5CDBC]">
+                    {activeCategory.collectionBadge}
+                  </span>
+                  <span className="mt-4 block text-[10px] font-bold uppercase tracking-[0.2em] text-[#C5A880]">
+                    {activeCategory.eyebrow}
+                  </span>
+                  <h1 className="mt-1 font-serif text-3xl font-normal text-white sm:text-4xl">
+                    {activeCategory.title}
+                  </h1>
+                  <p className="mt-2 max-w-md text-xs leading-relaxed text-white/80 sm:text-sm">
+                    {activeCategory.subtitle}
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -263,10 +259,10 @@ export function FullMenuView({
                       key={tag}
                       type="button"
                       onClick={() => setActiveDietary(tag)}
-                      className={`rounded-full px-4 py-1.5 text-xs transition-all duration-200 ${
+                      className={`rounded-full px-4 py-1.5 text-xs font-medium transition-colors ${
                         isActive
-                          ? "bg-[#6d7835] font-semibold text-white shadow-xs"
-                          : "bg-[#EBE5D8] font-medium text-[#3A4337] hover:bg-[#E2DBCC]"
+                          ? "bg-[#6d7835] text-white shadow-xs"
+                          : "bg-[#EBE5D8] text-[#3A4337] hover:bg-[#E2DBCC]"
                       }`}
                     >
                       {tag}
@@ -281,13 +277,13 @@ export function FullMenuView({
                   type="button"
                   aria-label="Previous dishes"
                   onClick={() => {
-                    const currentIndex = FULL_MENU_CATEGORIES.findIndex(
+                    const currentIndex = categories.findIndex(
                       (c) => c.id === activeCategoryId
                     );
                     const prevIndex =
-                      (currentIndex - 1 + FULL_MENU_CATEGORIES.length) %
-                      FULL_MENU_CATEGORIES.length;
-                    setActiveCategoryId(FULL_MENU_CATEGORIES[prevIndex].id);
+                      (currentIndex - 1 + categories.length) %
+                      categories.length;
+                    setActiveCategoryId(categories[prevIndex].id);
                   }}
                   className="flex h-7 w-7 items-center justify-center rounded-full border border-[#DCD5C6] bg-transparent text-xs text-[#20291E] transition-colors hover:bg-white"
                 >
@@ -297,12 +293,12 @@ export function FullMenuView({
                   type="button"
                   aria-label="Next dishes"
                   onClick={() => {
-                    const currentIndex = FULL_MENU_CATEGORIES.findIndex(
+                    const currentIndex = categories.findIndex(
                       (c) => c.id === activeCategoryId
                     );
                     const nextIndex =
-                      (currentIndex + 1) % FULL_MENU_CATEGORIES.length;
-                    setActiveCategoryId(FULL_MENU_CATEGORIES[nextIndex].id);
+                      (currentIndex + 1) % categories.length;
+                    setActiveCategoryId(categories[nextIndex].id);
                   }}
                   className="flex h-7 w-7 items-center justify-center rounded-full border border-[#DCD5C6] bg-transparent text-xs text-[#20291E] transition-colors hover:bg-white"
                 >
@@ -313,93 +309,111 @@ export function FullMenuView({
 
             {/* 3-COLUMN DISH CARDS GRID */}
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {filteredItems.map((dish) => (
-                <article
-                  key={dish.id}
-                  onClick={() => setSelectedDish(dish)}
-                  className="group flex cursor-pointer flex-col justify-between rounded-2xl border border-[#ECE5D6] bg-white p-3.5 shadow-xs transition-all duration-300 hover:shadow-md hover:border-[#D5CDBC]"
-                >
-                  {/* Dish Image Container */}
-                  <div className="relative mb-3 h-44 w-full overflow-hidden rounded-xl bg-[#F2EDE2] sm:h-48">
-                    <Image
-                      src={dish.image}
-                      alt={dish.name}
-                      fill
-                      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 45vw, 90vw"
-                      className="h-full w-full object-cover transition-transform duration-700 ease-editorial group-hover:scale-105"
-                    />
+              {filteredItems.length === 0 ? (
+                <div className="col-span-full rounded-2xl border-2 border-dashed border-[#D5C9B3] bg-white/70 p-12 text-center">
+                  <span className="text-3xl block mb-2">🌿</span>
+                  <h3 className="font-serif text-lg font-normal text-[#1C241B]">
+                    Seasonal Selections Coming Soon
+                  </h3>
+                  <p className="mt-1 text-xs text-[#7A8374] max-w-sm mx-auto leading-relaxed">
+                    Our kitchen team is curating fresh recipes for {activeCategory.title}. Check back shortly or explore our other menu selections.
+                  </p>
+                </div>
+              ) : (
+                filteredItems.map((dish) => (
+                  <article
+                    key={dish.id}
+                    onClick={() => setSelectedDish(dish)}
+                    className="group flex cursor-pointer flex-col justify-between rounded-2xl border border-[#ECE5D6] bg-white p-3.5 shadow-xs transition-all duration-300 hover:shadow-md hover:border-[#D5CDBC]"
+                  >
+                    {/* Dish Image Container */}
+                    <div className="relative mb-3 h-44 w-full overflow-hidden rounded-xl bg-[#F2EDE2] sm:h-48">
+                      <Image
+                        src={dish.image}
+                        alt={dish.name}
+                        fill
+                        unoptimized
+                        sizes="(min-width: 1024px) 25vw, (min-width: 640px) 45vw, 90vw"
+                        className="h-full w-full object-cover transition-transform duration-700 ease-editorial group-hover:scale-105"
+                      />
 
-                    {/* Top Left Badge */}
-                    {dish.badge && (
-                      <span className="absolute left-3 top-3 rounded-full bg-white/95 px-2.5 py-1 text-[9px] font-bold tracking-wider text-[#1C241B] uppercase shadow-xs backdrop-blur-sm">
-                        {dish.badge}
+                      {/* Top Left Badge */}
+                      {dish.badge && (
+                        <span className="absolute left-3 top-3 rounded-full bg-white/95 px-2.5 py-1 text-[9px] font-bold tracking-wider text-[#1C241B] uppercase shadow-xs backdrop-blur-sm">
+                          {dish.badge}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Title & Description */}
+                    <div className="min-h-[72px]">
+                      <h3 className="font-serif text-base font-semibold leading-snug text-[#1C241B] group-hover:text-[#C5A880] transition-colors">
+                        {dish.name}
+                      </h3>
+                      <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-[#6E7569]">
+                        {dish.description}
+                      </p>
+                    </div>
+
+                    {/* Bottom Row: Price & + Button */}
+                    <div className="mt-4 flex items-center justify-between border-t border-[#F2ECE0] pt-3">
+                      <span className="font-sans text-sm sm:text-base font-bold tabular-nums tracking-normal text-[#1C241B]">
+                        AED {dish.price}
                       </span>
-                    )}
-                  </div>
-
-                  {/* Title & Description */}
-                  <div className="min-h-[72px]">
-                    <h3 className="font-serif text-base font-semibold leading-snug text-[#1C241B] group-hover:text-[#C5A880] transition-colors">
-                      {dish.name}
-                    </h3>
-                    <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-[#6E7569]">
-                      {dish.description}
-                    </p>
-                  </div>
-
-                  {/* Bottom Row: Price & + Button */}
-                  <div className="mt-4 flex items-center justify-between border-t border-[#F2ECE0] pt-3">
-                    <span className="font-sans text-sm sm:text-base font-bold tabular-nums tracking-normal text-[#1C241B]">
-                      AED {dish.price}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleAddToSelection(dish);
-                      }}
-                      aria-label={`Add ${dish.name} to selection`}
-                      className="flex h-7 w-7 items-center justify-center rounded-full border border-[#6d7835] bg-[#6d7835] text-xs font-bold text-white shadow-xs transition-all hover:bg-[#5b642c]"
-                    >
-                      +
-                    </button>
-                  </div>
-                </article>
-              ))}
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleAddToSelection(dish);
+                        }}
+                        className="flex h-7 w-7 items-center justify-center rounded-full border border-[#6d7835] bg-[#6d7835] text-xs font-bold text-white shadow-xs transition-colors hover:bg-[#5b642c]"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </article>
+                ))
+              )}
             </div>
-          </div>
+          </main>
         </div>
-      </main>
+      </div>
 
-      {/* Footer */}
+      {/* FOOTER */}
       <MenuFooter />
 
-      {/* Interactive Modals */}
+      {/* DISH DETAILS MODAL */}
       <DishModal
         dish={selectedDish}
         onClose={() => setSelectedDish(null)}
         onAddToSelection={handleAddToSelection}
       />
 
+      {/* RESERVATION MODAL */}
       <ReservationModal
         isOpen={isReservationOpen}
         onClose={() => setIsReservationOpen(false)}
       />
 
+      {/* SEARCH MODAL */}
       <SearchModal
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}
-        onSelectDish={(dish) => setSelectedDish(dish)}
+        onSelectDish={(dish) => {
+          setIsSearchOpen(false);
+          setSelectedDish(dish);
+        }}
+        categories={categories}
       />
 
-      {/* Toast Notification */}
+      {/* TOAST MESSAGE */}
       <AnimatePresence>
         {toastMessage && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-full border border-[#D5CDBC] bg-[#1C241B] px-6 py-3 text-xs font-medium text-white shadow-2xl"
+            exit={{ opacity: 0, y: 16 }}
+            className="fixed bottom-6 right-6 z-50 rounded-2xl bg-[#1C241B] px-5 py-3 text-xs font-semibold text-white shadow-xl backdrop-blur-md"
           >
             {toastMessage}
           </motion.div>

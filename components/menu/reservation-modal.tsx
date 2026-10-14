@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { WhatsAppIcon, MailIcon, CopyIcon, CheckIcon } from "@/components/icons";
+import { useSmoothScroll } from "@/components/smooth-scroll-provider";
 import {
   createWhatsAppUrl,
   createEmailUrl,
@@ -16,6 +17,9 @@ export function ReservationModal({
   isOpen: boolean;
   onClose: () => void;
 }) {
+  const { lenis } = useSmoothScroll();
+  const modalCardRef = useRef<HTMLDivElement>(null);
+
   const [step, setStep] = useState<"form" | "confirmed">("form");
   const [location, setLocation] = useState("Bahrain — Block 338 Adliya");
   const [guests, setGuests] = useState("2 Guests");
@@ -28,6 +32,44 @@ export function ReservationModal({
   const [notifyChannel, setNotifyChannel] = useState<"whatsapp" | "email" | "both">("both");
   const [copied, setCopied] = useState(false);
   const [confirmationCode, setConfirmationCode] = useState("");
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    lenis?.stop();
+    const prevHtml = document.documentElement.style.overflow;
+    const prevBody = document.body.style.overflow;
+    const prevPadding = document.body.style.paddingRight;
+
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.documentElement.style.overflow = prevHtml;
+      document.body.style.overflow = prevBody;
+      document.body.style.paddingRight = prevPadding;
+      lenis?.start();
+    };
+  }, [isOpen, lenis]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const el = modalCardRef.current;
+    if (!el) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      e.stopPropagation();
+    };
+    el.addEventListener("wheel", handleWheel, { passive: false });
+    return () => {
+      el.removeEventListener("wheel", handleWheel);
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -46,23 +88,30 @@ export function ReservationModal({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div
+        data-lenis-prevent="true"
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 overscroll-contain"
+      >
         {/* Backdrop */}
         <motion.div
+          data-lenis-prevent="true"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={handleReset}
-          className="absolute inset-0 bg-[#161D15]/80 backdrop-blur-sm"
+          className="absolute inset-0 bg-[#161D15]/80 backdrop-blur-sm overscroll-contain"
         />
 
         {/* Modal Window */}
         <motion.div
+          ref={modalCardRef}
+          data-lenis-prevent="true"
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.3 }}
-          className="relative z-10 w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-3xl border border-[#ECE5D6] bg-[#FAF8F5] p-5 shadow-2xl sm:p-8"
+          className="relative z-10 w-full max-w-lg max-h-[90vh] overflow-y-auto overscroll-contain rounded-3xl border border-[#ECE5D6] bg-[#FAF8F5] p-5 shadow-2xl sm:p-8"
+          style={{ overscrollBehavior: "contain" }}
         >
           {/* Close button */}
           <button

@@ -37,16 +37,30 @@ export function useSmoothScroll() {
 }
 
 export function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const isAdmin = pathname?.startsWith("/admin");
   const lenisRef = useRef<Lenis | null>(null);
   const [lenis, setLenis] = useState<Lenis | null>(null);
 
   useEffect(() => {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // If on admin route, completely bypass Lenis so admin has 100% native browser scrolling
+    if (isAdmin) {
+      if (lenisRef.current) {
+        lenisRef.current.destroy();
+        lenisRef.current = null;
+        setLenis(null);
+      }
+      document.documentElement.classList.remove("lenis", "lenis-stopped", "lenis-smooth");
+      document.body.classList.remove("lenis", "lenis-stopped", "lenis-smooth");
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+      return;
+    }
 
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     gsap.registerPlugin(ScrollTrigger);
 
     if (reduced) {
-      // Honour the OS preference: no virtual scroll, native behaviour.
       ScrollTrigger.refresh();
       return;
     }
@@ -65,6 +79,9 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     lenisRef.current = instance;
     setLenis(instance);
 
+    document.documentElement.classList.add("lenis");
+    document.documentElement.classList.remove("lenis-stopped");
+
     // Drive Lenis from GSAP's ticker so ScrollTrigger stays perfectly in sync.
     const onUpdate = (time: number) => {
       instance.raf(time * 1000);
@@ -72,13 +89,9 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     gsap.ticker.add(onUpdate);
     gsap.ticker.lagSmoothing(0);
 
-    // Bridge Lenis' scroll events into ScrollTrigger so triggers fire on the
-    // interpolated position, not only on native scroll ticks.
     const onScroll = () => ScrollTrigger.update();
     instance.on("scroll", onScroll);
 
-    // Recalculate trigger positions as layout settles: after first paint,
-    // after webfonts resolve, and again once every image has loaded.
     const refresh = () => ScrollTrigger.refresh();
     const settle = window.setTimeout(refresh, 400);
     document.fonts?.ready.then(refresh).catch(() => {});
@@ -92,25 +105,24 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
       instance.destroy();
       lenisRef.current = null;
       setLenis(null);
+      document.documentElement.classList.remove("lenis", "lenis-stopped");
     };
-  }, []);
+  }, [isAdmin]);
 
-  const pathname = usePathname();
-
-  // Reset scroll to top on page route changes
+  // Route transition scroll reset
   useEffect(() => {
-    if (lenisRef.current) {
+    if (!isAdmin && lenisRef.current) {
       lenisRef.current.scrollTo(0, { immediate: true });
     }
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-  }, [pathname]);
+  }, [pathname, isAdmin]);
 
   const scrollTo = (target: string | number | HTMLElement, offset = -96) => {
     const instance = lenisRef.current;
     if (!instance) {
       const el =
         typeof target === "string" ? document.querySelector(target) : target;
-      if (typeof el === "number") window.scrollTo({ top: el });
+      if (typeof el === "number") window.scrollTo({ top: el, behavior: "smooth" });
       else if (el) (el as HTMLElement).scrollIntoView({ behavior: "smooth" });
       return;
     }

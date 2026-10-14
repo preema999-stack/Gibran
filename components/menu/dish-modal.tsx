@@ -1,8 +1,10 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import type { MenuItem } from "@/lib/full-menu-data";
+import { useSmoothScroll } from "@/components/smooth-scroll-provider";
 
 export function DishModal({
   dish,
@@ -13,27 +15,75 @@ export function DishModal({
   onClose: () => void;
   onAddToSelection: (dish: MenuItem) => void;
 }) {
+  const { lenis } = useSmoothScroll();
+  const modalCardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!dish) return;
+
+    lenis?.stop();
+    const prevHtml = document.documentElement.style.overflow;
+    const prevBody = document.body.style.overflow;
+    const prevPadding = document.body.style.paddingRight;
+
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.documentElement.style.overflow = prevHtml;
+      document.body.style.overflow = prevBody;
+      document.body.style.paddingRight = prevPadding;
+      lenis?.start();
+    };
+  }, [dish, lenis]);
+
+  useEffect(() => {
+    if (!dish) return;
+    const el = modalCardRef.current;
+    if (!el) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      e.stopPropagation();
+    };
+    el.addEventListener("wheel", handleWheel, { passive: false });
+    return () => {
+      el.removeEventListener("wheel", handleWheel);
+    };
+  }, [dish]);
+
   if (!dish) return null;
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div
+        data-lenis-prevent="true"
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 overscroll-contain"
+      >
         {/* Backdrop */}
         <motion.div
+          data-lenis-prevent="true"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="absolute inset-0 bg-[#161D15]/75 backdrop-blur-sm"
+          className="absolute inset-0 bg-[#161D15]/75 backdrop-blur-sm overscroll-contain"
         />
 
         {/* Modal Card */}
         <motion.div
+          ref={modalCardRef}
+          data-lenis-prevent="true"
           initial={{ opacity: 0, scale: 0.95, y: 16 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 16 }}
           transition={{ duration: 0.3 }}
-          className="relative z-10 w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-3xl border border-[#ECE5D6] bg-[#FAF8F5] shadow-2xl"
+          className="relative z-10 w-full max-w-xl max-h-[90vh] overflow-y-auto overscroll-contain rounded-3xl border border-[#ECE5D6] bg-[#FAF8F5] shadow-2xl"
+          style={{ overscrollBehavior: "contain" }}
         >
           {/* Close button */}
           <button
@@ -53,6 +103,7 @@ export function DishModal({
               src={dish.image}
               alt={dish.name}
               fill
+              unoptimized
               className="object-cover"
             />
             {dish.badge && (

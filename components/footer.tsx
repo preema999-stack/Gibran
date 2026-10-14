@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 import { usePathname, useRouter } from "next/navigation";
@@ -111,9 +112,16 @@ export function Footer() {
 
         <div className="mt-12 flex w-full flex-col items-center justify-between border-t border-white/10 pt-6 text-[11px] text-white/40 sm:flex-row">
           <p>© {new Date().getFullYear()} GIBRAN &amp; CO. All Rights Reserved.</p>
-          <p className="mt-2 sm:mt-0">
-            Designed with passion for exceptional hospitality.
-          </p>
+          <div className="mt-2 flex items-center gap-3 sm:mt-0">
+            <span>Designed with passion for exceptional hospitality.</span>
+            <span>•</span>
+            <Link
+              href="/admin"
+              className="text-white/40 transition-colors hover:text-warmGold"
+            >
+              Admin Portal
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { CloseIcon } from "@/components/icons";
 import { EASE_EDITORIAL } from "@/components/motion-primitives";
+import { useSmoothScroll } from "@/components/smooth-scroll-provider";
 
 type StoryModalProps = {
   isOpen: boolean;
@@ -16,25 +17,40 @@ export function StoryModal({
   onClose,
   title = "The Gibran Story • Culinary Odyssey",
 }: StoryModalProps) {
+  const { lenis } = useSmoothScroll();
   const videoRef = useRef<HTMLVideoElement>(null);
 
   // Close on Escape & handle body scroll lock
   useEffect(() => {
     if (!isOpen) return;
 
+    lenis?.stop();
+
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
 
-    const prevOverflow = document.body.style.overflow;
+    const prevBodyOverflow = document.body.style.overflow;
+    const prevHtmlOverflow = document.documentElement.style.overflow;
+    const prevPadding = document.body.style.paddingRight;
+
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+
+    document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", onKeyDown);
 
     return () => {
-      document.body.style.overflow = prevOverflow;
+      document.documentElement.style.overflow = prevHtmlOverflow;
+      document.body.style.overflow = prevBodyOverflow;
+      document.body.style.paddingRight = prevPadding;
       window.removeEventListener("keydown", onKeyDown);
+      lenis?.start();
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, lenis]);
 
   // Handle play / pause when modal opens / closes
   useEffect(() => {
