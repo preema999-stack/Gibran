@@ -9,42 +9,78 @@ export interface BookingConfirmationDetails {
   location: string;
   seating?: string;
   notes?: string;
+  selectedDishes?: Array<{ name: string; quantity: number; price: number }>;
 }
 
 export function formatReservationMessage(details: BookingConfirmationDetails): string {
+  const dishesBlock =
+    details.selectedDishes && details.selectedDishes.length > 0
+      ? [
+          ``,
+          `🍽️ Table Selection / Pre-ordered Dishes:`,
+          ...details.selectedDishes.map(
+            (d) => `• ${d.quantity}x ${d.name} (AED ${d.price * d.quantity})`
+          ),
+          `💰 Estimated Dishes Total: AED ${details.selectedDishes.reduce(
+            (sum, d) => sum + d.price * d.quantity,
+            0
+          )}`,
+        ]
+      : [];
+
   const lines = [
-    `✨ GIBRAN & CO. — RESERVATION CONFIRMATION ✨`,
-    `━━━━━━━━━━━━━━━━━━━━━━━━━━━━`,
-    `📋 Booking Code: ${details.bookingCode}`,
-    `👤 Guest Name: ${details.name}`,
-    `👥 Guests: ${details.guests}`,
-    `⏰ Time: ${details.time}`,
-    `📅 Date: ${details.date || "Today / Tonight"}`,
-    `📍 Location: ${details.location}`,
-    details.seating ? `🪑 Seating Area: ${details.seating}` : "",
-    details.notes ? `📝 Special Request: ${details.notes}` : "",
+    `Hello Gibran & Co.! ☕🍽️`,
     ``,
-    `📞 Concierge: +973 1729 4488`,
-    `✉️ Concierge Email: concierge@gibranandco.com`,
+    `I have just submitted a table reservation through your website. Here are my booking details:`,
     `━━━━━━━━━━━━━━━━━━━━━━━━━━━━`,
-    `Thank you for choosing Gibran & Co. Haute Dining. We look forward to welcoming you!`,
+    `📋 Booking Reference: ${details.bookingCode}`,
+    `👤 Guest Name: ${details.name}`,
+    `👥 Party Size: ${details.guests}`,
+    `📅 Date: ${details.date || "Today / Tonight"}`,
+    `⏰ Time: ${details.time}`,
+    `📍 Location: ${details.location}`,
+    details.seating ? `🪑 Seating Preference: ${details.seating}` : "",
+    details.notes ? `📝 Special Request: ${details.notes}` : "",
+    details.phone ? `📱 Contact Phone: ${details.phone}` : "",
+    details.email ? `📧 Email: ${details.email}` : "",
+    ...dishesBlock,
+    `━━━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+    `Please confirm our table reservation. Looking forward to dining with you!`,
   ].filter((line) => line !== "");
 
   return lines.join("\n");
 }
 
-export function createWhatsAppUrl(details: BookingConfirmationDetails, targetPhone?: string): string {
-  const text = formatReservationMessage(details);
-  const cleanPhone = targetPhone ? targetPhone.replace(/[^0-9]/g, "") : "";
-  if (cleanPhone && cleanPhone.length >= 8) {
-    return `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(text)}`;
-  }
-  return `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+export const RESTAURANT_WHATSAPP_NUMBER = "917994129471";
+export const RESTAURANT_WHATSAPP_DISPLAY = "+91 79941 29471";
+export const RESTAURANT_EMAIL = "concierge@gibran.com";
+
+export function formatWhatsAppPhone(phone?: string): string {
+  if (!phone) return RESTAURANT_WHATSAPP_NUMBER;
+  const clean = phone.replace(/[^0-9]/g, "");
+  if (clean.length === 10) return `91${clean}`;
+  if (clean.length >= 8) return clean;
+  return RESTAURANT_WHATSAPP_NUMBER;
 }
 
-export function createEmailUrl(details: BookingConfirmationDetails, targetEmail?: string): string {
-  const subject = `Reservation Confirmation [${details.bookingCode}] — Gibran & Co.`;
+export function createWhatsAppUrl(
+  details?: BookingConfirmationDetails,
+  targetPhone: string = RESTAURANT_WHATSAPP_NUMBER
+): string {
+  const phone = formatWhatsAppPhone(targetPhone);
+  if (details) {
+    const text = formatReservationMessage(details);
+    return `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+  }
+  return `https://wa.me/${phone}`;
+}
+
+export function createEmailUrl(
+  details: BookingConfirmationDetails,
+  targetEmail: string = RESTAURANT_EMAIL
+): string {
+  const subject = `New Table Reservation [${details.bookingCode}] — ${details.name}`;
   const body = formatReservationMessage(details);
-  const recipient = (targetEmail || details.email || "").trim();
+  const recipient = (targetEmail || RESTAURANT_EMAIL).trim();
   return `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }

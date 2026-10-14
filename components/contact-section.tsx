@@ -1,13 +1,21 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ClockIcon, HeartIcon, PhoneIcon } from "@/components/icons";
+import { ClockIcon, HeartIcon, PhoneIcon, WhatsAppIcon } from "@/components/icons";
 import { EASE_EDITORIAL, usePrefersReducedMotion } from "@/components/motion-primitives";
 
 export function ContactSection() {
   const reduced = usePrefersReducedMotion();
 
   const contactCards = [
+    {
+      title: "WhatsApp Concierge",
+      caption: "Instant WhatsApp Chat",
+      value: "+91 79941 29471",
+      href: "https://wa.me/917994129471",
+      icon: WhatsAppIcon,
+      note: "Click to chat directly with guest concierge",
+    },
     {
       title: "Direct Reservations",
       caption: "Telephone Hotline",
@@ -23,14 +31,6 @@ export function ContactSection() {
       href: "mailto:concierge@gibran.com",
       icon: HeartIcon,
       note: "Inquiries responded within 2 hours",
-    },
-    {
-      title: "Private Dining & Events",
-      caption: "Special Celebrations",
-      value: "events@gibran.com",
-      href: "mailto:events@gibran.com",
-      icon: HeartIcon,
-      note: "Custom salon menus and private buyouts",
     },
     {
       title: "Dining Hours",
@@ -112,6 +112,8 @@ export function ContactSection() {
                   {card.href ? (
                     <a
                       href={card.href}
+                      target={card.href.startsWith("http") ? "_blank" : undefined}
+                      rel={card.href.startsWith("http") ? "noopener noreferrer" : undefined}
                       className="mt-2 block text-sm font-semibold text-warmGold hover:underline"
                     >
                       {card.value}

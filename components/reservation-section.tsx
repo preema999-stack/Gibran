@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRightIcon, ClockIcon, PhoneIcon } from "@/components/icons";
+import { ArrowRightIcon, ClockIcon, PhoneIcon, WhatsAppIcon } from "@/components/icons";
 import { EASE_EDITORIAL, Magnetic, SplitText, usePrefersReducedMotion } from "@/components/motion-primitives";
 
 export function ReservationSection() {
@@ -96,7 +96,7 @@ export function ReservationSection() {
             whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.85, ease: EASE_EDITORIAL, delay: 0.45 }}
-            className="mt-8 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-5 max-w-md sm:max-w-none mx-auto"
+            className="mt-8 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 max-w-xl sm:max-w-none mx-auto flex-wrap"
           >
             <Magnetic strength={0.22} className="w-full sm:w-auto">
               <Link
@@ -109,11 +109,21 @@ export function ReservationSection() {
             </Magnetic>
 
             <a
+              href="https://wa.me/917994129471"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-full border border-[#25D366]/40 bg-[#25D366]/10 px-5 sm:px-6 py-3.5 text-[11px] sm:text-xs font-medium uppercase tracking-[0.16em] sm:tracking-[0.18em] text-[#FAF8F5] backdrop-blur-md transition-all duration-300 hover:border-[#25D366] hover:bg-[#25D366]/20 hover:text-white"
+            >
+              <WhatsAppIcon className="h-4 w-4 fill-[#25D366] transition-transform duration-300 group-hover:scale-110" />
+              <span>WhatsApp: +91 79941 29471</span>
+            </a>
+
+            <a
               href="tel:+9731234567"
               className="group inline-flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-full border border-white/20 bg-white/5 px-5 sm:px-6 py-3.5 text-[11px] sm:text-xs font-medium uppercase tracking-[0.16em] sm:tracking-[0.18em] text-[#FAF8F5] backdrop-blur-md transition-all duration-300 hover:border-warmGold hover:bg-white/10 hover:text-warmGold"
             >
               <PhoneIcon className="h-4 w-4 text-warmGold transition-transform duration-300 group-hover:scale-110" />
-              <span>Call Concierge: +973 123 4567</span>
+              <span>Call Concierge</span>
             </a>
           </motion.div>
 

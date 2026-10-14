@@ -5,6 +5,7 @@ import "./globals.css";
 import { SmoothScrollProvider } from "@/components/smooth-scroll-provider";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { FirebaseAnalytics } from "@/components/firebase-analytics";
+import { FloatingWhatsApp } from "@/components/floating-whatsapp";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -106,6 +107,7 @@ export default function RootLayout({
           <ScrollProgress />
           <FirebaseAnalytics />
           {children}
+          <FloatingWhatsApp />
         </SmoothScrollProvider>
       </body>
     </html>

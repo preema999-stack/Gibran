@@ -9,6 +9,12 @@ import {
   createEmailUrl,
   formatReservationMessage,
 } from "@/lib/reservation-utils";
+import {
+  getSelectedDishes,
+  removeDishFromSelection,
+  SELECTION_UPDATED_EVENT,
+  type SelectedDishItem,
+} from "@/lib/table-selection";
 
 export function ReservationModal({
   isOpen,
@@ -32,6 +38,16 @@ export function ReservationModal({
   const [notifyChannel, setNotifyChannel] = useState<"whatsapp" | "email" | "both">("both");
   const [copied, setCopied] = useState(false);
   const [confirmationCode, setConfirmationCode] = useState("");
+  const [selectedDishes, setSelectedDishes] = useState<SelectedDishItem[]>([]);
+
+  useEffect(() => {
+    if (isOpen) {
+      setSelectedDishes(getSelectedDishes());
+    }
+    const onUpdate = () => setSelectedDishes(getSelectedDishes());
+    window.addEventListener(SELECTION_UPDATED_EVENT, onUpdate);
+    return () => window.removeEventListener(SELECTION_UPDATED_EVENT, onUpdate);
+  }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -138,6 +154,38 @@ export function ReservationModal({
                   Experience Levantine fine dining with unhurried hospitality.
                 </p>
               </div>
+
+              {/* Table Selection from Menu */}
+              {selectedDishes.length > 0 && (
+                <div className="rounded-2xl border border-[#DCD5C6] bg-white p-3.5 space-y-2.5 shadow-xs">
+                  <div className="flex items-center justify-between border-b border-[#F0ECE1] pb-2">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#6d7835]">
+                      🍽️ Added to Table Selection ({selectedDishes.reduce((a, b) => a + b.quantity, 0)})
+                    </span>
+                    <span className="text-xs font-bold text-[#1C241B] tabular-nums">
+                      AED {selectedDishes.reduce((sum, d) => sum + d.price * d.quantity, 0)}
+                    </span>
+                  </div>
+                  <div className="max-h-32 overflow-y-auto space-y-1.5 divide-y divide-[#F0ECE1] pr-1">
+                    {selectedDishes.map((dish) => (
+                      <div key={dish.id} className="flex items-center justify-between pt-1.5 first:pt-0 text-xs">
+                        <span className="text-[#1C241B] font-medium">{dish.quantity}x {dish.name}</span>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-[#7B8475] tabular-nums">AED {dish.price * dish.quantity}</span>
+                          <button
+                            type="button"
+                            onClick={() => removeDishFromSelection(dish.id)}
+                            className="text-[#99A293] hover:text-red-500 text-[10px] px-1"
+                            title="Remove"
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Location selection */}
               <div>
@@ -340,14 +388,32 @@ export function ReservationModal({
                 </span>
               </div>
 
-              {/* Send Booked Message Options */}
+              {/* Selected Dishes Summary in Confirmation */}
+              {selectedDishes.length > 0 && (
+                <div className="mx-auto max-w-sm rounded-xl border border-[#DCD5C6] bg-white p-3 text-left space-y-1.5 shadow-xs">
+                  <div className="flex justify-between text-xs font-bold text-[#1C241B] border-b border-[#F0ECE1] pb-1.5">
+                    <span>Table Selection ({selectedDishes.reduce((a, b) => a + b.quantity, 0)} items)</span>
+                    <span className="text-[#6d7835]">AED {selectedDishes.reduce((sum, d) => sum + d.price * d.quantity, 0)}</span>
+                  </div>
+                  <div className="max-h-28 overflow-y-auto space-y-1 text-[11px] text-[#4A5346] pr-1">
+                    {selectedDishes.map((dish) => (
+                      <div key={dish.id} className="flex justify-between">
+                        <span>{dish.quantity}x {dish.name}</span>
+                        <span className="tabular-nums">AED {dish.price * dish.quantity}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Send Details to Cafe */}
               <div className="mx-auto max-w-sm rounded-2xl border border-[#DCD5C6] bg-white p-3.5 space-y-2.5 shadow-xs text-left">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-[#1C241B]">
-                    Send Booked Message
+                    Send Details to Cafe
                   </span>
                   <span className="text-[9.5px] text-[#7B8475]">
-                    Instant Delivery
+                    WhatsApp: +91 79941 29471
                   </span>
                 </div>
                 <div className="grid grid-cols-2 gap-2">
@@ -363,15 +429,20 @@ export function ReservationModal({
                         date,
                         location,
                         seating,
+                        selectedDishes: selectedDishes.map((d) => ({
+                          name: d.name,
+                          quantity: d.quantity,
+                          price: d.price,
+                        })),
                       },
-                      phone
+                      "917994129471"
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-1.5 rounded-xl bg-[#25D366] px-3 py-2.5 text-xs font-semibold text-white shadow-xs hover:bg-[#20ba59] transition-all"
                   >
                     <WhatsAppIcon className="h-3.5 w-3.5 fill-white" />
-                    <span>WhatsApp</span>
+                    <span>Send to Cafe WhatsApp</span>
                   </a>
                   <a
                     href={createEmailUrl(
@@ -385,13 +456,17 @@ export function ReservationModal({
                         date,
                         location,
                         seating,
-                      },
-                      email
+                        selectedDishes: selectedDishes.map((d) => ({
+                          name: d.name,
+                          quantity: d.quantity,
+                          price: d.price,
+                        })),
+                      }
                     )}
                     className="flex items-center justify-center gap-1.5 rounded-xl bg-[#1C241B] px-3 py-2.5 text-xs font-semibold text-[#FAF7F0] shadow-xs hover:bg-[#2e3a2c] transition-all"
                   >
                     <MailIcon className="h-3.5 w-3.5" />
-                    <span>Email</span>
+                    <span>Email Cafe</span>
                   </a>
                 </div>
 
@@ -408,6 +483,11 @@ export function ReservationModal({
                       date,
                       location,
                       seating,
+                      selectedDishes: selectedDishes.map((d) => ({
+                        name: d.name,
+                        quantity: d.quantity,
+                        price: d.price,
+                      })),
                     });
                     navigator.clipboard.writeText(msg).then(() => {
                       setCopied(true);
@@ -419,12 +499,12 @@ export function ReservationModal({
                   {copied ? (
                     <>
                       <CheckIcon className="h-3 w-3 text-[#25D366]" />
-                      <span className="text-[#25D366] font-semibold">Copied to Clipboard!</span>
+                      <span className="text-[#25D366] font-semibold">Booking Details Copied!</span>
                     </>
                   ) : (
                     <>
                       <CopyIcon className="h-3 w-3" />
-                      <span>Copy Confirmation Text</span>
+                      <span>Copy Reservation Details</span>
                     </>
                   )}
                 </button>

@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { navLinks } from "@/lib/data";
 import { usePrefersReducedMotion, useSmoothScroll } from "@/components/smooth-scroll-provider";
 import { EASE_EDITORIAL, Magnetic } from "@/components/motion-primitives";
-import { CloseIcon, MenuIcon } from "@/components/icons";
+import { CloseIcon, MenuIcon, WhatsAppIcon } from "@/components/icons";
 
 export function Header() {
   const [hidden, setHidden] = useState(false);
@@ -316,9 +316,20 @@ export function Header() {
                 >
                   Book a Table
                 </Link>
-                <p className="text-[11px] uppercase tracking-[0.2em] text-oliveMuted">
-                  +973 123 4567
-                </p>
+                <div className="flex flex-col gap-1.5 pt-1">
+                  <a
+                    href="https://wa.me/917994129471"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-xs font-semibold text-[#25D366] hover:underline"
+                  >
+                    <WhatsAppIcon className="h-4 w-4 fill-[#25D366]" />
+                    <span>WhatsApp: +91 79941 29471</span>
+                  </a>
+                  <p className="text-[11px] uppercase tracking-[0.2em] text-oliveMuted">
+                    Tel: +973 123 4567
+                  </p>
+                </div>
               </motion.div>
             </motion.nav>
           </motion.div>

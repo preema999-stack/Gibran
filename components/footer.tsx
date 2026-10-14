@@ -8,6 +8,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { navLinks } from "@/lib/data";
 import { usePrefersReducedMotion, useSmoothScroll } from "@/components/smooth-scroll-provider";
 import { EASE_EDITORIAL } from "@/components/motion-primitives";
+import { WhatsAppIcon } from "@/components/icons";
 
 export function Footer() {
   const { scrollTo } = useSmoothScroll();
@@ -109,6 +110,25 @@ export function Footer() {
             </motion.button>
           ))}
         </nav>
+
+        {/* WhatsApp Direct Concierge */}
+        <motion.div
+          initial={reduced ? undefined : { opacity: 0, y: 10 }}
+          whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-8 flex items-center justify-center"
+        >
+          <a
+            href="https://wa.me/917994129471"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2.5 rounded-full border border-[#25D366]/30 bg-[#25D366]/10 px-5 py-2.5 text-xs font-medium text-[#FAF8F5] transition-all duration-300 hover:border-[#25D366] hover:bg-[#25D366]/20 hover:text-white"
+          >
+            <WhatsAppIcon className="h-4 w-4 fill-[#25D366] transition-transform duration-300 group-hover:scale-110" />
+            <span>Chat on WhatsApp: <span className="text-[#25D366] font-semibold">+91 79941 29471</span></span>
+          </a>
+        </motion.div>
 
         <div className="mt-12 flex w-full flex-col items-center justify-between border-t border-white/10 pt-6 text-[11px] text-white/40 sm:flex-row">
           <p>© {new Date().getFullYear()} GIBRAN &amp; CO. All Rights Reserved.</p>

@@ -23,6 +23,13 @@ import {
   createEmailUrl,
   formatReservationMessage,
 } from "@/lib/reservation-utils";
+import {
+  getSelectedDishes,
+  updateDishQuantity,
+  removeDishFromSelection,
+  SELECTION_UPDATED_EVENT,
+  type SelectedDishItem,
+} from "@/lib/table-selection";
 
 interface ReservationData {
   name: string;
@@ -60,8 +67,16 @@ export function ReservationView() {
   const [bookingRef, setBookingRef] = useState("");
   const [notifyChannel, setNotifyChannel] = useState<"whatsapp" | "email" | "both">("both");
   const [copied, setCopied] = useState(false);
+  const [selectedDishes, setSelectedDishes] = useState<SelectedDishItem[]>([]);
   const [isPlayingBgVideo, setIsPlayingBgVideo] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    setSelectedDishes(getSelectedDishes());
+    const onUpdate = () => setSelectedDishes(getSelectedDishes());
+    window.addEventListener(SELECTION_UPDATED_EVENT, onUpdate);
+    return () => window.removeEventListener(SELECTION_UPDATED_EVENT, onUpdate);
+  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -301,6 +316,99 @@ export function ReservationView() {
                     Indulge in an unforgettable dining experience. Book your table
                     in advance and let us take care of the rest.
                   </motion.p>
+
+                  {/* Added to Table Selection from Menu */}
+                  {selectedDishes.length > 0 && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 12, scale: 0.98 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{ duration: 0.6, ease: EASE_EDITORIAL }}
+                      className="rounded-2xl border border-[#C5A880]/50 bg-black/60 p-4 sm:p-5 backdrop-blur-xl shadow-2xl space-y-3"
+                    >
+                      <div className="flex items-center justify-between border-b border-white/10 pb-2.5">
+                        <div className="flex items-center gap-2">
+                          <span className="relative flex h-2.5 w-2.5">
+                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#6d7835] opacity-75" />
+                            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#6d7835]" />
+                          </span>
+                          <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#C5A880]">
+                            Added to Table Selection ({selectedDishes.reduce((a, b) => a + b.quantity, 0)})
+                          </span>
+                        </div>
+                        <Link
+                          href="/menu"
+                          className="text-[11px] font-medium text-[#C5A880] hover:underline"
+                        >
+                          + Add More Dishes
+                        </Link>
+                      </div>
+
+                      <div className="max-h-48 overflow-y-auto space-y-2 pr-1 divide-y divide-white/5">
+                        {selectedDishes.map((dish) => (
+                          <div key={dish.id} className="flex items-center justify-between pt-2 first:pt-0">
+                            <div className="flex items-center gap-2.5">
+                              {dish.imageUrl ? (
+                                <img
+                                  src={dish.imageUrl}
+                                  alt={dish.name}
+                                  className="h-10 w-10 rounded-lg object-cover border border-white/15"
+                                />
+                              ) : (
+                                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 text-base">
+                                  🍽️
+                                </div>
+                              )}
+                              <div>
+                                <p className="text-xs font-medium text-white">{dish.name}</p>
+                                <p className="text-[11px] text-[#A6B8A2] tabular-nums">
+                                  AED {dish.price} each
+                                </p>
+                              </div>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                              <div className="flex items-center rounded-full border border-white/20 bg-black/40">
+                                <button
+                                  type="button"
+                                  onClick={() => updateDishQuantity(dish.id, -1)}
+                                  className="px-2 py-0.5 text-xs text-white/70 hover:text-[#C5A880]"
+                                  title="Decrease quantity"
+                                >
+                                  -
+                                </button>
+                                <span className="px-1 text-xs font-bold text-white tabular-nums">
+                                  {dish.quantity}
+                                </span>
+                                <button
+                                  type="button"
+                                  onClick={() => updateDishQuantity(dish.id, 1)}
+                                  className="px-2 py-0.5 text-xs text-white/70 hover:text-[#C5A880]"
+                                  title="Increase quantity"
+                                >
+                                  +
+                                </button>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={() => removeDishFromSelection(dish.id)}
+                                className="p-1 text-xs text-white/40 hover:text-red-400 transition-colors"
+                                title="Remove dish"
+                              >
+                                ✕
+                              </button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="flex items-center justify-between border-t border-white/10 pt-2 text-xs">
+                        <span className="text-white/60">Table Dishes Total:</span>
+                        <span className="font-bold text-[#C5A880] text-sm tabular-nums">
+                          AED {selectedDishes.reduce((sum, d) => sum + d.price * d.quantity, 0)}
+                        </span>
+                      </div>
+                    </motion.div>
+                  )}
 
                   {/* Form with flowing staggered inputs */}
                   <form onSubmit={handleSubmit} className="space-y-4 pt-2">
@@ -562,18 +670,37 @@ export function ReservationView() {
                         <span className="font-medium text-white">{formData.email}</span>
                       </div>
                     )}
+                    {selectedDishes.length > 0 && (
+                      <div className="border-t border-white/10 pt-2 space-y-1.5">
+                        <div className="flex justify-between font-semibold text-[#C5A880]">
+                          <span>Table Selection ({selectedDishes.reduce((a, b) => a + b.quantity, 0)} items):</span>
+                          <span>AED {selectedDishes.reduce((sum, d) => sum + d.price * d.quantity, 0)}</span>
+                        </div>
+                        <div className="space-y-1">
+                          {selectedDishes.map((d) => (
+                            <div key={d.id} className="flex justify-between text-white/80 text-[11px]">
+                              <span>{d.quantity}x {d.name}</span>
+                              <span className="tabular-nums text-white/90">AED {d.price * d.quantity}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
 
-                  {/* SEND BOOKED MESSAGE OPTIONS */}
+                  {/* SEND BOOKING DETAILS TO CAFE */}
                   <div className="rounded-2xl border border-white/20 bg-black/40 p-4 space-y-3 backdrop-blur-xl">
                     <div className="flex items-center justify-between">
                       <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#C5A880]">
-                        Send Booked Message
+                        Send Details to Cafe
                       </span>
                       <span className="text-[10px] text-white/60">
-                        1-Click Share
+                        Direct to +91 79941 29471
                       </span>
                     </div>
+                    <p className="text-xs text-white/70 leading-relaxed">
+                      Send your reservation details directly to our cafe WhatsApp number to ensure quick confirmation and priority table holding:
+                    </p>
 
                     <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
                       {/* WhatsApp Button */}
@@ -590,15 +717,20 @@ export function ReservationView() {
                             location: formData.location,
                             seating: formData.seating,
                             notes: formData.notes,
+                            selectedDishes: selectedDishes.map((d) => ({
+                              name: d.name,
+                              quantity: d.quantity,
+                              price: d.price,
+                            })),
                           },
-                          formData.phone
+                          "917994129471"
                         )}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="group flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-3 text-xs font-semibold text-white shadow-md transition-all hover:bg-[#20ba59] hover:shadow-lg active:scale-[0.98]"
                       >
                         <WhatsAppIcon className="h-4 w-4 fill-white transition-transform group-hover:scale-110" />
-                        <span>Send to WhatsApp</span>
+                        <span>Send Details to Cafe WhatsApp</span>
                       </a>
 
                       {/* Email Button */}
@@ -615,13 +747,17 @@ export function ReservationView() {
                             location: formData.location,
                             seating: formData.seating,
                             notes: formData.notes,
-                          },
-                          formData.email
+                            selectedDishes: selectedDishes.map((d) => ({
+                              name: d.name,
+                              quantity: d.quantity,
+                              price: d.price,
+                            })),
+                          }
                         )}
                         className="group flex items-center justify-center gap-2 rounded-xl border border-[#C5A880]/60 bg-[#C5A880]/20 px-4 py-3 text-xs font-semibold text-[#FAF7F0] shadow-md transition-all hover:bg-[#C5A880] hover:text-[#1C241B] hover:shadow-lg active:scale-[0.98]"
                       >
                         <MailIcon className="h-4 w-4 transition-transform group-hover:scale-110" />
-                        <span>Send via Email</span>
+                        <span>Email Details to Cafe</span>
                       </a>
                     </div>
 
@@ -640,6 +776,11 @@ export function ReservationView() {
                           location: formData.location,
                           seating: formData.seating,
                           notes: formData.notes,
+                          selectedDishes: selectedDishes.map((d) => ({
+                            name: d.name,
+                            quantity: d.quantity,
+                            price: d.price,
+                          })),
                         });
                         navigator.clipboard.writeText(msg).then(() => {
                           setCopied(true);
@@ -656,7 +797,7 @@ export function ReservationView() {
                       ) : (
                         <>
                           <CopyIcon className="h-3.5 w-3.5" />
-                          <span>Copy Confirmation Message</span>
+                          <span>Copy Reservation Details</span>
                         </>
                       )}
                     </button>
@@ -725,7 +866,7 @@ export function ReservationView() {
         className="relative z-10 w-full px-4 pb-6 pt-2 sm:px-8 lg:px-12"
       >
         <div className="mx-auto max-w-7xl rounded-2xl sm:rounded-full border border-white/15 bg-[#141C13]/85 px-6 py-4 backdrop-blur-xl shadow-2xl">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 sm:gap-6 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
             {/* Item 1: Location */}
             <div className="flex items-center gap-3.5 pt-2 sm:pt-0 sm:px-4">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#C5A880]/30 bg-[#C5A880]/15 text-[#C5A880]">
@@ -770,6 +911,26 @@ export function ReservationView() {
                   className="font-serif text-sm font-medium text-white hover:text-[#C5A880] transition-colors sm:text-base"
                 >
                   +973 123 4567
+                </a>
+              </div>
+            </div>
+
+            {/* Item 4: WhatsApp Concierge */}
+            <div className="flex items-center gap-3.5 pt-3 sm:pt-0 sm:px-6">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#25D366]/40 bg-[#25D366]/15 text-[#25D366]">
+                <WhatsAppIcon className="h-5 w-5 fill-[#25D366]" />
+              </div>
+              <div>
+                <span className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-[#A6B8A2]">
+                  WhatsApp Concierge
+                </span>
+                <a
+                  href="https://wa.me/917994129471"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-serif text-sm font-medium text-[#25D366] hover:underline transition-colors sm:text-base"
+                >
+                  +91 79941 29471
                 </a>
               </div>
             </div>
