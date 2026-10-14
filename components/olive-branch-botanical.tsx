@@ -4,7 +4,7 @@ import Image from "next/image";
 interface OliveBranchProps {
   className?: string;
   flip?: boolean;
-  variant?: 1 | 2;
+  variant?: 1 | 2 | 3 | "drape";
   alt?: string;
 }
 
@@ -14,16 +14,17 @@ export function OliveBranchBotanical({
   variant = 1,
   alt = "Botanical Olive Branch Illustration",
 }: OliveBranchProps) {
-  const imageSrc =
-    variant === 2
-      ? "/images/olive-branch-botanical-lively-2.png"
-      : "/images/olive-branch-botanical-lively.png";
+  let imageSrc = "/images/olive-branch-botanical-lively.png";
+  if (variant === 2) {
+    imageSrc = "/images/olive-branch-botanical-lively-2.png";
+  } else if (variant === 3 || variant === "drape") {
+    imageSrc = "/images/olive-branch-drape.png";
+  }
 
   return (
     <div
-      className={`relative select-none pointer-events-none transition-transform duration-700 ${
-        flip ? "-scale-x-100" : ""
-      } ${className}`}
+      className={`relative select-none pointer-events-none transition-transform duration-700 ${flip ? "-scale-x-100" : ""
+        } ${className}`}
       aria-hidden="true"
     >
       <Image

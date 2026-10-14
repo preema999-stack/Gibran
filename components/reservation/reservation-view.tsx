@@ -222,12 +222,16 @@ export function ReservationView() {
         <OliveBranchBotanical variant={1} className="h-44 w-44 sm:h-60 sm:w-60 lg:h-72 lg:w-72" />
       </motion.div>
 
+      {/* CASCADING BOTANICAL OLIVE BRANCH DRAPE (Matching natural ceiling garland) */}
       <motion.div
-        animate={{ y: [0, 10, 0], rotate: [0, -2, 0] }}
-        transition={{ duration: 8.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="pointer-events-none absolute -right-6 top-16 z-10 select-none opacity-80 sm:right-2 sm:top-20 lg:right-6"
+        animate={{ y: [0, -6, 0], rotate: [8, 9.5, 8] }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+        className="pointer-events-none absolute -top-2 right-[2%] z-10 select-none opacity-95 sm:-top-3 sm:right-[6%] md:-top-4 md:right-[10%] lg:-top-5 lg:right-[13%] xl:-top-6 xl:right-[15%]"
       >
-        <OliveBranchBotanical variant={2} flip className="h-40 w-40 sm:h-56 sm:w-56 lg:h-68 lg:w-68" />
+        <OliveBranchBotanical
+          variant="drape"
+          className="h-64 w-52 sm:h-80 sm:w-64 md:h-[400px] md:w-[320px] lg:h-[480px] lg:w-[380px] xl:h-[540px] xl:w-[420px]"
+        />
       </motion.div>
 
       {/* MAIN CONTAINER */}
