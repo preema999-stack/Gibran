@@ -439,6 +439,25 @@ export function ReservationModal({
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => {
+                      const msg = formatReservationMessage({
+                        bookingCode: confirmationCode,
+                        name,
+                        phone,
+                        email,
+                        guests,
+                        time,
+                        date,
+                        location,
+                        seating,
+                        selectedDishes: selectedDishes.map((d) => ({
+                          name: d.name,
+                          quantity: d.quantity,
+                          price: d.price,
+                        })),
+                      });
+                      navigator.clipboard?.writeText(msg).catch(() => {});
+                    }}
                     className="flex items-center justify-center gap-1.5 rounded-xl bg-[#25D366] px-3 py-2.5 text-xs font-semibold text-white shadow-xs hover:bg-[#20ba59] transition-all"
                   >
                     <WhatsAppIcon className="h-3.5 w-3.5 fill-white" />

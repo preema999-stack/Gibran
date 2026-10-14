@@ -35,28 +35,28 @@ export function Pillars() {
         transition={{ duration: 1.2, ease: EASE_EDITORIAL }}
       >
         <Image
-          src="/images/olive-branch.png"
+          src="/images/olive-branch-botanical-lively.png"
           alt=""
-          width={280}
-          height={368}
-          className="w-36 sm:w-52 lg:w-64 h-auto mix-blend-multiply"
+          width={320}
+          height={320}
+          className="w-36 sm:w-52 lg:w-64 h-auto drop-shadow-md"
         />
       </motion.div>
 
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-10 sm:-left-6 lg:left-6 bottom-16 sm:bottom-24 z-0 select-none opacity-20 sm:opacity-25 hidden sm:block"
+        className="pointer-events-none absolute -left-10 sm:-left-6 lg:left-6 bottom-16 sm:bottom-24 z-0 select-none opacity-30 sm:opacity-40 hidden sm:block"
         initial={reduced ? undefined : { opacity: 0, x: -20, rotate: -20 }}
-        whileInView={reduced ? undefined : { opacity: 0.25, x: 0, rotate: -32 }}
+        whileInView={reduced ? undefined : { opacity: 0.35, x: 0, rotate: -32 }}
         viewport={{ once: true }}
         transition={{ duration: 1.2, delay: 0.15, ease: EASE_EDITORIAL }}
       >
         <Image
-          src="/images/olive-branch.png"
+          src="/images/olive-branch-botanical-lively-2.png"
           alt=""
-          width={240}
-          height={315}
-          className="w-32 sm:w-44 lg:w-52 h-auto -scale-x-100 mix-blend-multiply"
+          width={280}
+          height={280}
+          className="w-32 sm:w-44 lg:w-52 h-auto -scale-x-100 drop-shadow-md"
         />
       </motion.div>
 
@@ -78,11 +78,11 @@ export function Pillars() {
             transition={{ duration: 0.8, ease: EASE_EDITORIAL }}
           >
             <Image
-              src="/images/olive-branch.png"
+              src="/images/olive-branch-botanical-lively.png"
               alt="Olive Branch Botanical Illustration"
-              width={76}
-              height={100}
-              className="h-16 sm:h-20 w-auto opacity-80 mix-blend-multiply transition-transform duration-700 ease-editorial hover:scale-105"
+              width={90}
+              height={90}
+              className="h-16 sm:h-20 w-auto drop-shadow-md transition-transform duration-700 ease-editorial hover:scale-105"
             />
           </motion.div>
 

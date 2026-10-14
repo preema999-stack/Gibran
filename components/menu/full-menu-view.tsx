@@ -4,7 +4,14 @@ import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { addDishToSelection } from "@/lib/table-selection";
+import {
+  addDishToSelection,
+  updateDishQuantity,
+  getSelectedDishes,
+  SELECTION_UPDATED_EVENT,
+  type SelectedDishItem,
+} from "@/lib/table-selection";
+import { TableSelectionBar } from "@/components/menu/table-selection-bar";
 import {
   DEFAULT_MENU_GROUPS,
   DEFAULT_MENU_SUBGROUPS,
@@ -57,6 +64,16 @@ export function FullMenuView({
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isPlayingBannerVideo, setIsPlayingBannerVideo] = useState(false);
+  const [selectedDishes, setSelectedDishes] = useState<SelectedDishItem[]>([]);
+
+  useEffect(() => {
+    setSelectedDishes(getSelectedDishes());
+    const handleUpdate = () => {
+      setSelectedDishes(getSelectedDishes());
+    };
+    window.addEventListener(SELECTION_UPDATED_EVENT, handleUpdate);
+    return () => window.removeEventListener(SELECTION_UPDATED_EVENT, handleUpdate);
+  }, []);
 
   useEffect(() => {
     const unsubscribe = subscribeToFirebaseMenu((updated) => {
@@ -120,21 +137,24 @@ export function FullMenuView({
   };
 
   const handleAddToSelection = (dish: MenuItem) => {
-    addDishToSelection({
+    const updated = addDishToSelection({
       id: dish.id,
       name: dish.name,
       price: dish.price,
       category: dish.subgroupName || dish.groupName,
       imageUrl: dish.image,
     });
-    showToast(`Added "${dish.name}" to table selection! Navigating to reserve table...`);
-    window.setTimeout(() => {
-      if (isModal) {
-        setIsReservationOpen(true);
-      } else {
-        router.push("/reservation");
-      }
-    }, 600);
+    setSelectedDishes(updated);
+    const item = updated.find(
+      (i) => (dish.id && i.id === dish.id) || i.name.toLowerCase() === dish.name.toLowerCase()
+    );
+    const qty = item ? item.quantity : 1;
+    showToast(`Added "${dish.name}" to table selection (${qty} in table)`);
+  };
+
+  const handleUpdateQuantity = (dishId: string, delta: number) => {
+    const updated = updateDishQuantity(dishId, delta);
+    setSelectedDishes(updated);
   };
 
   const containerClasses = isModal
@@ -576,17 +596,61 @@ export function FullMenuView({
                       <span className="font-sans text-base font-bold tabular-nums text-[#1C241B]">
                         AED {dish.price}
                       </span>
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleAddToSelection(dish);
-                        }}
-                        className="flex h-7 w-7 items-center justify-center rounded-full bg-[#6d7835] text-white text-xs font-bold shadow-xs hover:bg-[#5a642a] transition-colors"
-                        title="Add to selection"
-                      >
-                        +
-                      </button>
+
+                      {(() => {
+                        const selectedItem = selectedDishes.find(
+                          (item) =>
+                            (dish.id && item.id === dish.id) ||
+                            item.name.toLowerCase() === dish.name.toLowerCase()
+                        );
+                        const currentQty = selectedItem?.quantity || 0;
+
+                        if (currentQty > 0) {
+                          return (
+                            <div
+                              className="flex items-center rounded-full border border-[#6d7835] bg-[#6d7835]/10 p-0.5"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <button
+                                type="button"
+                                onClick={() => handleUpdateQuantity(selectedItem!.id, -1)}
+                                className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-[#6d7835] text-xs font-bold shadow-xs hover:bg-[#6d7835] hover:text-white transition-colors"
+                                title="Decrease quantity"
+                                aria-label="Decrease quantity"
+                              >
+                                -
+                              </button>
+                              <span className="px-2 text-xs font-bold text-[#1C241B] tabular-nums">
+                                {currentQty}
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() => handleUpdateQuantity(selectedItem!.id, 1)}
+                                className="flex h-6 w-6 items-center justify-center rounded-full bg-[#6d7835] text-white text-xs font-bold shadow-xs hover:bg-[#5a642a] transition-colors"
+                                title="Increase quantity"
+                                aria-label="Increase quantity"
+                              >
+                                +
+                              </button>
+                            </div>
+                          );
+                        }
+
+                        return (
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleAddToSelection(dish);
+                            }}
+                            className="flex h-7 w-7 items-center justify-center rounded-full bg-[#6d7835] text-white text-xs font-bold shadow-xs hover:bg-[#5a642a] transition-colors"
+                            title="Add to selection"
+                            aria-label={`Add ${dish.name} to selection`}
+                          >
+                            +
+                          </button>
+                        );
+                      })()}
                     </div>
                   </div>
                 ))
@@ -602,15 +666,26 @@ export function FullMenuView({
       <AnimatePresence>
         {toastMessage && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 rounded-full bg-[#1C241B] text-white px-5 py-2 text-xs font-medium shadow-xl border border-white/10"
+            exit={{ opacity: 0, y: 16 }}
+            className="fixed bottom-20 sm:bottom-24 left-1/2 -translate-x-1/2 z-50 rounded-full bg-[#1C241B] text-white px-5 py-2.5 text-xs font-medium shadow-2xl border border-white/15 backdrop-blur-md"
           >
             {toastMessage}
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Floating Table Selection Bar */}
+      <TableSelectionBar
+        onReserveClick={() => {
+          if (isModal) {
+            setIsReservationOpen(true);
+          } else {
+            router.push("/reservation");
+          }
+        }}
+      />
 
       {/* Modals */}
       {selectedDish && (

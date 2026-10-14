@@ -23,6 +23,7 @@ import {
   createEmailUrl,
   formatReservationMessage,
 } from "@/lib/reservation-utils";
+import { OliveBranchBotanical } from "@/components/olive-branch-botanical";
 import {
   getSelectedDishes,
   updateDishQuantity,
@@ -212,44 +213,21 @@ export function ReservationView() {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#172316] via-[#172316]/92 to-[#172316]/75 lg:hidden" />
       </div>
 
-      {/* BOTANICAL SILHOUETTES (Corner accents matching reference screenshot) */}
+      {/* BOTANICAL OLIVE BRANCH ACCENTS */}
       <motion.div
-        animate={{ y: [0, -6, 0], rotate: [0, 1.2, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="pointer-events-none absolute bottom-12 left-4 z-10 select-none opacity-35 sm:bottom-16 sm:left-10 lg:bottom-20 lg:left-12"
+        animate={{ y: [0, -10, 0], rotate: [0, 2, 0] }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+        className="pointer-events-none absolute bottom-4 -left-4 z-10 select-none opacity-85 sm:bottom-8 sm:left-2 lg:bottom-12 lg:left-4"
       >
-        <svg
-          className="h-28 w-28 text-[#7A9176] sm:h-36 sm:w-36 lg:h-44 lg:w-44"
-          viewBox="0 0 100 100"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.2"
-        >
-          <path d="M10 90 Q 30 65 50 45 T 80 15" strokeLinecap="round" />
-          <path d="M30 65 C 20 60 18 45 28 48 C 38 51 32 63 30 65 Z" fill="currentColor" fillOpacity="0.4" />
-          <path d="M45 50 C 42 38 52 35 55 42 C 58 49 48 50 45 50 Z" fill="currentColor" fillOpacity="0.4" />
-          <path d="M60 35 C 50 30 52 18 62 20 C 72 22 64 33 60 35 Z" fill="currentColor" fillOpacity="0.4" />
-          <path d="M72 23 C 68 12 78 10 82 18 C 86 26 75 24 72 23 Z" fill="currentColor" fillOpacity="0.4" />
-        </svg>
+        <OliveBranchBotanical variant={1} className="h-44 w-44 sm:h-60 sm:w-60 lg:h-72 lg:w-72" />
       </motion.div>
 
       <motion.div
-        animate={{ y: [0, 6, 0], rotate: [0, -1.2, 0] }}
-        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="pointer-events-none absolute right-4 top-24 z-10 select-none opacity-25 sm:right-8 lg:right-10"
+        animate={{ y: [0, 10, 0], rotate: [0, -2, 0] }}
+        transition={{ duration: 8.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        className="pointer-events-none absolute -right-6 top-16 z-10 select-none opacity-80 sm:right-2 sm:top-20 lg:right-6"
       >
-        <svg
-          className="h-24 w-24 text-[#8BA487] sm:h-32 sm:w-32"
-          viewBox="0 0 100 100"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.2"
-        >
-          <path d="M90 10 Q 70 35 50 55 T 20 85" strokeLinecap="round" />
-          <path d="M70 35 C 80 40 82 55 72 52 C 62 49 68 37 70 35 Z" fill="currentColor" fillOpacity="0.35" />
-          <path d="M55 50 C 58 62 48 65 45 58 C 42 51 52 50 55 50 Z" fill="currentColor" fillOpacity="0.35" />
-          <path d="M40 65 C 50 70 48 82 38 80 C 28 78 36 67 40 65 Z" fill="currentColor" fillOpacity="0.35" />
-        </svg>
+        <OliveBranchBotanical variant={2} flip className="h-40 w-40 sm:h-56 sm:w-56 lg:h-68 lg:w-68" />
       </motion.div>
 
       {/* MAIN CONTAINER */}
@@ -727,6 +705,26 @@ export function ReservationView() {
                         )}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => {
+                          const msg = formatReservationMessage({
+                            bookingCode: bookingRef,
+                            name: formData.name,
+                            phone: formData.phone,
+                            email: formData.email,
+                            guests: formData.guests,
+                            time: formData.time,
+                            date: formData.date,
+                            location: formData.location,
+                            seating: formData.seating,
+                            notes: formData.notes,
+                            selectedDishes: selectedDishes.map((d) => ({
+                              name: d.name,
+                              quantity: d.quantity,
+                              price: d.price,
+                            })),
+                          });
+                          navigator.clipboard?.writeText(msg).catch(() => {});
+                        }}
                         className="group flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-3 text-xs font-semibold text-white shadow-md transition-all hover:bg-[#20ba59] hover:shadow-lg active:scale-[0.98]"
                       >
                         <WhatsAppIcon className="h-4 w-4 fill-white transition-transform group-hover:scale-110" />

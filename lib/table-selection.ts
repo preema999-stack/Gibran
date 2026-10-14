@@ -95,7 +95,7 @@ export function clearTableSelection(): void {
 
 export function formatDishesSummary(items: SelectedDishItem[]): string {
   if (!items || items.length === 0) return "";
-  const lines = items.map((item) => `• ${item.quantity}x ${item.name} (AED ${item.price * item.quantity})`);
+  const lines = items.map((item) => `- ${item.quantity}x ${item.name} (AED ${item.price * item.quantity})`);
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  return `🍽️ Table Selection / Pre-ordered Dishes:\n${lines.join("\n")}\nTotal Selection: AED ${total}`;
+  return `*Table Selection / Pre-ordered Dishes:*\n${lines.join("\n")}\n*Estimated Dishes Total:* AED ${total}`;
 }
