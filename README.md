@@ -121,7 +121,6 @@ public/images/      images pulled down from the original hotlinks
 - The carousel is a labelled `region` with `aria-roledescription="carousel"`.
 - Skip link, focus-visible states, and `sr-only` stat labels.
 
-## Original files
+## Design Reference
 
-`code.html` and `screen.png` are kept for reference; nothing imports them.
 `DESIGN.md` remains the source of truth for the palette and type scale.

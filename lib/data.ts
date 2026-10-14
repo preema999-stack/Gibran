@@ -142,10 +142,10 @@ export const menuCategories: MenuCategory[] = [
     label: "Signature Dishes",
     intro: "Our celebrated master creations — porcini risottos, lavender chicken, and molten cacao.",
     items: [
-      { name: "Truffle Mushroom Risotto", note: "Porcini, aged parmesan, black truffle", price: "18" },
-      { name: "Grilled Lavender Chicken", note: "Provence lavender, baby carrots, jus", price: "22" },
-      { name: "Chocolate Lava Cake", note: "Valrhona molten centre, Tahitian vanilla", price: "12" },
-      { name: "Seasonal Fruit Tart", note: "Shortbread crust, Madagascar pastry cream", price: "10" },
+      { name: "Truffle Mushroom Risotto", note: "Porcini, aged parmesan, black truffle", price: "AED 18" },
+      { name: "Grilled Lavender Chicken", note: "Provence lavender, baby carrots, jus", price: "AED 22" },
+      { name: "Chocolate Lava Cake", note: "Valrhona molten centre, Tahitian vanilla", price: "AED 12" },
+      { name: "Seasonal Fruit Tart", note: "Shortbread crust, Madagascar pastry cream", price: "AED 10" },
     ],
   },
   {
@@ -153,10 +153,10 @@ export const menuCategories: MenuCategory[] = [
     label: "Starters",
     intro: "Small plates to open the palate — bright, herbaceous, unhurried.",
     items: [
-      { name: "Hummus & Tahini", note: "Warm chickpeas, olive oil, za’atar", price: "9" },
-      { name: "Baba Ganoush", note: "Smoked aubergine, pomegranate molasses", price: "11" },
-      { name: "Levantine Fattoush", note: "Garden leaves, sumac, crisp pita", price: "12" },
-      { name: "Lamb Arayes", note: "Spiced lamb, garlic toum, griddle bread", price: "16" },
+      { name: "Hummus & Tahini", note: "Warm chickpeas, olive oil, za’atar", price: "AED 9" },
+      { name: "Baba Ganoush", note: "Smoked aubergine, pomegranate molasses", price: "AED 11" },
+      { name: "Levantine Fattoush", note: "Garden leaves, sumac, crisp pita", price: "AED 12" },
+      { name: "Lamb Arayes", note: "Spiced lamb, garlic toum, griddle bread", price: "AED 16" },
     ],
   },
   {
@@ -164,10 +164,10 @@ export const menuCategories: MenuCategory[] = [
     label: "Main Course",
     intro: "The centre of the table — slow-cooked, flame-finished, generous.",
     items: [
-      { name: "Charred Lamb Chops", note: "Rosemary jus, grilled lemon", price: "34" },
-      { name: "Braised Short Rib", note: "Baharat spice, root vegetables", price: "32" },
-      { name: "Grilled Sea Bass", note: "Levantine herb crust, fennel", price: "31" },
-      { name: "Wild Mushroom Risotto", note: "Porcini, truffle, aged parmesan", price: "18" },
+      { name: "Charred Lamb Chops", note: "Rosemary jus, grilled lemon", price: "AED 34" },
+      { name: "Braised Short Rib", note: "Baharat spice, root vegetables", price: "AED 32" },
+      { name: "Grilled Sea Bass", note: "Levantine herb crust, fennel", price: "AED 31" },
+      { name: "Wild Mushroom Risotto", note: "Porcini, truffle, aged parmesan", price: "AED 18" },
     ],
   },
   {
@@ -175,10 +175,10 @@ export const menuCategories: MenuCategory[] = [
     label: "Pasta & Risotto",
     intro: "Silk-thin hand-rolled pasta and all’onda rice, finished to order.",
     items: [
-      { name: "Lobster Linguine", note: "Brown butter, n’duja, citrus", price: "29" },
-      { name: "Truffle Risotto", note: "Wild porcini, black truffle", price: "18" },
-      { name: "Saffron Orzo", note: "Lamb stock, toasted almond", price: "17" },
-      { name: "Aubergine Maklouba", note: "Fried aubergine, tomato, pine nut", price: "15" },
+      { name: "Lobster Linguine", note: "Brown butter, n’duja, citrus", price: "AED 29" },
+      { name: "Truffle Risotto", note: "Wild porcini, black truffle", price: "AED 18" },
+      { name: "Saffron Orzo", note: "Lamb stock, toasted almond", price: "AED 17" },
+      { name: "Aubergine Maklouba", note: "Fried aubergine, tomato, pine nut", price: "AED 15" },
     ],
   },
   {
@@ -186,10 +186,10 @@ export const menuCategories: MenuCategory[] = [
     label: "Desserts",
     intro: "A quiet, sweet finale — restrained and beautifully made.",
     items: [
-      { name: "Chocolate Lava Cake", note: "Valrhona, vanilla bean gelato", price: "12" },
-      { name: "Seasonal Fruit Tart", note: "Pastry cream, glazed berries", price: "10" },
-      { name: "Baklava & Ashta", note: "Pistachio, filo, clotted cream", price: "11" },
-      { name: "Mouhalabia", note: "Orange blossom, almond, rose water", price: "9" },
+      { name: "Chocolate Lava Cake", note: "Valrhona, vanilla bean gelato", price: "AED 12" },
+      { name: "Seasonal Fruit Tart", note: "Pastry cream, glazed berries", price: "AED 10" },
+      { name: "Baklava & Ashta", note: "Pistachio, filo, clotted cream", price: "AED 11" },
+      { name: "Mouhalabia", note: "Orange blossom, almond, rose water", price: "AED 9" },
     ],
   },
   {
@@ -197,10 +197,10 @@ export const menuCategories: MenuCategory[] = [
     label: "Beverages",
     intro: "Lebanese coffee, mountain herbs and a cellar chosen for the table.",
     items: [
-      { name: "Lebanese Coffee", note: "Cardamom, orange blossom", price: "6" },
-      { name: "Sage & Lemon", note: "Mountain za’atar infusion", price: "7" },
-      { name: "Cellar Red — Lebanese", note: "Béthanie, glass", price: "14" },
-      { name: "Arak & Ice", note: "Aniseed, traditional", price: "11" },
+      { name: "Lebanese Coffee", note: "Cardamom, orange blossom", price: "AED 6" },
+      { name: "Sage & Lemon", note: "Mountain za’atar infusion", price: "AED 7" },
+      { name: "Cellar Red — Lebanese", note: "Béthanie, glass", price: "AED 14" },
+      { name: "Arak & Ice", note: "Aniseed, traditional", price: "AED 11" },
     ],
   },
 ];

@@ -421,7 +421,7 @@ export function AdminDashboard({
                 <span className="font-serif text-lg font-medium tracking-wide text-[#1C241B] block leading-none">
                   GIBRAN &amp; CO.
                 </span>
-                <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#9A7B4F]">
+                <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-[#9A7B4F]">
                   Curatorial Administration
                 </span>
               </div>
@@ -482,49 +482,58 @@ export function AdminDashboard({
       <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8 space-y-6 sm:space-y-8">
         {/* KPI METRIC CARDS */}
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-5">
-          <div className="rounded-2xl border border-[#ECE5D6] bg-white p-4 sm:p-5 shadow-xs">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-[#7A8374]">
+          <div className="rounded-2xl border border-[#ECE5D6] bg-white p-4 sm:p-5 shadow-xs transition-all hover:border-[#D5C9B3] hover:shadow-sm">
+            <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-[#6E7868] block">
               Total Live Dishes
             </span>
-            <div className="mt-2 flex items-baseline gap-2">
-              <span className="font-serif text-3xl sm:text-4xl font-normal text-[#1C241B]">
+            <div className="mt-2.5 flex items-baseline gap-2">
+              <span className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight text-[#1C241B] tabular-nums">
                 {totalDishes}
               </span>
-              <span className="text-xs text-emerald-600 font-medium">Active</span>
+              <span className="inline-flex items-center rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-sans font-medium text-emerald-700 border border-emerald-200/60">
+                Active
+              </span>
             </div>
           </div>
 
-          <div className="rounded-2xl border border-[#ECE5D6] bg-white p-4 sm:p-5 shadow-xs">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-[#7A8374]">
+          <div className="rounded-2xl border border-[#ECE5D6] bg-white p-4 sm:p-5 shadow-xs transition-all hover:border-[#D5C9B3] hover:shadow-sm">
+            <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-[#6E7868] block">
               Menu Groups
             </span>
-            <div className="mt-2 flex items-baseline gap-2">
-              <span className="font-serif text-3xl sm:text-4xl font-normal text-[#1C241B]">
+            <div className="mt-2.5 flex items-baseline gap-2">
+              <span className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight text-[#1C241B] tabular-nums">
                 {totalGroups}
               </span>
-              <span className="text-xs text-[#7A8374]">e.g. Food, Beverage</span>
+              <span className="font-sans text-xs text-[#7A8374]">
+                e.g. Food, Beverage
+              </span>
             </div>
           </div>
 
-          <div className="rounded-2xl border border-[#ECE5D6] bg-white p-4 sm:p-5 shadow-xs">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-[#7A8374]">
+          <div className="rounded-2xl border border-[#ECE5D6] bg-white p-4 sm:p-5 shadow-xs transition-all hover:border-[#D5C9B3] hover:shadow-sm">
+            <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-[#6E7868] block">
               Subgroups
             </span>
-            <div className="mt-2 flex items-baseline gap-2">
-              <span className="font-serif text-3xl sm:text-4xl font-normal text-[#1C241B]">
+            <div className="mt-2.5 flex items-baseline gap-2">
+              <span className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight text-[#1C241B] tabular-nums">
                 {totalSubgroups}
               </span>
-              <span className="text-xs text-[#C5A880] font-medium">Sections</span>
+              <span className="inline-flex items-center rounded-full bg-[#FAF5EE] px-2 py-0.5 text-[11px] font-sans font-medium text-[#9E7B4F] border border-[#E8DEC9]">
+                Sections
+              </span>
             </div>
           </div>
 
-          <div className="rounded-2xl border border-[#ECE5D6] bg-white p-4 sm:p-5 shadow-xs">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-[#7A8374]">
+          <div className="rounded-2xl border border-[#ECE5D6] bg-white p-4 sm:p-5 shadow-xs transition-all hover:border-[#D5C9B3] hover:shadow-sm">
+            <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-[#6E7868] block">
               Average Dish Price
             </span>
-            <div className="mt-2 flex items-baseline gap-2">
-              <span className="font-serif text-3xl sm:text-4xl font-normal text-[#1C241B]">
-                AED {avgPrice}
+            <div className="mt-2.5 flex items-baseline gap-1.5">
+              <span className="font-sans text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#9E7B4F]">
+                AED
+              </span>
+              <span className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight text-[#1C241B] tabular-nums">
+                {avgPrice}
               </span>
             </div>
           </div>

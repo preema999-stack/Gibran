@@ -25,6 +25,8 @@ export type MenuItem = {
   subgroupId: string;
   subgroupName: string;
   badge?: "VEGETARIAN" | "POPULAR" | "CHEF'S PICK" | "HOUSE FAVOURITE" | string;
+  isSignature?: boolean;
+  tag?: string;
   image: string;
   dietary: DietaryTag[];
   calories?: string;

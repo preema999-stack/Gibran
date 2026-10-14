@@ -3,9 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { signatureDishes } from "@/lib/data";
+import { subscribeToFirebaseMenu, MenuDataState } from "@/lib/firebase-menu";
 import { EASE_EDITORIAL, SplitText } from "@/components/motion-primitives";
 import { ArrowLeftIcon, ArrowRightIcon } from "@/components/icons";
 
@@ -13,6 +14,37 @@ export function SignatureDishes() {
   const trackRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   const [perView, setPerView] = useState(4);
+  const [menuState, setMenuState] = useState<MenuDataState | null>(null);
+
+  // Real-time synchronization directly with Firebase Firestore / Admin updates
+  useEffect(() => {
+    const unsubscribe = subscribeToFirebaseMenu((updated) => {
+      if (updated && Array.isArray(updated.groups)) {
+        setMenuState(updated);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // Prefer live dishes from admin/Firestore:
+  const displayDishes = useMemo(() => {
+    if (!menuState || !menuState.items || menuState.items.length === 0) {
+      return signatureDishes;
+    }
+    // Take signature dishes, or dishes with images, or live dishes from admin
+    const signatures = menuState.items.filter(
+      (it) => it.isSignature || it.badge || (it.dietary && it.dietary.includes("Chef's Selection"))
+    );
+    const chosen = signatures.length >= 4 ? signatures : menuState.items.slice(0, 8);
+    return chosen.map((it) => ({
+      id: it.id,
+      name: it.name,
+      description: it.description || it.subgroupName || "Artisanal Levantine culinary specialty.",
+      price: `AED ${it.price}`,
+      image: it.image || "/images/dish-risotto.jpg",
+      tag: it.badge || (it.dietary && it.dietary.includes("Vegetarian") ? "Vegetarian" : "House Special"),
+    }));
+  }, [menuState]);
 
   /* How many cards fit at the current breakpoint. */
   useEffect(() => {
@@ -25,7 +57,7 @@ export function SignatureDishes() {
     return () => window.removeEventListener("resize", compute);
   }, []);
 
-  const maxIndex = Math.max(0, signatureDishes.length - perView);
+  const maxIndex = Math.max(0, displayDishes.length - perView);
 
   const scrollToCard = useCallback(
     (next: number) => {
@@ -103,12 +135,12 @@ export function SignatureDishes() {
           onKeyDown={onKeyDown}
           className="-mx-6 flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-4 outline-none scroll-smooth lg:-mx-12 lg:px-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-          {signatureDishes.map((dish, i) => (
+          {displayDishes.map((dish, i) => (
             <motion.div
-              key={dish.id}
+              key={dish.id + i}
               role="group"
               aria-roledescription="slide"
-              aria-label={`${i + 1} of ${signatureDishes.length}`}
+              aria-label={`${i + 1} of ${displayDishes.length}`}
               initial={{ opacity: 0, y: 44 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
