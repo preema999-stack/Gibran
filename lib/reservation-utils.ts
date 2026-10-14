@@ -17,11 +17,11 @@ export function formatReservationMessage(details: BookingConfirmationDetails): s
     details.selectedDishes && details.selectedDishes.length > 0
       ? [
           ``,
-          `*Table Selection / Pre-ordered Dishes:*`,
+          `🍽️ *Table Selection / Pre-ordered Dishes:*`,
           ...details.selectedDishes.map(
-            (d) => `- ${d.quantity}x ${d.name} (AED ${d.price * d.quantity})`
+            (d) => `• ${d.quantity}x ${d.name} (AED ${d.price * d.quantity})`
           ),
-          `*Estimated Dishes Total:* AED ${details.selectedDishes.reduce(
+          `💰 *Estimated Dishes Total:* AED ${details.selectedDishes.reduce(
             (sum, d) => sum + d.price * d.quantity,
             0
           )}`,
@@ -29,24 +29,24 @@ export function formatReservationMessage(details: BookingConfirmationDetails): s
       : [];
 
   const lines = [
-    `*TABLE RESERVATION INQUIRY*`,
-    `*Gibran & Co.*`,
+    `🌿 *TABLE RESERVATION INQUIRY*`,
+    `🍽️ *Gibran & Co.*`,
     ``,
     `Hello! I have just submitted a table reservation through your website. Here are my booking details:`,
     `----------------------------------------`,
-    `*Booking Reference:* ${details.bookingCode}`,
-    `*Guest Name:* ${details.name}`,
-    `*Party Size:* ${details.guests}`,
-    `*Date:* ${details.date || "Today / Tonight"}`,
-    `*Time:* ${details.time}`,
-    `*Location:* ${(details.location || "").replace(/—/g, "-")}`,
-    details.seating ? `*Seating Preference:* ${details.seating}` : "",
-    details.notes ? `*Special Request:* ${details.notes}` : "",
-    details.phone ? `*Contact Phone:* ${details.phone}` : "",
-    details.email ? `*Email:* ${details.email}` : "",
+    `📋 *Booking Reference:* ${details.bookingCode}`,
+    `👤 *Guest Name:* ${details.name}`,
+    `👥 *Party Size:* ${details.guests}`,
+    `📅 *Date:* ${details.date || "Today / Tonight"}`,
+    `⏰ *Time:* ${details.time}`,
+    `📍 *Location:* ${(details.location || "").replace(/—/g, "-")}`,
+    details.seating ? `✨ *Seating Preference:* ${details.seating}` : "",
+    details.notes ? `📝 *Special Request:* ${details.notes}` : "",
+    details.phone ? `📱 *Contact Phone:* ${details.phone}` : "",
+    details.email ? `✉️ *Email:* ${details.email}` : "",
     ...dishesBlock,
     `----------------------------------------`,
-    `Please confirm our table reservation. Looking forward to dining with you!`,
+    `✨ Please confirm our table reservation. Looking forward to dining with you!`,
   ].filter((line) => line !== "");
 
   return lines.join("\n");
@@ -71,9 +71,9 @@ export function createWhatsAppUrl(
   const phone = formatWhatsAppPhone(targetPhone);
   if (details) {
     const text = formatReservationMessage(details);
-    return `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+    return `https://api.whatsapp.com/send/?phone=${phone}&text=${encodeURIComponent(text)}`;
   }
-  return `https://wa.me/${phone}`;
+  return `https://api.whatsapp.com/send/?phone=${phone}`;
 }
 
 export function createEmailUrl(
