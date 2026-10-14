@@ -35,6 +35,8 @@ export function Header() {
       pathname === "/book-a-table"
     ) {
       setActive("#reservations");
+    } else if (pathname === "/about" || pathname === "/about-us") {
+      setActive("#about");
     }
   }, [pathname]);
 

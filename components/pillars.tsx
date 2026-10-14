@@ -14,6 +14,7 @@ import {
   NavigationIcon,
 } from "@/components/icons";
 import { EASE_EDITORIAL, usePrefersReducedMotion } from "@/components/motion-primitives";
+import { OliveBranchBotanical } from "@/components/olive-branch-botanical";
 
 export function Pillars() {
   const reduced = usePrefersReducedMotion();
@@ -25,38 +26,30 @@ export function Pillars() {
     >
       <span id="pillars" aria-hidden="true" className="absolute -top-24 pointer-events-none" />
 
-      {/* Ambient Botanical Olive Branch Watermarks */}
+      {/* CASCADING BOTANICAL OLIVE BRANCH DRAPE (Matching natural ceiling garland) */}
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-8 sm:-right-4 lg:right-6 top-6 sm:top-10 z-0 select-none opacity-30 sm:opacity-35"
-        initial={reduced ? undefined : { opacity: 0, x: 20, rotate: 6 }}
-        whileInView={reduced ? undefined : { opacity: 0.35, x: 0, rotate: 12 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.2, ease: EASE_EDITORIAL }}
+        animate={reduced ? undefined : { y: [0, -6, 0], rotate: [8, 9.5, 8] }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+        className="pointer-events-none absolute -top-3 right-[2%] z-0 select-none opacity-90 sm:-top-4 sm:right-[6%] md:-top-5 md:right-[10%] lg:-top-6 lg:right-[12%] xl:right-[14%]"
       >
-        <Image
-          src="/images/olive-branch-botanical-lively.png"
-          alt=""
-          width={320}
-          height={320}
-          className="w-36 sm:w-52 lg:w-64 h-auto drop-shadow-md"
+        <OliveBranchBotanical
+          variant="drape"
+          className="h-64 w-52 sm:h-80 sm:w-64 md:h-[400px] md:w-[320px] lg:h-[480px] lg:w-[380px] xl:h-[540px] xl:w-[420px]"
         />
       </motion.div>
 
+      {/* Subtle bottom-left branch accent */}
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-10 sm:-left-6 lg:left-6 bottom-16 sm:bottom-24 z-0 select-none opacity-30 sm:opacity-40 hidden sm:block"
-        initial={reduced ? undefined : { opacity: 0, x: -20, rotate: -20 }}
-        whileInView={reduced ? undefined : { opacity: 0.35, x: 0, rotate: -32 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.2, delay: 0.15, ease: EASE_EDITORIAL }}
+        animate={reduced ? undefined : { y: [0, 8, 0], rotate: [-24, -22, -24] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        className="pointer-events-none absolute -left-8 sm:-left-4 lg:left-6 bottom-12 sm:bottom-16 z-0 select-none opacity-40 sm:opacity-50 hidden sm:block"
       >
-        <Image
-          src="/images/olive-branch-botanical-lively-2.png"
-          alt=""
-          width={280}
-          height={280}
-          className="w-32 sm:w-44 lg:w-52 h-auto -scale-x-100 drop-shadow-md"
+        <OliveBranchBotanical
+          variant={2}
+          flip
+          className="h-44 w-44 sm:h-56 sm:w-56 lg:h-64 lg:w-64"
         />
       </motion.div>
 
