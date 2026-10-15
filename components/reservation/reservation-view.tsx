@@ -207,7 +207,7 @@ export function ReservationView() {
       <motion.div
         animate={{ y: [0, 8, 0], rotate: [2, 3.5, 2] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
-        className="pointer-events-none absolute top-[36%] sm:top-[38%] lg:top-[39%] -left-12 sm:-left-16 md:-left-20 lg:-left-24 xl:-left-28 z-10 select-none opacity-95"
+        className="pointer-events-none absolute top-[36%] sm:top-[38%] lg:top-[39%] -left-12 sm:-left-16 md:-left-20 lg:-left-24 xl:-left-28 z-10 select-none opacity-35 sm:opacity-40 transition-opacity duration-700"
       >
         <OliveBranchBotanical
           variant="cascade-left"
@@ -219,7 +219,7 @@ export function ReservationView() {
       <motion.div
         animate={{ y: [0, -6, 0], rotate: [8, 9.5, 8] }}
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-        className="pointer-events-none absolute -top-2 right-[2%] z-10 select-none opacity-95 sm:-top-3 sm:right-[6%] md:-top-4 md:right-[10%] lg:-top-5 lg:right-[13%] xl:-top-6 xl:right-[15%]"
+        className="pointer-events-none absolute -top-2 right-[2%] z-10 select-none opacity-35 sm:opacity-40 transition-opacity duration-700 sm:-top-3 sm:right-[6%] md:-top-4 md:right-[10%] lg:-top-5 lg:right-[13%] xl:-top-6 xl:right-[15%]"
       >
         <OliveBranchBotanical
           variant="drape"

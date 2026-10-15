@@ -34,14 +34,7 @@ function getLocalStoredState(): MenuDataState | null {
     if (raw) {
       const parsed = JSON.parse(raw);
       if (parsed && Array.isArray(parsed.groups) && Array.isArray(parsed.subgroups)) {
-        const items = Array.isArray(parsed.items) ? parsed.items : [];
-        const categories = buildCategoriesFromGroups(parsed.groups, parsed.subgroups, items);
-        return {
-          groups: parsed.groups,
-          subgroups: parsed.subgroups,
-          items,
-          categories,
-        };
+        return normalizeFirestoreData(parsed);
       }
     }
   } catch {
@@ -98,12 +91,26 @@ function normalizeFirestoreData(data: Record<string, unknown> | undefined): Menu
     items = data.items as MenuItem[];
   }
 
-  // Ensure every item has groupId and subgroupId
+  // Ensure every item has groupId, subgroupId and a valid existing image path
   items = items.map((it) => {
     const sub = subgroups.find((s) => s.id === it.subgroupId) || subgroups[0];
     const grp = groups.find((g) => g.id === it.groupId || g.id === sub?.groupId) || groups[0];
+
+    let validImage = it.image;
+    if (!validImage || validImage.startsWith("/uploads/")) {
+      const lowerName = (it.name || "").toLowerCase();
+      if (lowerName.includes("chocolate") || lowerName.includes("fondant") || lowerName.includes("cake")) {
+        validImage = "/images/dish-lava-cake.jpg";
+      } else if (lowerName.includes("hummus")) {
+        validImage = "/assets/gallery/hummus-tahini-mezza.jpg";
+      } else {
+        validImage = "/images/dish-risotto.jpg";
+      }
+    }
+
     return {
       ...it,
+      image: validImage,
       groupId: it.groupId || grp?.id || "food",
       groupName: it.groupName || grp?.name || "Food Menu",
       subgroupId: it.subgroupId || sub?.id || "starters",

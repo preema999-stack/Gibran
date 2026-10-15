@@ -3,6 +3,7 @@ import Image from "next/image";
 
 interface OliveBranchProps {
   className?: string;
+  imageClassName?: string;
   flip?: boolean;
   variant?: 1 | 2 | 3 | 4 | "drape" | "cascade-left";
   alt?: string;
@@ -10,6 +11,7 @@ interface OliveBranchProps {
 
 export function OliveBranchBotanical({
   className = "h-44 w-44 sm:h-60 sm:w-60",
+  imageClassName = "",
   flip = false,
   variant = 1,
   alt = "Botanical Olive Branch Illustration",
@@ -34,7 +36,7 @@ export function OliveBranchBotanical({
         alt={alt}
         fill
         sizes="(max-width: 640px) 180px, (max-width: 1024px) 280px, 420px"
-        className="object-contain filter drop-shadow-[0_16px_36px_rgba(0,0,0,0.55)]"
+        className={`object-contain transition-opacity duration-700 ${imageClassName}`}
         priority
       />
     </div>
