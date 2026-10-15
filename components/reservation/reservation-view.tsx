@@ -12,17 +12,11 @@ import {
   PlayIcon,
   PauseIcon,
   UserIcon,
-  WhatsAppIcon,
-  MailIcon,
   CopyIcon,
   CheckIcon,
 } from "@/components/icons";
 import { EASE_EDITORIAL, SplitText, Magnetic } from "@/components/motion-primitives";
-import {
-  createWhatsAppUrl,
-  createEmailUrl,
-  formatReservationMessage,
-} from "@/lib/reservation-utils";
+import { formatReservationMessage } from "@/lib/reservation-utils";
 import { OliveBranchBotanical } from "@/components/olive-branch-botanical";
 import {
   getSelectedDishes,
@@ -35,7 +29,6 @@ import {
 interface ReservationData {
   name: string;
   phone: string;
-  email?: string;
   location: string;
   date: string;
   time: string;
@@ -54,7 +47,6 @@ export function ReservationView() {
   const [formData, setFormData] = useState<ReservationData>({
     name: "",
     phone: "",
-    email: "",
     location: "Bahrain — Block 338 Adliya",
     date: "",
     time: "7:00 PM",
@@ -66,7 +58,6 @@ export function ReservationView() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [bookingRef, setBookingRef] = useState("");
-  const [notifyChannel, setNotifyChannel] = useState<"whatsapp" | "email" | "both">("both");
   const [copied, setCopied] = useState(false);
   const [selectedDishes, setSelectedDishes] = useState<SelectedDishItem[]>([]);
   const [isPlayingBgVideo, setIsPlayingBgVideo] = useState(true);
@@ -169,7 +160,6 @@ export function ReservationView() {
     setFormData((prev) => ({
       name: "",
       phone: "",
-      email: "",
       location: prev.location || locationOptions[0],
       date: "",
       time: "7:00 PM",
@@ -397,7 +387,7 @@ export function ReservationView() {
 
                   {/* Form with flowing staggered inputs */}
                   <form onSubmit={handleSubmit} className="space-y-4 pt-2">
-                    {/* Row 1: Name, Phone & Email */}
+                    {/* Row 1: Name & Phone */}
                     <motion.div
                       initial={{ opacity: 0, y: 16 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -428,23 +418,10 @@ export function ReservationView() {
                             required
                             value={formData.phone}
                             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                            placeholder="Phone Number (WhatsApp)"
+                            placeholder="Phone Number"
                             className="w-full rounded-full border border-white/25 bg-black/20 py-3.5 pl-11 pr-5 text-xs font-light text-white placeholder-white/55 backdrop-blur-md transition-all focus:border-[#C5A880] focus:bg-black/35 focus:outline-none focus:ring-1 focus:ring-[#C5A880]"
                           />
                         </div>
-                      </div>
-
-                      <div className="relative">
-                        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 flex items-center pl-4 text-[#C5A880]">
-                          <MailIcon className="h-4 w-4" />
-                        </div>
-                        <input
-                          type="email"
-                          value={formData.email || ""}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          placeholder="Email Address (Optional — for confirmation)"
-                          className="w-full rounded-full border border-white/25 bg-black/20 py-3.5 pl-11 pr-5 text-xs font-light text-white placeholder-white/55 backdrop-blur-md transition-all focus:border-[#C5A880] focus:bg-black/35 focus:outline-none focus:ring-1 focus:ring-[#C5A880]"
-                        />
                       </div>
                     </motion.div>
 
@@ -522,59 +499,6 @@ export function ReservationView() {
                       </select>
                     </motion.div>
 
-                    {/* Send booked confirmation preference */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 16 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.8, delay: 0.75, ease: EASE_EDITORIAL }}
-                      className="rounded-2xl border border-white/15 bg-black/30 p-3.5 space-y-2 backdrop-blur-md"
-                    >
-                      <div className="flex items-center justify-between">
-                        <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#C5A880]">
-                          Send Booked Message Via:
-                        </span>
-                        <span className="text-[10px] text-white/50">
-                          Instant delivery
-                        </span>
-                      </div>
-                      <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
-                        <button
-                          type="button"
-                          onClick={() => setNotifyChannel("whatsapp")}
-                          className={`flex items-center justify-center gap-1 sm:gap-1.5 rounded-full py-2 px-2 sm:px-3 text-[10px] sm:text-[11px] font-medium transition-all ${
-                            notifyChannel === "whatsapp"
-                              ? "bg-[#25D366] text-white shadow-md font-semibold ring-2 ring-white/20"
-                              : "bg-white/10 text-white/75 hover:bg-white/15 hover:text-white"
-                          }`}
-                        >
-                          <WhatsAppIcon className="h-3.5 w-3.5 fill-current shrink-0" />
-                          <span>WhatsApp</span>
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setNotifyChannel("email")}
-                          className={`flex items-center justify-center gap-1 sm:gap-1.5 rounded-full py-2 px-2 sm:px-3 text-[10px] sm:text-[11px] font-medium transition-all ${
-                            notifyChannel === "email"
-                              ? "bg-[#C5A880] text-[#1C241B] shadow-md font-semibold ring-2 ring-white/20"
-                              : "bg-white/10 text-white/75 hover:bg-white/15 hover:text-white"
-                          }`}
-                        >
-                          <MailIcon className="h-3.5 w-3.5 shrink-0" />
-                          <span>Email</span>
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setNotifyChannel("both")}
-                          className={`flex items-center justify-center gap-1 sm:gap-1.5 rounded-full py-2 px-2 sm:px-3 text-[10px] sm:text-[11px] font-medium transition-all ${
-                            notifyChannel === "both"
-                              ? "bg-white text-[#1C241B] shadow-md font-semibold ring-2 ring-white/20"
-                              : "bg-white/10 text-white/75 hover:bg-white/15 hover:text-white"
-                          }`}
-                        >
-                          <span>Both</span>
-                        </button>
-                      </div>
-                    </motion.div>
 
                     {/* Action button */}
                     <motion.div
@@ -649,12 +573,6 @@ export function ReservationView() {
                         <span className="font-medium text-white">{formData.phone}</span>
                       </div>
                     )}
-                    {formData.email && (
-                      <div className="flex justify-between">
-                        <span className="text-white/60">Email:</span>
-                        <span className="font-medium text-white">{formData.email}</span>
-                      </div>
-                    )}
                     {selectedDishes.length > 0 && (
                       <div className="border-t border-white/10 pt-2 space-y-1.5">
                         <div className="flex justify-between font-semibold text-[#C5A880]">
@@ -673,98 +591,11 @@ export function ReservationView() {
                     )}
                   </div>
 
-                  {/* SEND BOOKING DETAILS TO CAFE */}
+                  {/* RESERVATION CONFIRMATION CARD */}
                   <div className="rounded-2xl border border-white/20 bg-black/40 p-4 space-y-3 backdrop-blur-xl">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#C5A880]">
-                        Send Details to Cafe
-                      </span>
-                      <span className="text-[10px] text-white/60">
-                        Direct to +91 79941 29471
-                      </span>
-                    </div>
-                    <p className="text-xs text-white/70 leading-relaxed">
-                      Send your reservation details directly to our cafe WhatsApp number to ensure quick confirmation and priority table holding:
+                    <p className="text-xs text-white/75 leading-relaxed">
+                      Your table reservation has been recorded. Please save or copy your booking reference for check-in:
                     </p>
-
-                    <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-                      {/* WhatsApp Button */}
-                      <a
-                        href={createWhatsAppUrl(
-                          {
-                            bookingCode: bookingRef,
-                            name: formData.name,
-                            phone: formData.phone,
-                            email: formData.email,
-                            guests: formData.guests,
-                            time: formData.time,
-                            date: formData.date,
-                            location: formData.location,
-                            seating: formData.seating,
-                            notes: formData.notes,
-                            selectedDishes: selectedDishes.map((d) => ({
-                              name: d.name,
-                              quantity: d.quantity,
-                              price: d.price,
-                            })),
-                          },
-                          "917994129471"
-                        )}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => {
-                          const msg = formatReservationMessage({
-                            bookingCode: bookingRef,
-                            name: formData.name,
-                            phone: formData.phone,
-                            email: formData.email,
-                            guests: formData.guests,
-                            time: formData.time,
-                            date: formData.date,
-                            location: formData.location,
-                            seating: formData.seating,
-                            notes: formData.notes,
-                            selectedDishes: selectedDishes.map((d) => ({
-                              name: d.name,
-                              quantity: d.quantity,
-                              price: d.price,
-                            })),
-                          });
-                          navigator.clipboard?.writeText(msg).catch(() => {});
-                        }}
-                        className="group flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-3 text-xs font-semibold text-white shadow-md transition-all hover:bg-[#20ba59] hover:shadow-lg active:scale-[0.98]"
-                      >
-                        <WhatsAppIcon className="h-4 w-4 fill-white transition-transform group-hover:scale-110" />
-                        <span>Send Details to Cafe WhatsApp</span>
-                      </a>
-
-                      {/* Email Button */}
-                      <a
-                        href={createEmailUrl(
-                          {
-                            bookingCode: bookingRef,
-                            name: formData.name,
-                            phone: formData.phone,
-                            email: formData.email,
-                            guests: formData.guests,
-                            time: formData.time,
-                            date: formData.date,
-                            location: formData.location,
-                            seating: formData.seating,
-                            notes: formData.notes,
-                            selectedDishes: selectedDishes.map((d) => ({
-                              name: d.name,
-                              quantity: d.quantity,
-                              price: d.price,
-                            })),
-                          }
-                        )}
-                        className="group flex items-center justify-center gap-2 rounded-xl border border-[#C5A880]/60 bg-[#C5A880]/20 px-4 py-3 text-xs font-semibold text-[#FAF7F0] shadow-md transition-all hover:bg-[#C5A880] hover:text-[#1C241B] hover:shadow-lg active:scale-[0.98]"
-                      >
-                        <MailIcon className="h-4 w-4 transition-transform group-hover:scale-110" />
-                        <span>Email Details to Cafe</span>
-                      </a>
-                    </div>
 
                     {/* Copy to clipboard button */}
                     <button
@@ -774,7 +605,6 @@ export function ReservationView() {
                           bookingCode: bookingRef,
                           name: formData.name,
                           phone: formData.phone,
-                          email: formData.email,
                           guests: formData.guests,
                           time: formData.time,
                           date: formData.date,
@@ -792,16 +622,16 @@ export function ReservationView() {
                           setTimeout(() => setCopied(false), 2500);
                         });
                       }}
-                      className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 py-2 text-[11px] font-medium text-white/80 transition-all hover:bg-white/10 hover:text-white"
+                      className="flex w-full items-center justify-center gap-2 rounded-xl border border-[#C5A880]/50 bg-[#C5A880]/15 py-3 text-xs font-semibold text-white transition-all hover:bg-[#C5A880]/25 hover:border-[#C5A880] active:scale-[0.99]"
                     >
                       {copied ? (
                         <>
-                          <CheckIcon className="h-3.5 w-3.5 text-[#25D366]" />
+                          <CheckIcon className="h-4 w-4 text-[#25D366]" />
                           <span className="text-[#25D366] font-semibold">Booking Details Copied!</span>
                         </>
                       ) : (
                         <>
-                          <CopyIcon className="h-3.5 w-3.5" />
+                          <CopyIcon className="h-4 w-4 text-[#C5A880]" />
                           <span>Copy Reservation Details</span>
                         </>
                       )}
@@ -871,7 +701,7 @@ export function ReservationView() {
         className="relative z-10 w-full px-4 pb-6 pt-2 sm:px-8 lg:px-12"
       >
         <div className="mx-auto max-w-7xl rounded-2xl sm:rounded-full border border-white/15 bg-[#141C13]/85 px-6 py-4 backdrop-blur-xl shadow-2xl">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 sm:gap-6 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
             {/* Item 1: Location */}
             <div className="flex items-center gap-3.5 pt-2 sm:pt-0 sm:px-4">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#C5A880]/30 bg-[#C5A880]/15 text-[#C5A880]">
@@ -896,7 +726,7 @@ export function ReservationView() {
                 <span className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-[#A6B8A2]">
                   Open Hours
                 </span>
-                <span className="font-serif text-sm font-medium text-white sm:text-base">
+                <span className="font-sans text-sm font-medium text-white sm:text-base tracking-normal">
                   12:00 PM – 11:00 PM
                 </span>
               </div>
@@ -916,26 +746,6 @@ export function ReservationView() {
                   className="font-serif text-sm font-medium text-white hover:text-[#C5A880] transition-colors sm:text-base"
                 >
                   +973 123 4567
-                </a>
-              </div>
-            </div>
-
-            {/* Item 4: WhatsApp Concierge */}
-            <div className="flex items-center gap-3.5 pt-3 sm:pt-0 sm:px-6">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#25D366]/40 bg-[#25D366]/15 text-[#25D366]">
-                <WhatsAppIcon className="h-5 w-5 fill-[#25D366]" />
-              </div>
-              <div>
-                <span className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-[#A6B8A2]">
-                  WhatsApp Concierge
-                </span>
-                <a
-                  href="https://wa.me/917994129471"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-serif text-sm font-medium text-[#25D366] hover:underline transition-colors sm:text-base"
-                >
-                  +91 79941 29471
                 </a>
               </div>
             </div>

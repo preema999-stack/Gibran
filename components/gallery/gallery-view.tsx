@@ -66,7 +66,7 @@ export function GalleryView() {
   return (
     <div className="relative min-h-screen w-full bg-[#FAF7F0] text-[#1C241B]">
       {/* 1. ULTRA-MINIMAL HEADER */}
-      <header className="mx-auto max-w-4xl px-4 pt-20 pb-6 text-center sm:px-6 sm:pt-32 sm:pb-12">
+      <header className="mx-auto max-w-4xl px-4 pt-6 pb-6 text-center sm:px-6 sm:pt-8 sm:pb-8">
         <h1 className="font-serif text-3xl font-light tracking-wide text-[#1C241B] sm:text-4xl md:text-5xl">
           Gallery
         </h1>
@@ -101,7 +101,7 @@ export function GalleryView() {
       </header>
 
       {/* 2. AIRY, BORDERLESS PHOTOGRAPHY GRID */}
-      <main className="mx-auto max-w-6xl px-4 pb-20 sm:px-8 sm:pb-28">
+      <section aria-label="Gallery collection" className="mx-auto max-w-6xl px-4 pb-20 sm:px-8 sm:pb-28">
         <motion.div
           layout
           className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 sm:gap-8 lg:gap-12"
@@ -165,7 +165,7 @@ export function GalleryView() {
             ))}
           </AnimatePresence>
         </motion.div>
-      </main>
+      </section>
 
       {/* 3. PURE FULLSCREEN LIGHTBOX (DISTRACTION-FREE) */}
       <AnimatePresence>

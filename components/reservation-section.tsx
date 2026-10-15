@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRightIcon, ClockIcon, PhoneIcon, WhatsAppIcon } from "@/components/icons";
+import { ArrowRightIcon, ClockIcon, PhoneIcon } from "@/components/icons";
 import { EASE_EDITORIAL, Magnetic, SplitText, usePrefersReducedMotion } from "@/components/motion-primitives";
 
 export function ReservationSection() {
@@ -107,16 +107,6 @@ export function ReservationSection() {
                 <ArrowRightIcon className="h-3.5 w-3.5 transition-transform duration-500 ease-editorial group-hover:translate-x-1.5" />
               </Link>
             </Magnetic>
-
-            <a
-              href="https://wa.me/917994129471"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-full border border-[#25D366]/40 bg-[#25D366]/10 px-5 sm:px-6 py-3.5 text-[11px] sm:text-xs font-medium uppercase tracking-[0.16em] sm:tracking-[0.18em] text-[#FAF8F5] backdrop-blur-md transition-all duration-300 hover:border-[#25D366] hover:bg-[#25D366]/20 hover:text-white"
-            >
-              <WhatsAppIcon className="h-4 w-4 fill-[#25D366] transition-transform duration-300 group-hover:scale-110" />
-              <span>WhatsApp: +91 79941 29471</span>
-            </a>
 
             <a
               href="tel:+9731234567"
